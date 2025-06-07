@@ -1,219 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MindCare | Anonymous Counseling Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
     <style>
-        /* Additional inline styles for animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+      /* Additional inline styles for animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-hands-helping"></i> Mind<span>Care</span>
-            </a>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="nav-list">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="pages/public/about.html">About</a></li>
-                <li><a href="pages/public/counselors.html">Counselors</a></li>
-                <li><a href="pages/public/posts.html">Community</a></li>
-                <li><a href="pages/public/contact.html">Contact</a></li>
-                <li><a href="pages/auth/login.html" class="btn-login">Login</a></li>
-            </ul>
+      <div class="container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-hands-helping"></i> Mind<span>Care</span>
+        </a>
+        <div class="menu-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
         </div>
+        <ul class="nav-list">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="pages/public/about.html">About</a></li>
+          <li><a href="pages/public/counselors.html">Counselors</a></li>
+          <li><a href="pages/public/posts.html">Community</a></li>
+          <li><a href="pages/public/contact.html">Contact</a></li>
+          <li><a href="pages/auth/login.html" class="btn-login">Login</a></li>
+        </ul>
+      </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="animate-fade">Your Mental Health Matters</h1>
-                <p class="animate-fade" style="animation-delay: 0.2s">Anonymous, professional counseling when you need it most</p>
-                <div class="cta-buttons animate-fade" style="animation-delay: 0.4s">
-                    <a href="pages/auth/register.html" class="btn-primary">Get Help Now</a>
-                    <a href="pages/public/counselors.html" class="btn-secondary">Meet Our Counselors</a>
-                </div>
-            </div>
-            <div class="hero-image animate-float">
-                <img src="assets/images/hero.png" alt="Mental health illustration">
-            </div>
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="animate-fade">Your Mental Health Matters</h1>
+          <p class="animate-fade" style="animation-delay: 0.2s">
+            Anonymous, professional counseling when you need it most
+          </p>
+          <div class="buttons animate-fade" style="animation-delay: 0.4s">
+            <a href="pages/auth/register.html" class="btn-primary"
+              >Get Help Now</a
+            >
+            <a href="pages/public/counselors.html" class="btn-secondary"
+              >Meet Our Counselors</a
+            >
+          </div>
         </div>
-        <div class="wave-divider">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="#045877"></path>
-                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="#045877"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="#045877"></path>
-            </svg>
+        <div class="hero-image animate-float">
+          <img src="assets/images/hero.png" alt="Mental health illustration" />
         </div>
+      </div>
     </section>
 
     <!-- Features Section -->
     <section class="features">
-        <div class="container">
-            <h2 class="section-title">Why Choose Mind<span>Care</span>?</h2>
-            <p class="section-subtitle">We provide a safe space for healing and growth</p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-user-secret"></i>
-                    </div>
-                    <h3>100% Anonymous</h3>
-                    <p>Your identity remains completely confidential. No personal details required.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <h3>Flexible Scheduling</h3>
-                    <p>Book sessions at your convenience with our network of professionals.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3>Supportive Community</h3>
-                    <p>Share experiences and find support in our anonymous community.</p>
-                </div>
+      <div class="container">
+        <h2 class="section-title">Why Choose Mind<span>Care</span>?</h2>
+        <p class="section-subtitle">
+          We provide a safe space for healing and growth
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-user-secret"></i>
             </div>
+            <h3>100% Anonymous</h3>
+            <p>
+              Your identity remains completely confidential. No personal details
+              required.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <h3>Flexible Scheduling</h3>
+            <p>
+              Book sessions at your convenience with our network of
+              professionals.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h3>Supportive Community</h3>
+            <p>
+              Share experiences and find support in our anonymous community.
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Testimonials Section -->
     <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">What Our Users Say</h2>
-            <p class="section-subtitle">Real stories from anonymous users</p>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"MindCare gave me the courage to seek help without fear of judgment. The anonymous nature made all the difference."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <span>- Anonymous User</span>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"I was able to find a counselor who truly understood my situation. The flexible scheduling was perfect for my busy life."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <span>- Anonymous User</span>
-                    </div>
-                </div>
+      <div class="container">
+        <h2 class="section-title">What Our Users Say</h2>
+        <p class="section-subtitle">Real stories from anonymous users</p>
+
+        <div class="testimonial-slider">
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                "MindCare gave me the courage to seek help without fear of
+                judgment. The anonymous nature made all the difference."
+              </p>
             </div>
+            <div class="testimonial-author">
+              <span>- Anonymous User</span>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                "I was able to find a counselor who truly understood my
+                situation. The flexible scheduling was perfect for my busy
+                life."
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <span>- Anonymous User</span>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta">
-        <div class="container">
-            <h2>Ready to Take the First Step?</h2>
-            <p>Join thousands who have found support through MindCare</p>
-            <div class="cta-buttons">
-                <a href="pages/auth/register.html" class="btn-primary">Register Now</a>
-                <a href="pages/public/about.html" class="btn-secondary">Learn More</a>
-            </div>
+      <div class="container">
+        <h2 class="section-title">Ready to Take the First Step?</h2>
+        <p class="section-subtitle">
+          Join thousands who have found support, strength, and peace of mind
+          through <strong>MindCare</strong>.
+        </p>
+
+        <div class="cta-stats">
+          <div class="stat">
+            <h3>10K+</h3>
+            <p>People Helped</p>
+          </div>
+          <div class="stat">
+            <h3>98%</h3>
+            <p>Client Satisfaction</p>
+          </div>
+          <div class="stat">
+            <h3>24/7</h3>
+            <p>Support Access</p>
+          </div>
         </div>
+
+        <div class="cta-testimonial">
+          <blockquote>
+            “MindCare changed my life. Having someone to talk to made all the
+            difference.”<br />
+            <span>- A Grateful User</span>
+          </blockquote>
+        </div>
+
+        <div class="cta-buttons">
+          <a href="pages/auth/register.html" class="btn-primary"
+            >Register Now</a
+          >
+          <a href="pages/public/about.html" class="btn-secondary">Learn More</a>
+        </div>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h3>MindCare</h3>
-                    <p>Providing anonymous mental health support since 2023.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="pages/public/about.html">About Us</a></li>
-                        <li><a href="pages/public/counselors.html">Our Counselors</a></li>
-                        <li><a href="pages/public/posts.html">Community</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="pages/public/contact.html">Contact Us</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Newsletter</h3>
-                    <p>Subscribe to get mental health tips and updates.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your Email">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>MindCare</h3>
+            <p>Providing anonymous mental health support since 2023.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 MindCare. All rights reserved.</p>
-            </div>
+          </div>
+
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="pages/public/about.html">About Us</a></li>
+              <li><a href="pages/public/counselors.html">Our Counselors</a></li>
+              <li><a href="pages/public/posts.html">Community</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="pages/public/contact.html">Contact Us</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Newsletter</h3>
+            <p>Subscribe to get mental health tips and updates.</p>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Your Email" />
+              <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
         </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 MindCare. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <script src="assets/js/main.js"></script>
     <script>
-        // Simple animation trigger
-        document.addEventListener('DOMContentLoaded', function() {
-            const animateElements = document.querySelectorAll('.animate-fade');
-            
-            animateElements.forEach((element, index) => {
-                setTimeout(() => {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }, index * 200);
-            });
-            
-            // Mobile menu toggle
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navList = document.querySelector('.nav-list');
-            
-            mobileMenu.addEventListener('click', function() {
-                this.classList.toggle('active');
-                navList.classList.toggle('active');
-            });
+      // Simple animation trigger
+      document.addEventListener("DOMContentLoaded", function () {
+        const animateElements = document.querySelectorAll(".animate-fade");
+
+        animateElements.forEach((element, index) => {
+          setTimeout(() => {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
+          }, index * 200);
         });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById("mobile-menu");
+        const navList = document.querySelector(".nav-list");
+
+        mobileMenu.addEventListener("click", function () {
+          this.classList.toggle("active");
+          navList.classList.toggle("active");
+        });
+      });
     </script>
-</body>
+  </body>
 </html>

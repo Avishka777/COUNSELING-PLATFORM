@@ -57,6 +57,7 @@ a {
   background-color: var(--primary);
   color: var(--white);
   border: 2px solid var(--primary);
+  padding: 8px 16px;
 }
 
 .btn-primary:hover {
@@ -68,6 +69,7 @@ a {
   background-color: transparent;
   color: var(--primary);
   border: 2px solid var(--primary);
+  padding: 8px 16px;
 }
 
 .btn-secondary:hover {
@@ -224,15 +226,6 @@ a {
   height: auto;
 }
 
-.wave-divider {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-}
-
 .features {
   background-color: var(--white);
   padding: 80px 0;
@@ -266,10 +259,26 @@ a {
 
 /* Testimonials Section */
 .testimonials {
-  background-color: var(--primary);
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-dark) 100%
+  );
   color: var(--white);
   padding: 80px 0;
   text-align: center;
+}
+
+.testimonials .section-title {
+  font-size: 2.5rem;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.testimonials .section-subtitle {
+  font-size: 1.1rem;
+  color: var(--gray-dark);
+  margin-bottom: 40px;
 }
 
 .testimonial-slider {
@@ -288,6 +297,7 @@ a {
 
 .testimonial-content p {
   font-style: italic;
+  color: var(--light);
   font-size: 1rem;
   margin-bottom: 15px;
 }
@@ -299,19 +309,65 @@ a {
 /* CTA Section */
 .cta {
   background-color: var(--white);
-  padding: 80px 0;
+  color: var(--primary);
+  padding: 80px 20px;
   text-align: center;
 }
 
-.cta h2 {
+.cta .section-title {
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.cta .section-subtitle {
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cta-stats {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.cta-stats .stat h3 {
   font-size: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 5px;
   color: var(--primary-dark);
 }
 
-.cta p {
+.cta-stats .stat p {
+  font-size: 1rem;
+  color: var(--primary-dark);
+}
+
+.cta-testimonial {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  font-style: italic;
   font-size: 1.1rem;
-  margin-bottom: 2rem;
+  color: var(--primary-dark);
+}
+
+.cta-testimonial span {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: var(--primary-dark);
 }
 
 /* Footer Styles */
