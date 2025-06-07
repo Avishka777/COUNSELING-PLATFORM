@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Counseling System</title>
+    <link rel="stylesheet" href="../../assets/css/auth.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+    <header>
+        <!-- Same header as index.html -->
+    </header>
+    
+    <main class="auth-container">
+        <div class="auth-form">
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">I am a:</label>
+                    <select id="role" name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="victim">Victim/User</option>
+                        <option value="counselor">Counselor</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p class="auth-link">Don't have an account? <a href="../auth/register.html">Register here</a></p>
+        </div>
+    </main>
+    
+    <footer>
+        <!-- Same footer as index.html -->
+    </footer>
+    
+    <script src="../../assets/js/auth.js"></script>
+</body>
+</html>
