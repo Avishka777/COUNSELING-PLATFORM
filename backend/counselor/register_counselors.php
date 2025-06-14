@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['username'],
             $hashedPassword,
             $_POST['name'],
-            $photo_name, // Store only filename
+            $photo_name, 
             $_POST['current_profession'],
             $_POST['company'],
             $_POST['specialization'],

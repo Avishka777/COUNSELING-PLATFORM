@@ -13,7 +13,7 @@ if (!isset($_GET['id'])) {
 }
 
 try {
-    $stmt = $conn->prepare("SELECT * FROM counselors WHERE counselorId = ?");
+    $stmt = $conn->prepare("SELECT * FROM counselors WHERE counselorid = ?");
     $stmt->execute([$_GET['id']]);
     $counselor = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -22,6 +22,9 @@ try {
         echo json_encode(['status' => 'error', 'message' => 'Counselor not found']);
         exit();
     }
+    
+    // Add full image URL to the response
+    $counselor['photo_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/Counseling%20System/uploads/counselors/' . $counselor['photo'];
     
     echo json_encode([
         'status' => 'success',

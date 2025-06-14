@@ -212,40 +212,56 @@ function displayCounselorModal(counselor) {
     counselor.name || counselor.username
   }`;
 
+  // Use the photo_url from the API response or fallback to default
+  const imagePath =
+    counselor.photo_url || "../../assets/images/default-profile.jpg";
+
   modalBody.innerHTML = `
-        <div class="counselor-details-grid">
-            <div class="detail-group">
-                <div class="detail-label">Username:</div>
-                <div class="detail-value">${counselor.username}</div>
-            </div>
-            <div class="detail-group">
-                <div class="detail-label">Full Name:</div>
-                <div class="detail-value">${counselor.name || "N/A"}</div>
-            </div>
-            <div class="detail-group">
-                <div class="detail-label">Specialization:</div>
-                <div class="detail-value">${
-                  counselor.specialization || "N/A"
-                }</div>
-            </div>
-            <div class="detail-group">
-                <div class="detail-label">Company:</div>
-                <div class="detail-value">${counselor.company || "N/A"}</div>
-            </div>
-            <div class="detail-group">
-                <div class="detail-label">Profession:</div>
-                <div class="detail-value">${
-                  counselor.current_profession || "N/A"
-                }</div>
-            </div>
-            <div class="detail-group">
-                <div class="detail-label">Description:</div>
-                <div class="detail-value">${
-                  counselor.description || "No description provided"
-                }</div>
-            </div>
+    <div style="display: flex; gap: 30px; align-items: flex-start;">
+      <div style="flex: 0 0 200px; display: flex; flex-direction: column; align-items: center;">
+        <img src="${imagePath}" alt="${counselor.name || counselor.username}" 
+             style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; 
+                    border: 4px solid #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                    background-color: #f5f5f5; display: block; margin: 0 auto;">
+        ${
+          !counselor.photo_url
+            ? '<div style="margin-top: 10px; padding: 5px 10px; background: rgba(0,0,0,0.7); ' +
+              'color: white; border-radius: 4px; font-size: 0.9rem;">No profile image</div>'
+            : ""
+        }
+      </div>
+      <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div style="margin-bottom: 15px;">
+          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Username:</div>
+          <div style="color: #333;">${counselor.username}</div>
         </div>
-    `;
+        <div style="margin-bottom: 15px;">
+          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Full Name:</div>
+          <div style="color: #333;">${counselor.name || "N/A"}</div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Specialization:</div>
+          <div style="color: #333;">${counselor.specialization || "N/A"}</div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Company:</div>
+          <div style="color: #333;">${counselor.company || "N/A"}</div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Profession:</div>
+          <div style="color: #333;">${
+            counselor.current_profession || "N/A"
+          }</div>
+        </div>
+        <div style="grid-column: 1 / -1; margin-bottom: 15px;">
+          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Description:</div>
+          <div style="color: #333; line-height: 1.5;">${
+            counselor.description || "No description provided"
+          }</div>
+        </div>
+      </div>
+    </div>
+  `;
 
   modal.style.display = "block";
 }
