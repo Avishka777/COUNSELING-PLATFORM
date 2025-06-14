@@ -3,13 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard - User Management | MindCare</title>
+    <title>Admin Dashboard - Counselor Management | MindCare</title>
     <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link rel="stylesheet" href="./allvictims.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="./allcounselors.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
@@ -25,10 +22,8 @@
           <span class="bar"></span>
         </div>
         <ul class="nav-list">
-          <li><a href="../../pages/admin/allvictims.html" class="active">Victims</a></li>
-          <li>
-            <a href="../../pages/admin/allcounselors.html" >Counselors</a>
-          </li>
+          <li><a href="../admin/allvictims.html">Victims</a></li>
+          <li><a href="../admin/allcounselors.html" class="active">Counselors</a></li>
         </ul>
       </div>
     </nav>
@@ -36,40 +31,37 @@
     <!-- Admin Header -->
     <header class="admin-header">
       <div class="container">
-        <h1><i class="fas fa-users-cog"></i> Victims Management</h1>
+        <h1><i class="fas fa-user-md"></i> Counselor Management</h1>
       </div>
     </header>
 
     <!-- Main Content -->
     <main class="admin-content">
       <div class="container">
-        <!-- User Table -->
+        <!-- Counselor Table -->
         <div class="admin-card">
           <div class="card-header">
-            <h2>Registered Victims</h2>
+            <h2>Registered Counselors</h2>
             <div class="search-box">
-              <input
-                type="text"
-                id="userSearch"
-                placeholder="Search users..."
-              />
+              <input type="text" id="counselorSearch" placeholder="Search counselors..." />
               <i class="fas fa-search"></i>
             </div>
           </div>
 
           <div class="table-responsive">
-            <table id="usersTable">
+            <table id="counselorsTable">
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>Username</th>
-                  <th>Age</th>
-                  <th>Occupation</th>
+                  <th>Name</th>
+                  <th>Specialization</th>
+                  <th>Company</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <!-- Users will be loaded here via JavaScript -->
+                <!-- Counselors will be loaded here via JavaScript -->
               </tbody>
             </table>
           </div>
@@ -77,7 +69,7 @@
           <div class="table-footer">
             <div class="table-info">
               Showing <span id="showingCount">0</span> of
-              <span id="totalCount">0</span> users
+              <span id="totalCount">0</span> counselors
             </div>
             <div class="pagination">
               <button id="prevPage" disabled>
@@ -93,8 +85,19 @@
       </div>
     </main>
 
-    <script src="../../assets/js/admin/allvictims.js"></script>
-    
-    </script>
+    <!-- Counselor Details Modal (hidden by default) -->
+    <div id="counselorModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-header">
+          <h2 id="modalTitle">Counselor Details</h2>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Details will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <script src="../../assets/js/admin/allcounselors.js"></script>
   </body>
 </html>
