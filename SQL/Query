@@ -1,0 +1,20 @@
+CREATE TABLE counselors (
+    counselorId INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    photo VARCHAR(255),
+    current_profession VARCHAR(100),
+    company VARCHAR(100),
+    specialization VARCHAR(255),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE victims (
+    userId INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    age INT,
+    occupation VARCHAR(100)
+);

@@ -1,0 +1,214 @@
+/* Admin Dashboard Styles */
+.admin-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--white);
+    padding: 60px 20px 40px;
+    margin-bottom: 30px;
+}
+
+.admin-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.admin-header h1 i {
+    margin-right: 15px;
+}
+
+.admin-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.admin-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.card-header h2 {
+    font-size: 1.5rem;
+    color: var(--primary-dark);
+}
+
+.search-box {
+    position: relative;
+    width: 300px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: var(--gray);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: rgba(4, 88, 119, 0.03);
+}
+
+.no-results {
+    text-align: center;
+    color: #777;
+    padding: 30px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-view, .btn-delete {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s;
+}
+
+.btn-view {
+    background-color: var(--gray);
+    color: var(--primary-dark);
+}
+
+.btn-view:hover {
+    background-color: rgba(4, 88, 119, 0.1);
+}
+
+.btn-delete {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.btn-delete:hover {
+    background-color: #f1b0b7;
+}
+
+.table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+}
+
+.table-info {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.pagination button {
+    background-color: var(--gray);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: rgba(4, 88, 119, 0.1);
+}
+
+#pageInfo {
+    font-size: 0.9rem;
+}
+
+.btn-logout {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #f1b0b7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+    
+    .actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .btn-view, .btn-delete {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .table-footer {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+}
