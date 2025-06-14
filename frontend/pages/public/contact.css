@@ -231,7 +231,7 @@
   .contact-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .contact-info {
     margin-bottom: 40px;
   }
@@ -241,7 +241,7 @@
   .contact-hero {
     padding: 120px 20px 100px;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
