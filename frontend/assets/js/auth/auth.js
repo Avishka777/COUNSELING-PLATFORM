@@ -5,9 +5,9 @@ document
 
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
-    const role = document.getElementById("role").value;
+    const selectedRole = document.getElementById("role").value;
 
-    if (!username || !password || !role) {
+    if (!username || !password || !selectedRole) {
       Swal.fire({
         icon: "warning",
         title: "Missing Information",
@@ -16,11 +16,21 @@ document
       return;
     }
 
-    // Determine the endpoint based on selected role
-    const endpoint =
-      role === "counselor"
-        ? "http://localhost/Counseling%20System/backend/counselor/login.php"
-        : "http://localhost/Counseling%20System/backend/victims/login.php";
+    // Determine if user is admin (username starts with 'admin')
+    const isAdmin = username.toLowerCase().startsWith("admin");
+    const finalRole = isAdmin ? "admin" : selectedRole;
+
+    // Determine the endpoint based on final role
+    let endpoint;
+    if (isAdmin) {
+      endpoint =
+        "http://localhost/Counseling%20System/backend/victims/login.php";
+    } else {
+      endpoint =
+        finalRole === "counselor"
+          ? "http://localhost/Counseling%20System/backend/counselor/login.php"
+          : "http://localhost/Counseling%20System/backend/victims/login.php";
+    }
 
     try {
       const response = await fetch(endpoint, {
@@ -39,18 +49,27 @@ document
       if (data.message === "Login successful") {
         // Save user info to localStorage
         localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("userRole", role);
+        localStorage.setItem("userRole", finalRole);
 
         Swal.fire({
           icon: "success",
           title: "Login Successful!",
-          text: `Welcome, ${data.user.username}`,
+          text: `Welcome, ${data.user.username} (${finalRole})`,
           timer: 2000,
           showConfirmButton: false,
         }).then(() => {
-          // Redirect based on role if needed
-          const redirectUrl =
-            role === "counselor" ? "../../index.html" : "../../index.html";
+          // Redirect based on role
+          let redirectUrl;
+          switch (finalRole) {
+            case "admin":
+              redirectUrl = "../../index.html";
+              break;
+            case "counselor":
+              redirectUrl = "../../index.html";
+              break;
+            default:
+              redirectUrl = "../../index.html";
+          }
           window.location.href = redirectUrl;
         });
       } else {
