@@ -6,7 +6,29 @@
     <title>Login - Counseling System</title>
     <link rel="stylesheet" href="../../assets/css/auth.css" />
     <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      /* Additional style for role selection */
+      .role-selection {
+        margin-bottom: 1rem;
+      }
+      .role-selection label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #2c3e50;
+      }
+      .role-selection select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -38,20 +60,28 @@
         <h2>Login to Your Account</h2>
         <form id="loginForm">
           <div class="form-group">
-            <label for="username">User Name</label>
+            <label for="username">Username</label>
             <input type="text" id="username" name="username" required />
           </div>
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required />
           </div>
+          <div class="role-selection">
+            <label for="role">Role:</label>
+            <select id="role" name="role" required>
+              <option value="" disabled selected>Select role</option>
+              <option value="victim">Victim</option>
+              <option value="counselor">Counselor</option>
+            </select>
+          </div>
 
           <button type="submit" class="btn">Login</button>
         </form>
         <p class="auth-link">
           Don't have an account? <br />
-          <a href="../victim/register.html">Register as Victims</a> or
-          <a href="../counselor/register.html">Register as Counselors</a>
+          <a href="../victim/register.html">Register as Victim</a> or
+          <a href="../counselor/register.html">Register as Counselor</a>
         </p>
       </div>
     </main>

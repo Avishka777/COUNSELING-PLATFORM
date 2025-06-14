@@ -5,36 +5,41 @@ document
 
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
+    const role = document.getElementById("role").value;
 
-    if (!username || !password) {
+    if (!username || !password || !role) {
       Swal.fire({
         icon: "warning",
         title: "Missing Information",
-        text: "Please enter both username and password.",
+        text: "Please fill in all fields.",
       });
       return;
     }
 
+    // Determine the endpoint based on selected role
+    const endpoint =
+      role === "counselor"
+        ? "http://localhost/Counseling%20System/backend/counselor/login.php"
+        : "http://localhost/Counseling%20System/backend/victims/login.php";
+
     try {
-      const response = await fetch(
-        "http://localhost/Counseling%20System/backend/victims/login.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: username,
-            password: password,
-          }),
-        }
-      );
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
 
       const data = await response.json();
 
       if (data.message === "Login successful") {
         // Save user info to localStorage
         localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("userRole", role);
 
         Swal.fire({
           icon: "success",
@@ -43,7 +48,10 @@ document
           timer: 2000,
           showConfirmButton: false,
         }).then(() => {
-          window.location.href = "../../index.html";
+          // Redirect based on role if needed
+          const redirectUrl =
+            role === "counselor" ? "../../index.html" : "../../index.html";
+          window.location.href = redirectUrl;
         });
       } else {
         Swal.fire({
