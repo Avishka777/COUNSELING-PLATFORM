@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Post | MindCare</title>
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link rel="stylesheet" href="./create-post.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="../../index.html" class="logo">
+          <i class="fas fa-hands-helping"></i> Mind<span>Care</span>
+        </a>
+        <div class="menu-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="nav-list">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="./about.html" class="active">About</a></li>
+          <li><a href="./counselors.html">Counselors</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+          <li><a href="../auth/login.html" class="btn-login">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="create-post-container">
+      <div class="container">
+        <div class="post-form-card">
+          <h1>Create New Post</h1>
+
+          <form id="postForm">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                required
+                placeholder="What's your post about?"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                rows="6"
+                required
+                placeholder="Share your thoughts..."
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="image">Upload Image (Optional)</label>
+              <input type="file" id="image" name="image" accept="image/*" />
+              <div class="image-preview" id="imagePreview">
+                <img
+                  id="previewImage"
+                  src="#"
+                  alt="Preview"
+                  style="display: none"
+                />
+                <p id="noImageText">No image selected</p>
+              </div>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="isAnonymous" name="isAnonymous" />
+              <label for="isAnonymous">Post anonymously</label>
+              <span class="help-text">(Your username won't be shown)</span>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <i class="fas fa-paper-plane"></i> Publish Post
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../assets/js/posts/create_post.js"></script>
+  </body>
+</html>

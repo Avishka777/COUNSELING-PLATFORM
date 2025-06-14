@@ -18,3 +18,14 @@ CREATE TABLE victims (
     age INT,
     occupation VARCHAR(100)
 );
+
+CREATE TABLE posts (
+    postId INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT NOT NULL,
+    is_anonymous BOOLEAN DEFAULT FALSE,
+    image VARCHAR(255),
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES victims(userId)
+);
