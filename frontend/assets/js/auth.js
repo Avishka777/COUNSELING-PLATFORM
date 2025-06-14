@@ -17,7 +17,7 @@ document
 
     try {
       const response = await fetch(
-        "http://localhost/Counseling%20System/backend/user/login.php",
+        "http://localhost/Counseling%20System/backend/victims/login.php",
         {
           method: "POST",
           headers: {
