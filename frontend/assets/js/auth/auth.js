@@ -62,13 +62,13 @@ document
           let redirectUrl;
           switch (finalRole) {
             case "admin":
-              redirectUrl = "../../index.html";
+              redirectUrl = "../../pages/admin/all-victims.html";
               break;
             case "counselor":
-              redirectUrl = "../../index.html";
+              redirectUrl = "../../pages/public/home.html";
               break;
             default:
-              redirectUrl = "../../index.html";
+              redirectUrl = "../../pages/public/home.html";
           }
           window.location.href = redirectUrl;
         });

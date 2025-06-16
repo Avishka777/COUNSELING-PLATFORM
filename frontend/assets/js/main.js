@@ -34,13 +34,24 @@ document.addEventListener("DOMContentLoaded", () => {
     profileLink.textContent = "Profile";
     dropdownItems.appendChild(profileLink);
 
-    // If admin, add dashboard
+    // If admin, add dashboard link
     if (userRole === "admin") {
       const dashboardLink = document.createElement("a");
       dashboardLink.href = "../admin/all-victims.html";
       dashboardLink.textContent = "Dashboard";
       dropdownItems.appendChild(dashboardLink);
     }
+
+    // Add logout link
+    const logoutLink = document.createElement("a");
+    logoutLink.href = "#";
+    logoutLink.textContent = "Logout";
+    logoutLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.clear(); // clear all local storage keys
+      location.reload(); // reload page
+    });
+    dropdownItems.appendChild(logoutLink);
   }
 
   // Toggle dropdown visibility on button click
@@ -48,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dropdown.classList.toggle("show");
   });
 
-  // Optional: Close dropdown when clicking outside
+  // Close dropdown when clicking outside
   document.addEventListener("click", (e) => {
     if (!dropdown.contains(e.target)) {
       dropdown.classList.remove("show");
