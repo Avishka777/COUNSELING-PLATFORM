@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us | MindCare</title>
+    <title>About Us | ThinkCeylon</title>
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <link rel="stylesheet" href="./about.css" />
     <link
@@ -15,20 +15,39 @@
     <!-- Navigation -->
     <nav class="navbar">
       <div class="container">
-        <a href="../../index.html" class="logo">
-          <i class="fas fa-hands-helping"></i> Mind<span>Care</span>
+        <a href="index.html" class="logo">
+          <img
+            src="../../assets/images/logo.png"
+            alt="Think Ceylone Logo"
+            class="logo-img"
+          />
+          <span class="logo-text">Think Ceylon</span>
         </a>
+
         <div class="menu-toggle" id="mobile-menu">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
         <ul class="nav-list">
-          <li><a href="../../index.html">Home</a></li>
+          <li><a href="./home.html">Home</a></li>
           <li><a href="./about.html" class="active">About</a></li>
           <li><a href="./counselors.html">Counselors</a></li>
+          <li><a href="./posts.html">Community</a></li>
           <li><a href="./contact.html">Contact</a></li>
-          <li><a href="../auth/login.html" class="btn-login">Login</a></li>
+          <li id="user-menu-container">
+            <a href="pages/auth/login.html" class="btn-login" id="login-button"
+              >Login</a
+            >
+          </li>
+          <div class="user-dropdown hidden" id="user-dropdown">
+            <button class="dropdown-toggle">
+              Menu <i class="fas fa-caret-down"></i>
+            </button>
+            <div class="dropdown-menu" id="dropdown-items">
+              <!-- JS will populate based on role -->
+            </div>
+          </div>
         </ul>
       </div>
     </nav>
@@ -36,7 +55,7 @@
     <!-- About Hero -->
     <section class="about-hero">
       <div class="container">
-        <h1>About Mind<span>Care</span></h1>
+        <h1>About Think<span>Ceylon</span></h1>
         <p>Breaking barriers in mental health support</p>
       </div>
     </section>
@@ -47,13 +66,13 @@
         <div class="story-content">
           <h2 class="section-title">Our Story</h2>
           <p>
-            MindCare was founded in 2023 with a simple mission: to make mental
+            ThinkCeylon was founded in 2023 with a simple mission: to make mental
             health support accessible to everyone, regardless of their
             circumstances or comfort level with traditional therapy settings.
           </p>
           <p>
             We recognized that many people avoid seeking help due to stigma,
-            privacy concerns, or fear of judgment. MindCare eliminates these
+            privacy concerns, or fear of judgment. ThinkCeylon eliminates these
             barriers by providing completely anonymous access to professional
             counseling and a supportive community.
           </p>
@@ -73,7 +92,7 @@
     <section class="team">
       <div class="container">
         <h2 class="section-title">Meet Our Leadership</h2>
-        <p class="section-subtitle">The minds behind MindCare</p>
+        <p class="section-subtitle">The minds behind ThinkCeylon</p>
 
         <div class="team-grid">
           <div class="team-card">
@@ -180,7 +199,7 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-col">
-            <h3>MindCare</h3>
+            <h3>ThinkCeylon</h3>
             <p>Providing anonymous mental health support since 2023.</p>
             <div class="social-links">
               <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -221,7 +240,7 @@
         </div>
 
         <div class="footer-bottom">
-          <p>&copy; 2025 MindCare. All rights reserved.</p>
+          <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
         </div>
       </div>
     </footer>

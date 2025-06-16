@@ -123,11 +123,20 @@ a {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo-text {
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--primary-dark);
-  display: flex;
-  align-items: center;
 }
 
 .logo i {
@@ -170,6 +179,51 @@ a {
   margin: 5px auto;
   background-color: var(--primary-dark);
   transition: all 0.3s ease;
+}
+
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--primary-dark);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 150px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--primary-dark);
+  transition: background 0.3s;
+}
+
+.dropdown-menu a:hover {
+  background-color: var(--light-gray);
+}
+
+.user-dropdown.show .dropdown-menu {
+  display: block;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* Hero Section */
