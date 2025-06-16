@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // If admin, add dashboard
     if (userRole === "admin") {
       const dashboardLink = document.createElement("a");
-      dashboardLink.href = "pages/admin/all-posts.html";
+      dashboardLink.href = "../admin/all-victims.html";
       dashboardLink.textContent = "Dashboard";
       dropdownItems.appendChild(dashboardLink);
     }
