@@ -90,22 +90,36 @@ function renderAppointments(appointments = allAppointments) {
     const row = document.createElement("tr");
     const startTime = new Date(`2000-01-01T${appointment.start_time}`);
     const endTime = new Date(`2000-01-01T${appointment.end_time}`);
-    
+
     row.innerHTML = `
             <td>${appointment.appointmentId}</td>
             <td>${new Date(appointment.date).toLocaleDateString()}</td>
-            <td>${startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+            <td>${startTime.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })} - ${endTime.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}</td>
             <td>${appointment.user_username} (${appointment.user_age})</td>
             <td>${appointment.counselor_name}</td>
-            <td><span class="status-badge status-${appointment.status}">${appointment.status}</span></td>
+            <td><span class="status-badge status-${appointment.status}">${
+      appointment.status
+    }</span></td>
             <td class="actions">
-                <button class="btn-view" onclick="viewAppointmentDetails(${appointment.appointmentId})">
+                <button class="btn-view" onclick="viewAppointmentDetails(${
+                  appointment.appointmentId
+                })">
                     <i class="fas fa-eye"></i> View
                 </button>
-                <button class="btn-status" onclick="changeAppointmentStatus(${appointment.appointmentId}, '${appointment.status}')">
+                <button class="btn-status" onclick="changeAppointmentStatus(${
+                  appointment.appointmentId
+                }, '${appointment.status}')">
                     <i class="fas fa-sync-alt"></i> Status
                 </button>
-                <button class="btn-delete" onclick="confirmDeleteAppointment(${appointment.appointmentId})">
+                <button class="btn-delete" onclick="confirmDeleteAppointment(${
+                  appointment.appointmentId
+                })">
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
             </td>
@@ -114,7 +128,8 @@ function renderAppointments(appointments = allAppointments) {
   });
 
   // Update showing count
-  document.getElementById("showingCount").textContent = paginatedAppointments.length;
+  document.getElementById("showingCount").textContent =
+    paginatedAppointments.length;
   document.getElementById("totalCount").textContent = appointments.length;
 }
 
@@ -210,9 +225,15 @@ function displayAppointmentModal(appointment) {
 
   const startTime = new Date(`2000-01-01T${appointment.start_time}`);
   const endTime = new Date(`2000-01-01T${appointment.end_time}`);
-  const formattedTime = `${startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+  const formattedTime = `${startTime.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  })} - ${endTime.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  })}`;
 
-  const counselorPhoto = appointment.counselor_photo_url 
+  const counselorPhoto = appointment.counselor_photo_url
     ? `<img src="${appointment.counselor_photo_url}" alt="${appointment.counselor_name}" class="counselor-avatar">`
     : `<div class="no-avatar"><i class="fas fa-user-tie"></i></div>`;
 
@@ -226,7 +247,9 @@ function displayAppointmentModal(appointment) {
         </div>
         <div class="detail-row">
           <div class="detail-label">Date:</div>
-          <div class="detail-value">${new Date(appointment.date).toLocaleDateString()}</div>
+          <div class="detail-value">${new Date(
+            appointment.date
+          ).toLocaleDateString()}</div>
         </div>
         <div class="detail-row">
           <div class="detail-label">Time:</div>
@@ -234,25 +257,26 @@ function displayAppointmentModal(appointment) {
         </div>
         <div class="detail-row">
           <div class="detail-label">Status:</div>
-          <div class="detail-value"><span class="status-badge status-${appointment.status}">${appointment.status}</span></div>
+          <div class="detail-value"><span class="status-badge status-${
+            appointment.status
+          }">${appointment.status}</span></div>
         </div>
         <div class="detail-row">
           <div class="detail-label">Created At:</div>
-          <div class="detail-value">${new Date(appointment.created_at).toLocaleString()}</div>
+          <div class="detail-value">${new Date(
+            appointment.created_at
+          ).toLocaleString()}</div>
         </div>
       </div>
 
       <div class="appointment-section">
         <h3>User Information</h3>
         <div class="user-info">
-          <div class="user-avatar">
-            <i class="fas fa-user"></i>
-          </div>
           <div class="user-details">
             <div class="user-name">${appointment.user_username}</div>
             <div class="user-meta">
               <div>Age: ${appointment.user_age}</div>
-              <div>Occupation: ${appointment.user_occupation || 'N/A'}</div>
+              <div>Occupation: ${appointment.user_occupation || "N/A"}</div>
             </div>
           </div>
         </div>
@@ -267,18 +291,22 @@ function displayAppointmentModal(appointment) {
             <div class="counselor-meta">
               <div>Profession: ${appointment.counselor_profession}</div>
               <div>Company: ${appointment.counselor_company}</div>
-              <div>Specialization: ${appointment.specialization || 'N/A'}</div>
+              <div>Specialization: ${appointment.specialization || "N/A"}</div>
             </div>
           </div>
         </div>
       </div>
 
-      ${appointment.notes ? `
+      ${
+        appointment.notes
+          ? `
       <div class="appointment-section">
         <h3>Notes</h3>
         <div class="notes-content">${appointment.notes}</div>
       </div>
-      ` : ''}
+      `
+          : ""
+      }
 
       <div class="form-actions">
         <button type="button" class="btn btn-cancel" onclick="document.getElementById('appointmentModal').style.display='none'">
@@ -295,26 +323,26 @@ function displayAppointmentModal(appointment) {
 async function changeAppointmentStatus(appointmentId, currentStatus) {
   try {
     const { value: newStatus } = await Swal.fire({
-      title: 'Change Appointment Status',
-      input: 'select',
+      title: "Change Appointment Status",
+      input: "select",
       inputOptions: {
-        'pending': 'Pending',
-        'confirmed': 'Confirmed',
-        'cancelled': 'Cancelled',
-        'completed': 'Completed'
+        pending: "Pending",
+        confirmed: "Confirmed",
+        cancelled: "Cancelled",
+        completed: "Completed",
       },
       inputValue: currentStatus,
       showCancelButton: true,
       inputValidator: (value) => {
         if (!value) {
-          return 'You need to select a status!'
+          return "You need to select a status!";
         }
-      }
+      },
     });
 
     if (newStatus) {
       const response = await fetch(
-        `http://localhost/Counseling%20System/backend/appointments/update_appointment_status.php`,
+        `http://localhost/Counseling%20System/backend/appointments/update_appointment.php`,
         {
           method: "PUT",
           headers: {
@@ -322,7 +350,7 @@ async function changeAppointmentStatus(appointmentId, currentStatus) {
           },
           body: JSON.stringify({
             appointmentId: appointmentId,
-            status: newStatus
+            status: newStatus,
           }),
         }
       );
@@ -330,7 +358,9 @@ async function changeAppointmentStatus(appointmentId, currentStatus) {
       const result = await response.json();
 
       if (!response.ok || result.status === "error") {
-        throw new Error(result.message || "Failed to update appointment status");
+        throw new Error(
+          result.message || "Failed to update appointment status"
+        );
       }
 
       showSuccess("Appointment status updated successfully", () => {
@@ -381,7 +411,8 @@ async function deleteAppointment(appointmentId) {
 
     if (result.status === "success") {
       showSuccess(
-        result.message || `Appointment #${appointmentId} has been deleted successfully`,
+        result.message ||
+          `Appointment #${appointmentId} has been deleted successfully`,
         () => {
           fetchAppointments(); // Refresh the appointments list
         }
