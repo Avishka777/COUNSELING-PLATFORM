@@ -1,0 +1,154 @@
+/* General Styles */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.appointment-container {
+  max-width: 800px;
+  margin: 40px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  color: #2c3e50;
+  margin: 0;
+  padding: 10px 0;
+}
+
+header h1 i {
+  margin-right: 10px;
+  color: #3498db;
+}
+
+/* Form Styles */
+.appointment-form {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+label i {
+  margin-right: 8px;
+  color: #3498db;
+}
+
+select,
+input[type="date"],
+input[type="time"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.time-container {
+  display: flex;
+  gap: 20px;
+}
+
+.time-container .form-group {
+  flex: 1;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Button Styles */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-submit,
+.btn-cancel {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-submit {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-submit:hover {
+  background-color: #2980b9;
+}
+
+.btn-submit i {
+  margin-right: 8px;
+}
+
+.btn-cancel {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #c0392b;
+}
+
+.btn-cancel i {
+  margin-right: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .time-container {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-submit,
+  .btn-cancel {
+    width: 100%;
+  }
+}

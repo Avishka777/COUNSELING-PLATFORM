@@ -3,14 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Post | MindCare</title>
+    <title>Create Appointment</title>
+    <link rel="stylesheet" href="./create-appointment.css" />
     <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link rel="stylesheet" href="./create-post.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <!-- Navigation -->
@@ -53,62 +56,70 @@
       </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="create-post-container">
-      <div class="container">
-        <div class="post-form-card">
-          <h1>Create New Post</h1>
+    <div class="appointment-container">
+      <header>
+        <h1><i class="fas fa-calendar-plus"></i> Create New Appointment</h1>
+      </header>
 
-          <form id="postForm">
+      <main>
+        <form id="appointmentForm" class="appointment-form">
+          <div class="form-group">
+            <label for="counselorSelect"
+              ><i class="fas fa-user-md"></i> Select Counselor:</label
+            >
+            <select id="counselorSelect" required>
+              <option value="" disabled selected>
+                -- Select a counselor --
+              </option>
+              <!-- Counselor options will be populated by JavaScript -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="appointmentDate"
+              ><i class="fas fa-calendar-day"></i> Date:</label
+            >
+            <input type="date" id="appointmentDate" required />
+          </div>
+
+          <div class="time-container">
             <div class="form-group">
-              <label for="title">Title</label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                required
-                placeholder="What's your post about?"
-              />
+              <label for="startTime"
+                ><i class="fas fa-clock"></i> Start Time:</label
+              >
+              <input type="time" id="startTime" required />
             </div>
 
             <div class="form-group">
-              <label for="description">Description</label>
-              <textarea
-                id="description"
-                name="description"
-                rows="6"
-                required
-                placeholder="Share your thoughts..."
-              ></textarea>
+              <label for="endTime"
+                ><i class="fas fa-clock"></i> End Time:</label
+              >
+              <input type="time" id="endTime" required />
             </div>
+          </div>
 
-            <div class="form-group">
-              <label for="image">Upload Image (Optional)</label>
-              <input type="file" id="image" name="image" accept="image/*" />
-              <div class="image-preview" id="imagePreview">
-                <img
-                  id="previewImage"
-                  src="#"
-                  alt="Preview"
-                  style="display: none"
-                />
-                <p id="noImageText">No image selected</p>
-              </div>
-            </div>
+          <div class="form-group">
+            <label for="appointmentNotes"
+              ><i class="fas fa-notes-medical"></i> Notes:</label
+            >
+            <textarea id="appointmentNotes" rows="4"></textarea>
+          </div>
 
-            <div class="form-group checkbox-group">
-              <input type="checkbox" id="isAnonymous" name="isAnonymous" />
-              <label for="isAnonymous">Post anonymously</label>
-              <span class="help-text">(Your username won't be shown)</span>
-            </div>
-
+          <div class="form-actions">
             <button type="submit" class="btn-submit">
-              <i class="fas fa-paper-plane"></i> Publish Post
+              <i class="fas fa-calendar-check"></i> Book Appointment
             </button>
-          </form>
-        </div>
-      </div>
-    </main>
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="window.location.href='dashboard.html'"
+            >
+              <i class="fas fa-times"></i> Cancel
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -161,7 +172,8 @@
       </div>
     </footer>
 
-    <script src="../../assets/js/posts/create_post.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../assets/js/appointments/create-appointment.js"></script>
     <script src="../../assets/js/main.js"></script>
   </body>
 </html>

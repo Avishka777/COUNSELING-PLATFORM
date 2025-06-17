@@ -31,3 +31,19 @@ CREATE TABLE posts (
     FOREIGN KEY (userId) REFERENCES victims(userId),
     FOREIGN KEY (counselorId) REFERENCES counselors(counselorId)
 );
+
+CREATE TABLE appointments (
+    appointmentId INT AUTO_INCREMENT PRIMARY KEY,
+    date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    counselorId INT NOT NULL,
+    userId INT NOT NULL,
+    status ENUM('pending', 'confirmed', 'cancelled', 'completed') DEFAULT 'pending',
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (counselorId) REFERENCES counselors(counselorId),
+    FOREIGN KEY (userId) REFERENCES victims(userId),
+    CONSTRAINT chk_time CHECK (end_time > start_time),
+    CONSTRAINT unique_appointment UNIQUE (counselorId, date, start_time)
+);
