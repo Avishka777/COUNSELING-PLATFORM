@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
             timer: 2000,
             showConfirmButton: false,
           }).then(() => {
-            window.location.href = "../community/posts.html";
+            window.location.href = "../public/community.html";
           });
         } else {
           throw new Error(result.message || "Failed to create post");
