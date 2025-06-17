@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const response = await fetch(
-        `http://localhost/Counseling%20System/backend/victims/view_user.php?userId=${userData.userId}`
+        `http://localhost/Counseling%20System/backend/victims/view_victim.php?userId=${userData.userId}`
       );
 
       if (!response.ok) {
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const response = await fetch(
-        "http://localhost/Counseling%20System/backend/victims/update_user.php",
+        "http://localhost/Counseling%20System/backend/victims/update_victim.php",
         {
           method: "POST",
           headers: {
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const userId = document.getElementById("userId").value;
 
       const response = await fetch(
-        `http://localhost/Counseling%20System/backend/victims/delete_user.php?id=${userId}`,
+        `http://localhost/Counseling%20System/backend/victims/delete_victim.php?id=${userId}`,
         {
           method: "DELETE",
           headers: {

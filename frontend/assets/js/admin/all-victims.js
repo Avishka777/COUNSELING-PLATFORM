@@ -16,7 +16,7 @@ let currentPage = 1;
 async function fetchUsers() {
   try {
     const response = await fetch(
-      "http://localhost/Counseling%20System/backend/victims/view_all_users.php",
+      "http://localhost/Counseling%20System/backend/victims/view_all_victim.php",
       {
         method: "GET",
         headers: {
@@ -161,7 +161,7 @@ function confirmDelete(userId, username) {
 async function deleteUser(userId) {
   try {
     const response = await fetch(
-      `http://localhost/Counseling%20System/backend/victims/delete_user.php?id=${userId}`,
+      `http://localhost/Counseling%20System/backend/victims/delete_victim.php?id=${userId}`,
       {
         method: "DELETE",
         headers: {
