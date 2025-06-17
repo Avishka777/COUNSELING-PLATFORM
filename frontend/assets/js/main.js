@@ -30,8 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add profile link
     const profileLink = document.createElement("a");
-    profileLink.href = "pages/auth/profile.html";
-    profileLink.textContent = "Profile";
+
     dropdownItems.appendChild(profileLink);
 
     // If admin, add dashboard link
@@ -39,6 +38,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const dashboardLink = document.createElement("a");
       dashboardLink.href = "../admin/all-victims.html";
       dashboardLink.textContent = "Dashboard";
+      dropdownItems.appendChild(dashboardLink);
+    }
+
+    // If admin, add dashboard link
+    if (userRole === "admin" || userRole === "victim") {
+      const dashboardLink = document.createElement("a");
+      dashboardLink.href = "../auth/victim-profile.html";
+      dashboardLink.textContent = "My Profile";
+      dropdownItems.appendChild(dashboardLink);
+    }
+
+    // If admin, add dashboard link
+    if (userRole === "counselor") {
+      const dashboardLink = document.createElement("a");
+      dashboardLink.href = "../auth/counselor-profile.html";
+      dashboardLink.textContent = "My Profile";
       dropdownItems.appendChild(dashboardLink);
     }
 

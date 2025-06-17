@@ -11,40 +11,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
-    http_response_code(405);
-    echo json_encode(['status' => 'error', 'message' => 'Method not allowed']);
-    exit();
-}
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    try {
+        $counselorId = isset($_GET['id']) ? (int)$_GET['id'] : null;
+        
+        if (!$counselorId) {
+            http_response_code(400);
+            echo json_encode(["error" => "Counselor ID required"]);
+            exit();
+        }
 
-if (!isset($_GET['id'])) {
-    http_response_code(400);
-    echo json_encode(['status' => 'error', 'message' => 'Counselor ID required']);
-    exit();
-}
+        // First get photo path to delete file
+        $stmt = $conn->prepare("SELECT photo FROM counselors WHERE counselorId = ?");
+        $stmt->execute([$counselorId]);
+        $counselor = $stmt->fetch();
 
-try {
-    $stmt = $conn->prepare("DELETE FROM counselors WHERE counselorId = ?");
-    $stmt->execute([$_GET['id']]);
-    
-    if ($stmt->rowCount() > 0) {
-        echo json_encode([
-            'status' => 'success',
-            'message' => 'Counselor deleted successfully'
-        ]);
-    } else {
-        http_response_code(404);
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Counselor not found'
-        ]);
+        // Delete counselor record
+        $stmt = $conn->prepare("DELETE FROM counselors WHERE counselorId = ?");
+        $stmt->execute([$counselorId]);
+        
+        if ($stmt->rowCount() > 0) {
+            // Delete photo file if exists
+            if (!empty($counselor['photo'])) {
+                $photoPath = $_SERVER['DOCUMENT_ROOT'] . '/Counseling%20System/uploads/' . $counselor['photo'];
+                if (file_exists($photoPath)) {
+                    unlink($photoPath);
+                }
+            }
+            
+            echo json_encode(["message" => "Counselor deleted successfully"]);
+        } else {
+            http_response_code(404);
+            echo json_encode(["error" => "Counselor not found"]);
+        }
+    } catch(PDOException $e) {
+        http_response_code(500);
+        echo json_encode(["error" => "Database error: " . $e->getMessage()]);
     }
-    
-} catch(PDOException $e) {
-    http_response_code(500);
-    echo json_encode([
-        'status' => 'error',
-        'message' => 'Database error: ' . $e->getMessage()
-    ]);
+} else {
+    http_response_code(405);
+    echo json_encode(["error" => "Method not allowed"]);
 }
 ?>

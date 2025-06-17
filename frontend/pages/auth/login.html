@@ -17,21 +17,42 @@
       <!-- Navigation -->
       <nav class="navbar">
         <div class="container">
-          <a href="index.html" class="logo">
-            <i class="fas fa-hands-helping"></i> Mind<span>Care</span>
+          <a href="../public/home.html" class="logo">
+            <img
+              src="../../assets/images/logo.png"
+              alt="Think Ceylone Logo"
+              class="logo-img"
+            />
+            <span class="logo-text">Think Ceylon</span>
           </a>
+
           <div class="menu-toggle" id="mobile-menu">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
           </div>
           <ul class="nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="../public/about.html">About</a></li>
-            <li><a href="pages/public/counselors.html">Counselors</a></li>
-            <li><a href="pages/public/posts.html">Community</a></li>
-            <li><a href="pages/public/contact.html">Contact</a></li>
-            <li><a href="login.html" class="btn-login">Login</a></li>
+            <li><a href="../public/home.html">Home</a></li>
+            <li><a href="../public/./about.html">About</a></li>
+            <li><a href="../public/./counselors.html">Counselors</a></li>
+            <li><a href="../public/./community.html">Community</a></li>
+            <li><a href="../public/./contact.html">Contact</a></li>
+            <li id="user-menu-container">
+              <a
+                href="pages/auth/login.html"
+                class="btn-login"
+                id="login-button"
+                >Login</a
+              >
+            </li>
+            <div class="user-dropdown hidden" id="user-dropdown">
+              <button class="dropdown-toggle">
+                Menu <i class="fas fa-caret-down"></i>
+              </button>
+              <div class="dropdown-menu" id="dropdown-items">
+                <!-- JS will populate based on role -->
+              </div>
+            </div>
           </ul>
         </div>
       </nav>
@@ -117,7 +138,8 @@
         </div>
       </div>
     </footer>
-    
+
     <script src="../../assets/js/auth/auth.js"></script>
+    <script src="../../assets/js/main.js"></script>
   </body>
 </html>
