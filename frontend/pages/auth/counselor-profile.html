@@ -9,6 +9,46 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
+     <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="../public/home.html" class="logo">
+          <img
+            src="../../assets/images/logo.png"
+            alt="Think Ceylone Logo"
+            class="logo-img"
+          />
+          <span class="logo-text">Think Ceylon</span>
+        </a>
+
+        <div class="menu-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="nav-list">
+          <li><a href="../public/home.html">Home</a></li>
+          <li><a href="../public/./about.html">About</a></li>
+          <li><a href="../public/./counselors.html">Counselors</a></li>
+          <li><a href="../public/./community.html">Community</a></li>
+          <li><a href="../public/./contact.html">Contact</a></li>
+          <li id="user-menu-container">
+            <a href="pages/auth/login.html" class="btn-login" id="login-button"
+              >Login</a
+            >
+          </li>
+          <div class="user-dropdown hidden" id="user-dropdown">
+            <button class="dropdown-toggle">
+              Menu <i class="fas fa-caret-down"></i>
+            </button>
+            <div class="dropdown-menu" id="dropdown-items">
+              <!-- JS will populate based on role -->
+            </div>
+          </div>
+        </ul>
+      </div>
+    </nav>
+    
     <main class="auth-container">
       <div class="auth-form">
         <h2>My Counselor Profile</h2>
@@ -82,6 +122,58 @@
       </div>
     </main>
 
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>ThinkCeylon</h3>
+            <p>Providing anonymous mental health support since 2023.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="pages/public/about.html">About Us</a></li>
+              <li><a href="pages/public/counselors.html">Our Counselors</a></li>
+              <li><a href="pages/public/posts.html">Community</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="pages/public/contact.html">Contact Us</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Newsletter</h3>
+            <p>Subscribe to get mental health tips and updates.</p>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Your Email" />
+              <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
     <script src="../../assets/js/auth/counselor-profile.js"></script>
+    <script src="../../assets/js/main.js"></script>
   </body>
 </html>
