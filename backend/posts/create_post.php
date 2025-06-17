@@ -1,51 +1,53 @@
 <?php
-require_once("../config/db.php");
-
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-// Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
+require_once("../config/db.php");
+
 $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get data from request
     $data = json_decode(file_get_contents("php://input"), true);
-    
-    // Validate required fields
-    if (empty($data['userId']) || empty($data['title']) || empty($data['description'])) {
+
+    // Check for required fields
+    if (empty($data['userId']) && empty($data['counselorId'])) {
         http_response_code(400);
-        echo json_encode(["status" => "error", "message" => "User ID, title and description are required"]);
+        echo json_encode(["status" => "error", "message" => "Either User ID or Counselor ID is required"]);
+        exit;
+    }
+
+    if (empty($data['title']) || empty($data['description'])) {
+        http_response_code(400);
+        echo json_encode(["status" => "error", "message" => "Title and description are required"]);
         exit;
     }
 
     try {
-        // Handle image upload if present
         $imagePath = null;
         if (!empty($data['image'])) {
             $imageData = $data['image'];
             $imageName = uniqid() . '.png'; 
-            
-            // Save base64 image to file
             $uploadDir = "../../uploads/posts/";
+
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
-            
+
             file_put_contents($uploadDir . $imageName, base64_decode($imageData));
             $imagePath = $imageName;
         }
 
-        // Insert post into database
-        $stmt = $conn->prepare("INSERT INTO posts (userId, is_anonymous, image, title, description) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO posts (userId, counselorId, is_anonymous, image, title, description) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([
-            $data['userId'],
+            $data['userId'] ?? null,  
+            $data['counselorId'] ?? null, 
             $data['is_anonymous'] ?? false,
             $imagePath,
             $data['title'],
@@ -68,5 +70,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     http_response_code(405);
     echo json_encode(["status" => "error", "message" => "Method not allowed"]);
 }
-
 ?>

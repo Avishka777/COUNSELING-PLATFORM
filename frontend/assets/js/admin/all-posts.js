@@ -1,8 +1,29 @@
+// Global variables
+let allPosts = [];
+const postsPerPage = 10;
+let currentPage = 1;
+let currentEditingPost = null;
+let newImageFile = null;
+
+// Define imageInput globally
+const imageInput = document.createElement("input");
+imageInput.type = "file";
+imageInput.accept = "image/*";
+imageInput.style.display = "none";
+document.body.appendChild(imageInput);
+
 document.addEventListener("DOMContentLoaded", function () {
   // DOM Elements
   const modal = document.getElementById("postModal");
   const closeModal = document.querySelector(".close-modal");
   const searchInput = document.getElementById("postSearch");
+
+  // Image upload elements
+  const imageInput = document.createElement("input");
+  imageInput.type = "file";
+  imageInput.accept = "image/*";
+  imageInput.style.display = "none";
+  document.body.appendChild(imageInput);
 
   // Initialize
   fetchPosts();
@@ -26,12 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("prevPage").addEventListener("click", goToPrevPage);
   document.getElementById("nextPage").addEventListener("click", goToNextPage);
 });
-
-// Global variables
-let allPosts = [];
-const postsPerPage = 10;
-let currentPage = 1;
-let currentEditingPost = null;
 
 // Fetch posts from API
 async function fetchPosts() {
@@ -248,7 +263,7 @@ function displayPostModal(post, isEditMode = false) {
   if (isEditMode) {
     modalTitle.textContent = `Edit Post: ${post.title}`;
 
-    // Construct edit form
+    // Construct edit form with image upload
     modalBody.innerHTML = `
             <form id="editPostForm">
                 <input type="hidden" name="postId" value="${post.postId}">
@@ -265,6 +280,21 @@ function displayPostModal(post, isEditMode = false) {
                     <textarea id="editDescription" name="description" rows="6" required>${escapeHTML(
                       post.description
                     )}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Current Image</label>
+                    <div class="image-preview-container">
+                        ${
+                          post.image_url
+                            ? `<img src="${post.image_url}" class="current-image" id="currentImage">
+                               <button type="button" class="btn-remove-image" onclick="removeImage()">Remove Image</button>`
+                            : '<div class="no-image">No image</div>'
+                        }
+                    </div>
+                    <button type="button" class="btn-upload-image" onclick="triggerImageUpload()">
+                        ${post.image_url ? "Change Image" : "Add Image"}
+                    </button>
                 </div>
                 
                 <div class="form-group checkbox-group">
@@ -288,7 +318,10 @@ function displayPostModal(post, isEditMode = false) {
     // Add form submit handler
     document
       .getElementById("editPostForm")
-      ?.addEventListener("submit", handlePostUpdate);
+      .addEventListener("submit", handlePostUpdate);
+
+    // Initialize image preview
+    newImageFile = null;
   } else {
     modalTitle.textContent = `Post Details: ${post.title}`;
 
@@ -331,6 +364,40 @@ function displayPostModal(post, isEditMode = false) {
   modal.style.display = "block";
 }
 
+// Handle image upload trigger
+function triggerImageUpload() {
+  imageInput.click();
+  imageInput.onchange = async function (e) {
+    const file = e.target.files[0];
+    if (file) {
+      newImageFile = file;
+
+      // Show preview
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const currentImage = document.getElementById("currentImage");
+        if (currentImage) {
+          currentImage.src = e.target.result;
+        } else {
+          const container = document.querySelector(".image-preview-container");
+          container.innerHTML = `
+            <img src="${e.target.result}" class="current-image" id="currentImage">
+            <button type="button" class="btn-remove-image" onclick="removeImage()">Remove Image</button>
+          `;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+}
+
+// Remove image from post
+function removeImage() {
+  newImageFile = null;
+  const container = document.querySelector(".image-preview-container");
+  container.innerHTML = '<div class="no-image">Image will be removed</div>';
+}
+
 // Handle post update form submission
 async function handlePostUpdate(e) {
   e.preventDefault();
@@ -342,6 +409,24 @@ async function handlePostUpdate(e) {
     description: form.description.value,
     is_anonymous: form.is_anonymous.checked,
   };
+
+  // Add image if a new one was selected
+  if (newImageFile) {
+    try {
+      const base64Image = await convertToBase64(newImageFile);
+      formData.image = base64Image;
+    } catch (error) {
+      console.error("Error converting image:", error);
+      showError("Image Error", "Failed to process image. Please try again.");
+      return;
+    }
+  } else if (
+    document.querySelector(".no-image") &&
+    document.querySelector(".no-image").textContent === "Image will be removed"
+  ) {
+    // Explicitly set image to null if user clicked remove
+    formData.image = "";
+  }
 
   try {
     const response = await fetch(
@@ -372,6 +457,20 @@ async function handlePostUpdate(e) {
       error.message || "Could not update post. Please try again."
     );
   }
+}
+
+// Convert image file to base64
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      // Remove the data URL prefix
+      const base64String = reader.result.split(",")[1];
+      resolve(base64String);
+    };
+    reader.onerror = (error) => reject(error);
+  });
 }
 
 // Confirm and delete post

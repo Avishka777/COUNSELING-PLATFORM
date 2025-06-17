@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Check if user is logged in
   const userData = localStorage.getItem("user");
+
   if (!userData) {
     window.location.href = "../auth/login.html";
     return;
@@ -33,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("submit", async function (e) {
       e.preventDefault();
 
-      const user = JSON.parse(userData);
       const title = document.getElementById("title").value;
       const description = document.getElementById("description").value;
       const isAnonymous = document.getElementById("isAnonymous").checked;
@@ -52,11 +52,20 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
         // Prepare the data
         const postData = {
-          userId: user.userId,
           title: title,
           description: description,
           is_anonymous: isAnonymous,
         };
+
+        // Set either userId or counselorId based on who is logged in
+        if (userData) {
+          const user = JSON.parse(userData);
+          if (user.counselorId) {
+            postData.counselorId = user.counselorId; 
+          } else if (user.userId) {
+            postData.userId = user.userId; 
+          }
+        }
 
         // Handle image if selected
         if (imageFile) {

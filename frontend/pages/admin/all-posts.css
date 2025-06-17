@@ -423,3 +423,56 @@ tr:hover {
 .btn-edit:hover {
     background-color: #e0a800;
 }
+
+.image-preview-container {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.current-image {
+  max-width: 100%;
+  max-height: 200px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.no-image {
+  padding: 20px;
+  background: #f5f5f5;
+  color: #888;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.btn-upload-image, .btn-remove-image {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.btn-remove-image {
+  background: #f44336;
+}
+
+.btn-upload-image:hover {
+  background: #45a049;
+}
+
+.btn-remove-image:hover {
+  background: #d32f2f;
+}
+
+.post-image {
+  max-width: 100%;
+  max-height: 300px;
+  display: block;
+  margin: 0 auto;
+}

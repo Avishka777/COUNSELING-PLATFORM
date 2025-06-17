@@ -2,8 +2,15 @@
 require_once("../config/db.php");
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
+
+// Handle preflight request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 if (!isset($_GET['id'])) {
     http_response_code(400);
@@ -13,9 +20,20 @@ if (!isset($_GET['id'])) {
 
 try {
     $stmt = $conn->prepare("SELECT p.*, 
-                           CASE WHEN p.is_anonymous THEN 'Anonymous' ELSE u.username END as author
+                           CASE 
+                               WHEN p.is_anonymous THEN 'Anonymous'
+                               WHEN p.userId IS NOT NULL THEN u.username
+                               WHEN p.counselorId IS NOT NULL THEN c.username
+                               ELSE 'Unknown'
+                           END as author,
+                           CASE
+                               WHEN p.userId IS NOT NULL THEN 'user'
+                               WHEN p.counselorId IS NOT NULL THEN 'counselor'
+                               ELSE 'unknown'
+                           END as author_type
                            FROM posts p
-                           JOIN victims u ON p.userId = u.userId
+                           LEFT JOIN victims u ON p.userId = u.userId
+                           LEFT JOIN counselors c ON p.counselorId = c.counselorId
                            WHERE p.postId = ?");
     $stmt->execute([$_GET['id']]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -27,7 +45,7 @@ try {
     }
     
     // Add full image URL if exists
-    if ($post['image']) {
+    if (!empty($post['image'])) {
         $post['image_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/Counseling%20System/uploads/posts/' . $post['image'];
     }
     

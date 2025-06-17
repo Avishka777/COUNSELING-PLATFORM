@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
     try {
         // Check if post exists
-        $stmt = $conn->prepare("SELECT postId FROM posts WHERE postId = ?");
+        $stmt = $conn->prepare("SELECT postId, image FROM posts WHERE postId = ?");
         $stmt->execute([$data['postId']]);
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
         
@@ -45,18 +45,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             exit;
         }
 
+        // Handle image update if provided
+        $imagePath = $post['image']; // Keep existing image by default
+        if (!empty($data['image'])) {
+            // Delete old image if it exists
+            if ($post['image']) {
+                $oldImagePath = "../../uploads/posts/" . $post['image'];
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+            
+            // Save new image
+            $imageData = $data['image'];
+            $imageName = uniqid() . '.png';
+            $uploadDir = "../../uploads/posts/";
+            
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            
+            file_put_contents($uploadDir . $imageName, base64_decode($imageData));
+            $imagePath = $imageName;
+        }
 
         // Update post
         $stmt = $conn->prepare("UPDATE posts SET 
             title = ?, 
             description = ?,
-            is_anonymous = ?
+            is_anonymous = ?,
+            image = ?
             WHERE postId = ?");
         
         $stmt->execute([
             $data['title'],
             $data['description'],
             $data['is_anonymous'] ?? false,
+            $imagePath,
             $data['postId']
         ]);
 

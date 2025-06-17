@@ -13,16 +13,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 try {
-    // Get all posts with user info (but hide if anonymous)
+    // Get all posts with user/counselor info (but hide if anonymous)
     $query = "SELECT p.postId, 
                      p.is_anonymous,
-                     CASE WHEN p.is_anonymous THEN 'Anonymous' ELSE u.username END as author,
+                     CASE 
+                         WHEN p.is_anonymous THEN 'Anonymous'
+                         WHEN p.userId IS NOT NULL THEN u.username
+                         WHEN p.counselorId IS NOT NULL THEN c.username
+                         ELSE 'Unknown'
+                     END as author,
                      p.image, 
                      p.title, 
                      p.description, 
-                     p.created_at
+                     p.created_at,
+                     CASE
+                         WHEN p.userId IS NOT NULL THEN 'user'
+                         WHEN p.counselorId IS NOT NULL THEN 'counselor'
+                         ELSE 'unknown'
+                     END as author_type
               FROM posts p
-              JOIN victims u ON p.userId = u.userId
+              LEFT JOIN victims u ON p.userId = u.userId
+              LEFT JOIN counselors c ON p.counselorId = c.counselorId
               ORDER BY p.created_at DESC";
     
     $stmt = $conn->query($query);
