@@ -2,32 +2,49 @@
 require_once("../config/db.php");
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: PUT");
+header("Access-Control-Allow-Methods: PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
+
+// Handle preflight request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"), true);
     
-    if (empty($data['postId']) || empty($data['title']) || empty($data['description'])) {
-        http_response_code(400);
-        echo json_encode(["status" => "error", "message" => "Post ID, title and description are required"]);
-        exit;
+    // Validate required fields
+    $requiredFields = ['postId', 'title', 'description'];
+    foreach ($requiredFields as $field) {
+        if (empty($data[$field])) {
+            http_response_code(400);
+            echo json_encode([
+                "status" => "error", 
+                "message" => "Missing required field: $field"
+            ]);
+            exit;
+        }
     }
 
     try {
-        // Check if post exists and belongs to user
-        $stmt = $conn->prepare("SELECT userId FROM posts WHERE postId = ?");
+        // Check if post exists
+        $stmt = $conn->prepare("SELECT postId FROM posts WHERE postId = ?");
         $stmt->execute([$data['postId']]);
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if (!$post) {
             http_response_code(404);
-            echo json_encode(["status" => "error", "message" => "Post not found"]);
+            echo json_encode([
+                "status" => "error", 
+                "message" => "Post not found"
+            ]);
             exit;
         }
+
 
         // Update post
         $stmt = $conn->prepare("UPDATE posts SET 
