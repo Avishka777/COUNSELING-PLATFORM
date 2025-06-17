@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard - ThinkCeylon</title>
+    <title>Admin Dashboard - Appointments</title>
     <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link rel="stylesheet" href="./all-posts.css" />
+    <link rel="stylesheet" href="./all-appointments.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -37,10 +37,12 @@
             <a href="../../pages/admin/all-counselors.html">Counselors</a>
           </li>
           <li>
-            <a href="../../pages/admin/all-posts.html" class="active">Posts</a>
+            <a href="../../pages/admin/all-posts.html">Posts</a>
           </li>
           <li>
-            <a href="../../pages/admin/all-appointments.html">Appointments</a>
+            <a href="../../pages/admin/all-appointments.html" class="active"
+              >Appointments</a
+            >
           </li>
         </ul>
       </div>
@@ -49,40 +51,42 @@
     <!-- Admin Header -->
     <header class="admin-header">
       <div class="container">
-        <h1><i class="fas fa-newspaper"></i> Posts Management</h1>
+        <h1><i class="fas fa-calendar-alt"></i> Appointments Management</h1>
       </div>
     </header>
 
     <!-- Main Content -->
     <main class="admin-content">
       <div class="container">
-        <!-- Posts Table -->
+        <!-- Appointments Table -->
         <div class="admin-card">
           <div class="card-header">
-            <h2>All Community Posts</h2>
+            <h2>All Scheduled Appointments</h2>
             <div class="search-box">
               <input
                 type="text"
-                id="postSearch"
-                placeholder="Search posts..."
+                id="appointmentSearch"
+                placeholder="Search appointments..."
               />
               <i class="fas fa-search"></i>
             </div>
           </div>
 
           <div class="table-responsive">
-            <table id="postsTable">
+            <table id="appointmentsTable">
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Title</th>
-                  <th>Author</th>
                   <th>Date</th>
+                  <th>Time</th>
+                  <th>User</th>
+                  <th>Counselor</th>
+                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <!-- Posts will be loaded here via JavaScript -->
+                <!-- Appointments will be loaded here via JavaScript -->
               </tbody>
             </table>
           </div>
@@ -90,7 +94,7 @@
           <div class="table-footer">
             <div class="table-info">
               Showing <span id="showingCount">0</span> of
-              <span id="totalCount">0</span> posts
+              <span id="totalCount">0</span> appointments
             </div>
             <div class="pagination">
               <button id="prevPage" disabled>
@@ -106,20 +110,20 @@
       </div>
     </main>
 
-    <!-- Post Details Modal -->
-    <div id="postModal" class="modal">
+    <!-- Appointment Details Modal -->
+    <div id="appointmentModal" class="modal">
       <div class="modal-content">
         <span class="close-modal">&times;</span>
         <div class="modal-header">
-          <h2 id="modalTitle">Post Details</h2>
+          <h2 id="modalTitle">Appointment Details</h2>
         </div>
         <div class="modal-body" id="modalBody">
-          <!-- Post details will be loaded here -->
+          <!-- Appointment details will be loaded here -->
         </div>
       </div>
     </div>
 
-    <script src="../../assets/js/admin/all-posts.js"></script>
+    <script src="../../assets/js/admin/all-appointments.js"></script>
     <script src="../../assets/js/main.js"></script>
   </body>
 </html>
