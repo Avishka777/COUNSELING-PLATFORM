@@ -215,163 +215,286 @@ async function viewAppointmentDetails(appointmentId) {
   }
 }
 
-// Display appointment details in modal
-function displayAppointmentModal(appointment) {
+// Display appointment details in modal (view or edit mode)
+function displayAppointmentModal(appointment, isEditMode = false) {
   const modal = document.getElementById("appointmentModal");
   const modalTitle = document.getElementById("modalTitle");
   const modalBody = document.getElementById("modalBody");
 
-  modalTitle.textContent = `Appointment Details: #${appointment.appointmentId}`;
+  if (isEditMode) {
+    modalTitle.textContent = `Edit Appointment: #${appointment.appointmentId}`;
 
-  const startTime = new Date(`2000-01-01T${appointment.start_time}`);
-  const endTime = new Date(`2000-01-01T${appointment.end_time}`);
-  const formattedTime = `${startTime.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })} - ${endTime.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })}`;
+    const startTime = appointment.start_time.substring(0, 5); // Format HH:MM
+    const endTime = appointment.end_time.substring(0, 5);
 
-  const counselorPhoto = appointment.counselor_photo_url
-    ? `<img src="${appointment.counselor_photo_url}" alt="${appointment.counselor_name}" class="counselor-avatar">`
-    : `<div class="no-avatar"><i class="fas fa-user-tie"></i></div>`;
+    modalBody.innerHTML = `
+      <form id="editAppointmentForm">
+        <input type="hidden" name="appointmentId" value="${
+          appointment.appointmentId
+        }">
+        
+        <div class="appointment-section">
+          <h3>Appointment Information</h3>
+          <div class="form-group">
+            <label for="editDate">Date</label>
+            <input type="date" id="editDate" name="date" 
+                   value="${appointment.date}" required>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editStartTime">Start Time</label>
+              <input type="time" id="editStartTime" name="start_time" 
+                     value="${startTime}" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="editEndTime">End Time</label>
+              <input type="time" id="editEndTime" name="end_time" 
+                     value="${endTime}" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="editStatus">Status</label>
+            <select id="editStatus" name="status" class="form-control">
+              <option value="pending" ${
+                appointment.status === "pending" ? "selected" : ""
+              }>Pending</option>
+              <option value="confirmed" ${
+                appointment.status === "confirmed" ? "selected" : ""
+              }>Confirmed</option>
+              <option value="cancelled" ${
+                appointment.status === "cancelled" ? "selected" : ""
+              }>Cancelled</option>
+              <option value="completed" ${
+                appointment.status === "completed" ? "selected" : ""
+              }>Completed</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="appointment-section">
+          <h3>Notes</h3>
+          <div class="form-group">
+            <textarea id="editNotes" name="notes" rows="4" 
+                      class="form-control">${appointment.notes || ""}</textarea>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-cancel" 
+                  onclick="displayAppointmentModal(currentEditingAppointment, false)">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    `;
 
-  modalBody.innerHTML = `
-    <div class="appointment-details">
-      <div class="appointment-section">
-        <h3>Appointment Information</h3>
-        <div class="detail-row">
-          <div class="detail-label">ID:</div>
-          <div class="detail-value">${appointment.appointmentId}</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-label">Date:</div>
-          <div class="detail-value">${new Date(
-            appointment.date
-          ).toLocaleDateString()}</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-label">Time:</div>
-          <div class="detail-value">${formattedTime}</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-label">Status:</div>
-          <div class="detail-value"><span class="status-badge status-${
-            appointment.status
-          }">${appointment.status}</span></div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-label">Created At:</div>
-          <div class="detail-value">${new Date(
-            appointment.created_at
-          ).toLocaleString()}</div>
-        </div>
-      </div>
+    // Add form submit handler
+    document
+      .getElementById("editAppointmentForm")
+      .addEventListener("submit", handleAppointmentUpdate);
 
-      <div class="appointment-section">
-        <h3>User Information</h3>
-        <div class="user-info">
-          <div class="user-details">
-            <div class="user-name">${appointment.user_username}</div>
-            <div class="user-meta">
-              <div>Age: ${appointment.user_age}</div>
-              <div>Occupation: ${appointment.user_occupation || "N/A"}</div>
+    // Store the current appointment for reference
+    currentEditingAppointment = appointment;
+  } else {
+    modalTitle.textContent = `Appointment Details: #${appointment.appointmentId}`;
+
+    const startTime = new Date(`2000-01-01T${appointment.start_time}`);
+    const endTime = new Date(`2000-01-01T${appointment.end_time}`);
+    const formattedTime = `${startTime.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })} - ${endTime.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
+
+    const counselorPhoto = appointment.counselor_photo_url
+      ? `<img src="${appointment.counselor_photo_url}" alt="${appointment.counselor_name}" class="counselor-avatar">`
+      : `<div class="no-avatar"><i class="fas fa-user-tie"></i></div>`;
+
+    modalBody.innerHTML = `
+      <div class="appointment-details">
+        <div class="appointment-section">
+          <h3>Appointment Information</h3>
+          <div class="detail-row">
+            <div class="detail-label">ID:</div>
+            <div class="detail-value">${appointment.appointmentId}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Date:</div>
+            <div class="detail-value">${new Date(
+              appointment.date
+            ).toLocaleDateString()}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Time:</div>
+            <div class="detail-value">${formattedTime}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Status:</div>
+            <div class="detail-value"><span class="status-badge status-${
+              appointment.status
+            }">${appointment.status}</span></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Created At:</div>
+            <div class="detail-value">${new Date(
+              appointment.created_at
+            ).toLocaleString()}</div>
+          </div>
+        </div>
+
+        <div class="appointment-section">
+          <h3>User Information</h3>
+          <div class="user-info">
+            <div class="user-details">
+              <div class="user-name">${appointment.user_username}</div>
+              <div class="user-meta">
+                <div>Age: ${appointment.user_age}</div>
+                <div>Occupation: ${appointment.user_occupation || "N/A"}</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="appointment-section">
-        <h3>Counselor Information</h3>
-        <div class="counselor-info">
-          ${counselorPhoto}
-          <div class="counselor-details">
-            <div class="counselor-name">${appointment.counselor_name}</div>
-            <div class="counselor-meta">
-              <div>Profession: ${appointment.counselor_profession}</div>
-              <div>Company: ${appointment.counselor_company}</div>
-              <div>Specialization: ${appointment.specialization || "N/A"}</div>
+        <div class="appointment-section">
+          <h3>Counselor Information</h3>
+          <div class="counselor-info">
+            ${counselorPhoto}
+            <div class="counselor-details">
+              <div class="counselor-name">${appointment.counselor_name}</div>
+              <div class="counselor-meta">
+                <div>Profession: ${appointment.counselor_profession}</div>
+                <div>Company: ${appointment.counselor_company}</div>
+                <div>Specialization: ${
+                  appointment.specialization || "N/A"
+                }</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      ${
-        appointment.notes
-          ? `
-      <div class="appointment-section">
-        <h3>Notes</h3>
-        <div class="notes-content">${appointment.notes}</div>
-      </div>
-      `
-          : ""
-      }
+        ${
+          appointment.notes
+            ? `
+        <div class="appointment-section">
+          <h3>Notes</h3>
+          <div class="notes-content">${appointment.notes}</div>
+        </div>
+        `
+            : ""
+        }
 
-      <div class="form-actions">
-        <button type="button" class="btn btn-cancel" onclick="document.getElementById('appointmentModal').style.display='none'">
-          Close
-        </button>
+        <div class="form-actions">
+          <button type="button" class="btn btn-edit" 
+                  onclick="displayAppointmentModal(currentEditingAppointment, true)">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button type="button" class="btn btn-cancel" 
+                  onclick="document.getElementById('appointmentModal').style.display='none'">
+            Close
+          </button>
+        </div>
       </div>
-    </div>
-  `;
+    `;
+
+    // Store the current appointment for reference
+    currentEditingAppointment = appointment;
+  }
 
   modal.style.display = "block";
 }
 
-// Change appointment status
-async function changeAppointmentStatus(appointmentId, currentStatus) {
+// Handle appointment update form submission
+async function handleAppointmentUpdate(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = {
+    appointmentId: form.appointmentId.value,
+    date: form.date.value,
+    start_time: form.start_time.value,
+    end_time: form.end_time.value,
+    status: form.status.value,
+    notes: form.notes.value,
+  };
+
+  // Validate time
+  if (formData.start_time >= formData.end_time) {
+    showError("Invalid Time", "End time must be after start time");
+    return;
+  }
+
   try {
-    const { value: newStatus } = await Swal.fire({
-      title: "Change Appointment Status",
-      input: "select",
-      inputOptions: {
-        pending: "Pending",
-        confirmed: "Confirmed",
-        cancelled: "Cancelled",
-        completed: "Completed",
-      },
-      inputValue: currentStatus,
-      showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to select a status!";
-        }
-      },
-    });
-
-    if (newStatus) {
-      const response = await fetch(
-        `http://localhost/Counseling%20System/backend/appointments/update_appointment.php`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            appointmentId: appointmentId,
-            status: newStatus,
-          }),
-        }
-      );
-
-      const result = await response.json();
-
-      if (!response.ok || result.status === "error") {
-        throw new Error(
-          result.message || "Failed to update appointment status"
-        );
+    const response = await fetch(
+      "http://localhost/Counseling%20System/backend/appointments/update_appointment.php",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       }
+    );
 
-      showSuccess("Appointment status updated successfully", () => {
-        fetchAppointments(); // Refresh the appointments list
-      });
+    const result = await response.json();
+
+    if (!response.ok || result.status === "error") {
+      throw new Error(result.message || "Failed to update appointment");
     }
+
+    showSuccess("Appointment updated successfully", () => {
+      modal.style.display = "none";
+      fetchAppointments(); // Refresh the appointments list
+    });
   } catch (error) {
-    console.error("Error updating appointment status:", error);
+    console.error("Error updating appointment:", error);
     showError(
       "Update Failed",
-      error.message || "Could not update appointment status. Please try again."
+      error.message || "Could not update appointment. Please try again."
+    );
+  }
+}
+
+// Update the changeAppointmentStatus function to use the modal editor
+async function changeAppointmentStatus(appointmentId, currentStatus) {
+  try {
+    // First fetch the current appointment data
+    const response = await fetch(
+      `http://localhost/Counseling%20System/backend/appointments/get_appointment.php?id=${appointmentId}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.status === "error") {
+      throw new Error(data.message);
+    }
+
+    const appointment = data.data || data;
+
+    // Display in edit mode
+    displayAppointmentModal(appointment, true);
+  } catch (error) {
+    console.error("Error fetching appointment details:", error);
+    showError(
+      "Failed to load appointment",
+      error.message || "Please try again later"
     );
   }
 }

@@ -47,3 +47,5 @@ CREATE TABLE appointments (
     CONSTRAINT chk_time CHECK (end_time > start_time),
     CONSTRAINT unique_appointment UNIQUE (counselorId, date, start_time)
 );
+
+ALTER TABLE appointments ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
