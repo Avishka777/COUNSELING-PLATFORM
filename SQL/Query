@@ -49,3 +49,14 @@ CREATE TABLE appointments (
 );
 
 ALTER TABLE appointments ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+CREATE TABLE counseling_progress (
+    progressId INT AUTO_INCREMENT PRIMARY KEY,
+    victimId INT NOT NULL,
+    counselorId INT NOT NULL,
+    description TEXT NOT NULL,
+    counseling_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (victimId) REFERENCES victims(userId),
+    FOREIGN KEY (counselorId) REFERENCES counselors(counselorId)
+);
