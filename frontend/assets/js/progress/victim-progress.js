@@ -1,233 +1,204 @@
 document.addEventListener("DOMContentLoaded", function () {
   // DOM Elements
-  const modal = document.getElementById("progressModal");
+  const progressTable = document.getElementById("progressTable");
+  const progressTableBody = document.getElementById("progressTableBody");
+  const filterForm = document.getElementById("filterForm");
+  const progressModal = document.getElementById("progressModal");
+  const modalContent = document.getElementById("modalContent");
   const closeModal = document.querySelector(".close-modal");
-  const filterDate = document.getElementById("filterDate");
-  const refreshBtn = document.getElementById("refreshBtn");
 
   // Initialize
   fetchProgressReports();
 
   // Event Listeners
+  filterForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    fetchProgressReports();
+  });
+
   closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
+    progressModal.style.display = "none";
   });
 
   window.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      modal.style.display = "none";
+    if (event.target === progressModal) {
+      progressModal.style.display = "none";
     }
   });
 
-  filterDate.addEventListener("change", function () {
-    fetchProgressReports();
-  });
+  // Fetch progress reports
+  async function fetchProgressReports() {
+    try {
+      // Get logged-in user ID (or use specific victimId if admin)
+      const userData = JSON.parse(localStorage.getItem("user"));
+      const victimId = userData.userId; // Or get from filter form if admin
 
-  refreshBtn.addEventListener("click", function () {
-    filterDate.value = "";
-    fetchProgressReports();
-  });
-});
+      // Get filter values
+      const formData = new FormData(filterForm);
+      const filters = {
+        counselorId: formData.get("counselorId"),
+        startDate: formData.get("startDate"),
+        endDate: formData.get("endDate"),
+        limit: formData.get("limit"),
+      };
 
-// Fetch progress reports from API
-async function fetchProgressReports() {
-  try {
-    // Get logged-in user data from localStorage
-    const userData = JSON.parse(localStorage.getItem("user"));
+      // Build query string
+      const queryParams = new URLSearchParams();
+      queryParams.append("victimId", victimId);
 
-    if (!userData || !userData.userId) {
-      throw new Error("User not authenticated or user data missing");
-    }
-
-    // Build URL with filters
-    let url = `http://localhost/Counseling%20System/backend/progress/get_all_counselor_progress.php?userId=${userData.userId}`;
-
-    const filterDate = document.getElementById("filterDate").value;
-    if (filterDate) {
-      url += `&date=${filterDate}`;
-    }
-
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    if (data.status === "error") {
-      throw new Error(data.message);
-    }
-
-    renderProgressTable(data.data || data);
-  } catch (error) {
-    console.error("Error fetching progress reports:", error);
-    showError(
-      "Failed to load progress reports",
-      error.message || "Please try again later"
-    );
-  }
-}
-
-// Render progress reports to the table
-function renderProgressTable(progressReports) {
-  const tableBody = document.getElementById("progressTableBody");
-  tableBody.innerHTML = "";
-
-  if (progressReports.length === 0) {
-    tableBody.innerHTML = `
-            <tr>
-                <td colspan="5" class="no-results">No progress reports found</td>
-            </tr>
-        `;
-    return;
-  }
-
-  progressReports.forEach((report) => {
-    const row = document.createElement("tr");
-    const counselingDate = new Date(report.counseling_date);
-    const previewText =
-      report.description.length > 50
-        ? report.description.substring(0, 50) + "..."
-        : report.description;
-
-    row.innerHTML = `
-            <td>${counselingDate.toLocaleDateString()}</td>
-            <td>${report.victim_username} (${report.victim_age})</td>
-            <td>${report.counselor_name}</td>
-            <td class="notes-preview">${previewText}</td>
-            <td>
-                <button class="btn btn-view" onclick="viewProgressDetails(${
-                  report.progressId
-                })">
-                    <i class="fas fa-eye"></i> View
-                </button>
-            </td>
-        `;
-    tableBody.appendChild(row);
-  });
-}
-
-// View progress details in modal
-async function viewProgressDetails(progressId) {
-  try {
-    // Get logged-in user data from localStorage
-    const userData = JSON.parse(localStorage.getItem("user"));
-
-    if (!userData || !userData.userId) {
-      throw new Error("Counselor authentication required");
-    }
-
-    // Create auth header
-    const authData = {
-      userId: userData.userId,
-    };
-    const authHeader = btoa(JSON.stringify(authData));
-
-    const response = await fetch(
-      `http://localhost/Counseling%20System/backend/progress/get_counselor_progress.php?progressId=${progressId}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization: authHeader,
-        },
+      for (const [key, value] of Object.entries(filters)) {
+        if (value) queryParams.append(key, value);
       }
-    );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(
-        errorData.message || `HTTP error! status: ${response.status}`
+      // Show loading state
+      progressTableBody.innerHTML = `<tr><td colspan="5">Loading...</td></tr>`;
+
+      const response = await fetch(
+        `http://localhost/Counseling%20System/backend/progress/get_all_victims_progress.php?${queryParams.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        }
       );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (result.status === "error") {
+        throw new Error(result.message);
+      }
+
+      renderProgressTable(result.data || []);
+    } catch (error) {
+      console.error("Error fetching progress reports:", error);
+      progressTableBody.innerHTML = `<tr><td colspan="5" class="error">${
+        error.message || "Failed to load progress reports"
+      }</td></tr>`;
     }
-
-    const data = await response.json();
-
-    if (data.status === "error") {
-      throw new Error(data.message);
-    }
-
-    const progress = data.data || data;
-    displayProgressModal(progress);
-  } catch (error) {
-    console.error("Error fetching progress details:", error);
-    showError(
-      "Failed to load details",
-      error.message || "Please try again later"
-    );
   }
-}
 
-// Display progress details in modal
-function displayProgressModal(progress) {
-  const modal = document.getElementById("progressModal");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalBody = document.getElementById("modalBody");
+  // Render progress table
+  function renderProgressTable(progressReports) {
+    progressTableBody.innerHTML = "";
 
-  modalTitle.textContent = `Progress Report #${progress.progressId}`;
+    if (progressReports.length === 0) {
+      progressTableBody.innerHTML = `<tr><td colspan="5">No progress reports found</td></tr>`;
+      return;
+    }
 
-  const counselingDate = new Date(progress.counseling_date);
-  const createdDate = new Date(progress.created_at);
+    progressReports.forEach((report) => {
+      const row = document.createElement("tr");
+      const counselingDate = new Date(report.counseling_date);
+      const previewText =
+        report.description.length > 50
+          ? `${report.description.substring(0, 50)}...`
+          : report.description;
 
-  const counselorPhoto = progress.counselor_photo_url
-    ? `<img src="${progress.counselor_photo_url}" alt="${progress.counselor_name}" class="counselor-avatar">`
-    : `<div class="counselor-avatar"><i class="fas fa-user-tie"></i></div>`;
+      row.innerHTML = `
+                <td>${counselingDate.toLocaleDateString()}</td>
+                <td>${report.counselor_name}</td>
+                <td class="notes-preview">${previewText}</td>
+                <td>
+                    <button class="btn-view" onclick="viewProgressDetails(${
+                      report.progressId
+                    })">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                </td>
+            `;
+      progressTableBody.appendChild(row);
+    });
+  }
 
-  modalBody.innerHTML = `
-        <div class="progress-details">
-            <div class="detail-row">
-                <div class="detail-label">Report Date:</div>
-                <div class="detail-value">${createdDate.toLocaleString()}</div>
+  // View detailed progress report
+  window.viewProgressDetails = async function (progressId) {
+    try {
+      const response = await fetch(
+        `http://localhost/Counseling%20System/backend/progress/get_victim_progress.php?progressId=${progressId}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (result.status === "error") {
+        throw new Error(result.message);
+      }
+
+      displayProgressModal(result.data);
+    } catch (error) {
+      console.error("Error fetching progress details:", error);
+      alert(error.message || "Failed to load progress details");
+    }
+  };
+
+  // Display progress details in modal
+  function displayProgressModal(progress) {
+    const counselingDate = new Date(progress.counseling_date);
+    const createdDate = new Date(progress.created_at);
+
+    modalContent.innerHTML = `
+            <div class="modal-header">
+                <h2>Progress Report #${progress.progressId}</h2>
+                <p>Session Date: ${counselingDate.toLocaleDateString()}</p>
+                <p>Reported On: ${createdDate.toLocaleString()}</p>
             </div>
             
-            <div class="detail-row">
-                <div class="detail-label">Session Date:</div>
-                <div class="detail-value">${counselingDate.toLocaleDateString()}</div>
-            </div>
-            
-            <div class="counselor-info">
-                ${counselorPhoto}
-                <div class="counselor-details">
-                    <div class="counselor-name">${progress.counselor_name}</div>
-                    <div class="counselor-meta">
-                        <div>${progress.counselor_profession}</div>
-                        <div>${progress.counselor_company}</div>
+            <div class="modal-body">
+                <div class="user-info">
+                    <h3>Client Information</h3>
+                    <p><strong>Name:</strong> ${progress.victim_username}</p>
+                    <p><strong>Age:</strong> ${progress.victim_age}</p>
+                    <p><strong>Occupation:</strong> ${
+                      progress.victim_occupation
+                    }</p>
+                </div>
+                
+                <div class="counselor-info">
+                    <h3>Counselor Information</h3>
+                    <div class="counselor-details">
+                        <img src="${
+                          progress.counselor_photo_url || "default-avatar.jpg"
+                        }" 
+                             alt="${progress.counselor_name}" 
+                             class="counselor-avatar">
+                        <div>
+                            <p><strong>Name:</strong> ${
+                              progress.counselor_name
+                            }</p>
+                            <p><strong>Profession:</strong> ${
+                              progress.counselor_profession
+                            }</p>
+                            <p><strong>Company:</strong> ${
+                              progress.counselor_company
+                            }</p>
+                            <p><strong>Specialization:</strong> ${
+                              progress.counselor_specialization
+                            }</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="user-info">
-                <div class="user-avatar"><i class="fas fa-user"></i></div>
-                <div class="user-details">
-                    <div class="user-name">${progress.victim_username}</div>
-                    <div class="user-meta">
-                        <div>Age: ${progress.victim_age}</div>
-                        <div>Occupation: ${progress.victim_occupation}</div>
-                    </div>
+                
+                <div class="progress-notes">
+                    <h3>Progress Notes</h3>
+                    <div class="notes-content">${progress.description}</div>
                 </div>
             </div>
-            
-            <div class="detail-row">
-                <div class="detail-label">Progress Notes:</div>
-            </div>
-            <div class="notes-content">${progress.description}</div>
-        </div>
-    `;
+        `;
 
-  modal.style.display = "block";
-}
-
-// Helper function to show error messages
-function showError(title, message) {
-  Swal.fire({
-    icon: "error",
-    title: title,
-    text: message,
-  });
-}
+    progressModal.style.display = "block";
+  }
+});

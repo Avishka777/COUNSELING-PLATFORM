@@ -4,56 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Counseling Progress Reports</title>
-    <link rel="stylesheet" href="./victim-progress.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Add your CSS styles here */
+        .progress-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .progress-table th, .progress-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .progress-table th {
+            background-color: #f2f2f2;
+        }
+        .notes-preview {
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn-view {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+        }
+        .close-modal {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .counselor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .counselor-details {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .notes-content {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        .filter-form {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        .filter-form input, .filter-form select {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        .filter-form button {
+            padding: 8px 15px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1><i class="fas fa-chart-line"></i> Victim Progress Reports</h1>
+        <h1><i class="fas fa-chart-line"></i> My Counseling Progress Reports</h1>
         
-        <div class="filter-controls">
-            <div class="filter-group">
-                <label for="filterDate">Filter by Date:</label>
-                <input type="date" id="filterDate" class="form-control">
-            </div>
-            <button id="refreshBtn" class="btn btn-primary">
-                <i class="fas fa-sync-alt"></i> Refresh
-            </button>
-        </div>
+        <form id="filterForm" class="filter-form">
+            <label for="startDate">From:</label>
+            <input type="date" id="startDate" name="startDate">
+            
+            <label for="endDate">To:</label>
+            <input type="date" id="endDate" name="endDate">
+            
+            <label for="counselorId">Counselor:</label>
+            <select id="counselorId" name="counselorId">
+                <option value="">All Counselors</option>
+                <!-- Options will be populated by JavaScript -->
+            </select>
+            
+            <button type="submit"><i class="fas fa-filter"></i> Filter</button>
+            <button type="button" onclick="resetFilters()"><i class="fas fa-sync-alt"></i> Reset</button>
+        </form>
         
-        <div class="progress-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Client</th>
-                        <th>Counselor</th>
-                        <th>Notes Preview</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="progressTableBody">
-                    <!-- Progress entries will be loaded here -->
-                </tbody>
-            </table>
-        </div>
+        <table class="progress-table">
+            <thead>
+                <tr>
+                    <th>Session Date</th>
+                    <th>Counselor</th>
+                    <th>Notes Preview</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="progressTableBody">
+                <!-- Progress reports will be loaded here -->
+            </tbody>
+        </table>
     </div>
 
     <!-- Progress Details Modal -->
     <div id="progressModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <div class="modal-header">
-                <h2 id="modalTitle">Progress Details</h2>
-            </div>
-            <div class="modal-body" id="modalBody">
+            <div id="modalContent">
                 <!-- Progress details will be loaded here -->
             </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../assets/js/progress/victim-progress.js"></script>
 </body>
 </html>
