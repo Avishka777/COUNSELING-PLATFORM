@@ -9,6 +9,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+      <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="../public/home.html" class="logo">
+          <img
+            src="../../assets/images/logo.png"
+            alt="Think Ceylone Logo"
+            class="logo-img"
+          />
+          <span class="logo-text">Think Ceylon</span>
+        </a>
+
+        <div class="menu-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="nav-list">
+          <li><a href="../public/home.html">Home</a></li>
+          <li><a href="../public/./about.html">About</a></li>
+          <li><a href="../public/./counselors.html">Counselors</a></li>
+          <li><a href="../public/./community.html">Community</a></li>
+          <li><a href="../public/./contact.html">Contact</a></li>
+          <li id="user-menu-container">
+            <a href="pages/auth/login.html" class="btn-login" id="login-button"
+              >Login</a
+            >
+          </li>
+          <div class="user-dropdown hidden" id="user-dropdown">
+            <button class="dropdown-toggle">
+              Menu <i class="fas fa-caret-down"></i>
+            </button>
+            <div class="dropdown-menu" id="dropdown-items">
+              <!-- JS will populate based on role -->
+            </div>
+          </div>
+        </ul>
+      </div>
+    </nav>
+    
     <div class="container">
         <h1><i class="fas fa-chart-line"></i> Create Progress Report</h1>
         

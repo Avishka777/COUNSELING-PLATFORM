@@ -65,11 +65,27 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdownItems.appendChild(dashboardLink);
     }
 
+    // If admin or victim, add dashboard link
+    if (userRole === "admin" || userRole === "victim") {
+      const dashboardLink = document.createElement("a");
+      dashboardLink.href = "../progress/victim-progress.html";
+      dashboardLink.textContent = "My Progress";
+      dropdownItems.appendChild(dashboardLink);
+    }
+
     // If counselor, add dashboard link
     if (userRole === "counselor") {
       const dashboardLink = document.createElement("a");
       dashboardLink.href = "../auth/counselor-profile.html";
       dashboardLink.textContent = "My Profile";
+      dropdownItems.appendChild(dashboardLink);
+    }
+
+    // If counselor, add dashboard link
+    if (userRole === "counselor") {
+      const dashboardLink = document.createElement("a");
+      dashboardLink.href = "../progress/counselor-progress.html";
+      dashboardLink.textContent = "Progress";
       dropdownItems.appendChild(dashboardLink);
     }
 
