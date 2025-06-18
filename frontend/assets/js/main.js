@@ -41,6 +41,22 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdownItems.appendChild(dashboardLink);
     }
 
+    // If admin, add dashboard link
+    if (userRole === "admin" || userRole === "victim") {
+      const dashboardLink = document.createElement("a");
+      dashboardLink.href = "../appointments/create-appointment.html";
+      dashboardLink.textContent = "Make an Appointment";
+      dropdownItems.appendChild(dashboardLink);
+    }
+
+     // If admin, add dashboard link
+    if (userRole === "admin" || userRole === "victim") {
+      const dashboardLink = document.createElement("a");
+      dashboardLink.href = "../appointments/my-appointments.html";
+      dashboardLink.textContent = "My Appointments";
+      dropdownItems.appendChild(dashboardLink);
+    }
+
     // If admin or victim, add dashboard link
     if (userRole === "admin" || userRole === "victim") {
       const dashboardLink = document.createElement("a");
