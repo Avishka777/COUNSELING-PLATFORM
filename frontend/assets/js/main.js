@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdownItems.appendChild(dashboardLink);
     }
 
-     // If admin, add dashboard link
+    // If admin, add dashboard link
     if (userRole === "admin" || userRole === "victim") {
       const dashboardLink = document.createElement("a");
       dashboardLink.href = "../appointments/my-appointments.html";
@@ -73,8 +73,20 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdownItems.appendChild(dashboardLink);
     }
 
+    // If counselor, add dashboard link
+    if (userRole === "counselor") {
+      const dashboardLink = document.createElement("a");
+      dashboardLink.href = "../appointments/counselor-appointments.html";
+      dashboardLink.textContent = "My Appointments";
+      dropdownItems.appendChild(dashboardLink);
+    }
+
     // for all users, add dashboard link
-    if (userRole === "counselor" || userRole === "admin" || userRole === "victim") {
+    if (
+      userRole === "counselor" ||
+      userRole === "admin" ||
+      userRole === "victim"
+    ) {
       const dashboardLink = document.createElement("a");
       dashboardLink.href = "../posts/my-posts.html";
       dashboardLink.textContent = "My Posts";
