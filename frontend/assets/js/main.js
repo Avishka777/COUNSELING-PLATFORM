@@ -92,6 +92,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // If counselor, add dashboard link
     if (userRole === "counselor") {
       const dashboardLink = document.createElement("a");
+      dashboardLink.href = "../progress/create-progress.html";
+      dashboardLink.textContent = "Add Progress";
+      dropdownItems.appendChild(dashboardLink);
+    }
+
+    // If counselor, add dashboard link
+    if (userRole === "counselor") {
+      const dashboardLink = document.createElement("a");
       dashboardLink.href = "../appointments/counselor-appointments.html";
       dashboardLink.textContent = "My Appointments";
       dropdownItems.appendChild(dashboardLink);

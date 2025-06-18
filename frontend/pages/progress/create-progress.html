@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Progress Report</title>
-    <link rel="stylesheet" href="./create-progress.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-      <!-- Navigation -->
+    <link rel="stylesheet" href="./create-progress.css" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
     <nav class="navbar">
       <div class="container">
         <a href="../public/home.html" class="logo">
@@ -48,42 +55,104 @@
         </ul>
       </div>
     </nav>
-    
-    <div class="container">
-        <h1><i class="fas fa-chart-line"></i> Create Progress Report</h1>
-        
-        <form id="progressForm">
-            <div class="form-group">
-                <label for="victimSelect">Client</label>
-                <select id="victimSelect" class="form-control" required>
-                    <option value="">Loading clients...</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="progressDate">Session Date</label>
-                <input type="date" id="progressDate" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="progressDescription">Progress Notes</label>
-                <textarea id="progressDescription" class="form-control" rows="5" required></textarea>
-            </div>
-            
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Save Progress
-                </button>
-                <button type="button" class="btn btn-cancel" onclick="window.history.back()">
-                    <i class="fas fa-times"></i> Cancel
-                </button>
-            </div>
-        </form>
+
+    <div class="create-progress-container">
+      <h1><i class="fas fa-chart-line"></i> Create Progress Report</h1>
+
+      <form id="progressForm">
+        <div class="form-group">
+          <label for="victimSelect">Client</label>
+          <select id="victimSelect" class="form-control" required>
+            <option value="">Loading clients...</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="progressDate">Session Date</label>
+          <input type="date" id="progressDate" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+          <label for="progressDescription">Progress Notes</label>
+          <textarea
+            id="progressDescription"
+            class="form-control"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Progress
+          </button>
+          <button
+            type="button"
+            class="btn btn-cancel"
+            onclick="window.history.back()"
+          >
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>ThinkCeylon</h3>
+            <p>Providing anonymous mental health support since 2023.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="pages/public/about.html">About Us</a></li>
+              <li><a href="pages/public/counselors.html">Our Counselors</a></li>
+              <li><a href="pages/public/posts.html">Community</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="pages/public/contact.html">Contact Us</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Newsletter</h3>
+            <p>Subscribe to get mental health tips and updates.</p>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Your Email" />
+              <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../assets/js/progress/create-progress.js"></script>
-</body>
+    <script src="../../assets/js/main.js"></script>
+  </body>
 </html>
