@@ -4,6 +4,8 @@ const postsPerPage = 10;
 let currentPage = 1;
 let currentEditingPost = null;
 let newImageFile = null;
+let dateFromFilter = null;
+let dateToFilter = null;
 
 // Define imageInput globally
 const imageInput = document.createElement("input");
@@ -46,6 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("prevPage").addEventListener("click", goToPrevPage);
   document.getElementById("nextPage").addEventListener("click", goToNextPage);
+  document.getElementById("applyDateFilter").addEventListener("click", applyDateFilter);
+  document.getElementById("clearDateFilter").addEventListener("click", clearDateFilter);
 });
 
 // Fetch posts from API
@@ -118,9 +122,6 @@ function renderPosts(posts = allPosts) {
                 })">
                     <i class="fas fa-eye"></i> View
                 </button>
-                <button class="btn-edit" onclick="editPost(${post.postId})">
-                    <i class="fas fa-edit"></i> Edit
-                </button>
                 <button class="btn-delete" onclick="confirmDeletePost(${
                   post.postId
                 }, '${escapeHTML(post.title)}')">
@@ -136,24 +137,55 @@ function renderPosts(posts = allPosts) {
   document.getElementById("totalCount").textContent = posts.length;
 }
 
+// Date filter functions
+function applyDateFilter() {
+    const fromValue = document.getElementById("dateFrom").value;
+    const toValue = document.getElementById("dateTo").value;
+    
+    dateFromFilter = fromValue ? new Date(fromValue) : null;
+    dateToFilter = toValue ? new Date(toValue) : null;
+    
+    // If both dates are set, validate that "from" is before "to"
+    if (dateFromFilter && dateToFilter && dateFromFilter > dateToFilter) {
+        showError("Invalid Date Range", "The 'From' date must be before the 'To' date");
+        return;
+    }
+    
+    filterPosts(document.getElementById("postSearch").value.toLowerCase());
+}
+
+function clearDateFilter() {
+    document.getElementById("dateFrom").value = "";
+    document.getElementById("dateTo").value = "";
+    dateFromFilter = null;
+    dateToFilter = null;
+    filterPosts(document.getElementById("postSearch").value.toLowerCase());
+}
+
 // Filter posts based on search term
 function filterPosts(searchTerm) {
-  if (!searchTerm) {
-    renderPosts();
-    return;
-  }
+    if (!searchTerm && !dateFromFilter && !dateToFilter) {
+        renderPosts();
+        return;
+    }
 
-  const filteredPosts = allPosts.filter(
-    (post) =>
-      post.title.toLowerCase().includes(searchTerm) ||
-      (post.author &&
-        !post.is_anonymous &&
-        post.author.toLowerCase().includes(searchTerm)) ||
-      post.postId.toString().includes(searchTerm) ||
-      post.description.toLowerCase().includes(searchTerm)
-  );
+    const filteredPosts = allPosts.filter((post) => {
+        // Apply search filter
+        const matchesSearch = !searchTerm || 
+            post.title.toLowerCase().includes(searchTerm) ||
+            (post.author && !post.is_anonymous && post.author.toLowerCase().includes(searchTerm)) ||
+            post.postId.toString().includes(searchTerm) ||
+            post.description.toLowerCase().includes(searchTerm);
+        
+        // Apply date filter
+        const postDate = new Date(post.created_at);
+        const matchesDate = (!dateFromFilter || postDate >= dateFromFilter) && 
+                          (!dateToFilter || postDate <= new Date(dateToFilter.getTime() + 86400000)); // Add 1 day to include the entire end date
+        
+        return matchesSearch && matchesDate;
+    });
 
-  renderPosts(filteredPosts);
+    renderPosts(filteredPosts);
 }
 
 // Pagination functions
