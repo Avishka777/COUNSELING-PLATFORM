@@ -10,6 +10,15 @@ try {
     $stmt = $conn->query("SELECT * FROM counselors");
     $counselors = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
+    // Process each counselor to include full photo URL
+    foreach ($counselors as &$counselor) {
+        if (!empty($counselor['photo'])) {
+            $counselor['photo_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/Counseling%20System/uploads/counselors/' . $counselor['photo'];
+        } else {
+            $counselor['photo_url'] = null;
+        }
+    }
+    
     echo json_encode([
         'status' => 'success',
         'data' => $counselors

@@ -1,363 +1,248 @@
-.counselor-hero {
-  background-color: var(--gray);
-  padding: 60px 0 40px;
+.community-hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--white);
+    padding: 150px 20px 120px;
+    text-align: center;
 }
 
-.breadcrumb {
-  font-size: 0.9rem;
-  color: var(--dark);
-  margin-bottom: 30px;
+.community-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
-.breadcrumb a {
-  color: var(--primary);
-  text-decoration: none;
+.community-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
 }
 
-.breadcrumb a:hover {
-  text-decoration: underline;
+.counselors-container {
+    padding: 3rem 0;
 }
 
-.breadcrumb span {
-  color: var(--primary-dark);
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
-.hero-content {
-  display: flex;
-  gap: 40px;
-  align-items: center;
+.filter-controls input,
+.filter-controls select {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    font-family: "Poppins", sans-serif;
+    min-width: 250px;
+    font-size: 0.95rem;
 }
 
-.counselor-image {
-  flex: 0 0 300px;
-}
-
-.counselor-image img {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.counselor-intro {
-  flex: 1;
-}
-
-.counselor-intro h1 {
-  font-size: 2.5rem;
-  color: var(--primary-dark);
-  margin-bottom: 10px;
-}
-
-.specialization {
-  font-size: 1.1rem;
-  color: var(--dark);
-  margin-bottom: 20px;
-  font-weight: 500;
-}
-
-.rating {
-  margin-bottom: 25px;
-}
-
-.stars {
-  color: #ffc107;
-  font-size: 1.1rem;
-  margin-bottom: 5px;
-}
-
-.stars span {
-  color: var(--dark);
-  font-size: 0.9rem;
-  margin-left: 10px;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 15px;
-  margin-top: 30px;
-}
-
-.btn-primary {
-  background-color: var(--primary);
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-dark);
-}
-
-.btn-outline {
-  background-color: transparent;
-  color: var(--primary);
-  border: 1px solid var(--primary);
-  padding: 12px 25px;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-outline:hover {
-  background-color: rgba(4, 88, 119, 0.1);
-}
-
-.counselor-details {
-  padding: 60px 0;
-  background-color: var(--white);
-}
-
-.details-grid {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 40px;
-}
-
-.main-content h2 {
-  font-size: 1.8rem;
-  color: var(--primary-dark);
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.about-section p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--dark);
-  margin-bottom: 15px;
-}
-
-.specialties-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
-  margin: 20px 0;
-}
-
-.specialty-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 15px;
-  background-color: rgba(4, 88, 119, 0.05);
-  border-radius: 4px;
-}
-
-.specialty-item i {
-  color: var(--primary);
-  font-size: 1.1rem;
-}
-
-.approach-section ul {
-  margin: 20px 0;
-  padding-left: 20px;
-}
-
-.approach-section li {
-  margin-bottom: 10px;
-  line-height: 1.6;
-}
-
-.review-card {
-  background-color: var(--gray);
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.review-header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.reviewer {
-  font-weight: 600;
-  color: var(--primary-dark);
-}
-
-.review-date {
-  color: #777;
-  font-size: 0.9rem;
-}
-
-.review-rating {
-  color: #ffc107;
-  width: 100%;
-  margin-top: 5px;
-}
-
-.review-content p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--dark);
-}
-
-.sidebar {
-  position: relative;
-}
-
-.session-info,
-.languages-section,
-.credentials-section {
-  background-color: var(--gray);
-  border-radius: 8px;
-  padding: 25px;
-  margin-bottom: 25px;
-}
-
-.sidebar h3 {
-  font-size: 1.3rem;
-  color: var(--primary-dark);
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.info-item {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.info-item i {
-  color: var(--primary);
-  font-size: 1.2rem;
-  margin-top: 3px;
-}
-
-.info-item h4 {
-  font-size: 1rem;
-  color: var(--primary-dark);
-  margin-bottom: 5px;
-}
-
-.info-item p {
-  font-size: 0.9rem;
-  color: var(--dark);
-  line-height: 1.5;
-}
-
-.insurance {
-  font-size: 0.85rem;
-  color: var(--primary);
-  font-style: italic;
-  margin-top: 5px;
-}
-
-.language-item,
-.credential-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.language-item i,
-.credential-item i {
-  color: var(--primary);
-}
-
-.other-counselors {
-  padding: 60px 0;
-  background-color: var(--gray);
-}
-
-.section-title {
-  font-size: 2rem;
-  color: var(--primary-dark);
-  text-align: center;
-  margin-bottom: 40px;
+.filter-controls input:focus,
+.filter-controls select:focus {
+    outline: none;
+    border-color: #4361ee;
+    box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
 }
 
 .counselors-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 .counselor-card {
-  background-color: var(--white);
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .counselor-card:hover {
-  transform: translateY(-5px);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-.counselor-card img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 15px;
-  border: 3px solid var(--primary);
+.counselor-image-container {
+    width: 100%;
+    height: 200px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-.counselor-card h3 {
-  font-size: 1.2rem;
-  color: var(--primary-dark);
-  margin-bottom: 5px;
+.counselor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.counselor-card .specialty {
-  font-size: 0.9rem;
-  color: var(--dark);
-  margin-bottom: 15px;
+.counselor-card:hover .counselor-image {
+    transform: scale(1.05);
 }
 
-.counselor-card .rating {
-  margin-bottom: 15px;
-  color: #ffc107;
+.no-photo {
+    font-size: 4rem;
+    color: #ccc;
 }
 
-.counselor-card .rating span {
-  color: var(--dark);
-  font-size: 0.9rem;
-  margin-left: 5px;
+.counselor-info {
+    padding: 1.5rem;
 }
 
-@media (max-width: 992px) {
-  .hero-content {
-    flex-direction: column;
-  }
-
-  .counselor-image {
-    flex: 0 0 auto;
-    width: 200px;
-  }
-
-  .details-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    margin-top: 40px;
-  }
+.counselor-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--primary-dark);
 }
 
-@media (max-width: 768px) {
-  .counselor-intro h1 {
+.counselor-profession {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.counselor-profession i {
+    color: var(--primary-dark);
+}
+
+.counselor-company {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.counselor-company i {
+    color: var(--primary-dark);
+}
+
+.counselor-specialization {
+    display: inline-block;
+    background-color: #f8f9fa;
+    color: var(--primary-dark);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.counselor-description {
+    font-size: 0.9rem;
+    color: #212529;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.btn-view-profile {
+    display: inline-block;
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-view-profile:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-view-profile i {
+    margin-left: 0.3rem;
+}
+
+.loading-spinner {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.loading-spinner i {
+    margin-right: 0.5rem;
+}
+
+.no-counselors {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.no-counselors i {
     font-size: 2rem;
-  }
+    margin-bottom: 1rem;
+    display: block;
+    color: var(--primary-dark);
+}
 
-  .specialties-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .community-hero h1 {
+        font-size: 2rem;
+    }
 
-  .action-buttons {
-    flex-direction: column;
-  }
+    .community-hero p {
+        font-size: 1rem;
+    }
+
+    .counselors-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+    }
+
+    .filter-controls input,
+    .filter-controls select {
+        width: 100%;
+    }
+
+    .counselor-image-container {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .community-hero {
+        padding: 40px 0;
+    }
+
+    .counselors-container {
+        padding: 2rem 0;
+    }
+
+    .counselor-info {
+        padding: 1rem;
+    }
+
+    .counselor-name {
+        font-size: 1.1rem;
+    }
+
+    .counselor-profession,
+    .counselor-company {
+        font-size: 0.85rem;
+    }
 }
