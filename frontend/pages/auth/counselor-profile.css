@@ -1,4 +1,3 @@
-/* auth.css */
 .auth-container {
   display: flex;
   justify-content: center;
@@ -103,7 +102,6 @@
   text-decoration: underline;
 }
 
-/* Availability slot container */
 .availability-slot {
   display: flex;
   align-items: center;
@@ -111,7 +109,6 @@
   margin-bottom: 0.75rem;
 }
 
-/* Dropdown and inputs */
 .availability-slot select,
 .availability-slot input[type="time"] {
   padding: 0.5rem;
@@ -120,7 +117,6 @@
   font-size: 0.9rem;
 }
 
-/* Remove button style */
 .availability-slot button.remove-slot-btn {
   background-color: #e74c3c;
   border: none;
@@ -136,7 +132,6 @@
   background-color: #c0392b;
 }
 
-/* Add button style */
 .btn-secondary {
   background-color: #95a5a6;
   color: white;
@@ -152,7 +147,6 @@
   background-color: #7f8c8d;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .form-columns {
     flex-direction: column;

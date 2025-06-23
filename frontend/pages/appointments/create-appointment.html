@@ -1,179 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Appointment</title>
-    <link rel="stylesheet" href="./create-appointment.css" />
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container">
-        <a href="../public/home.html" class="logo">
-          <img
-            src="../../assets/images/logo.png"
-            alt="Think Ceylone Logo"
-            class="logo-img"
-          />
-          <span class="logo-text">Think Ceylon</span>
-        </a>
 
-        <div class="menu-toggle" id="mobile-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-        <ul class="nav-list">
-          <li><a href="../public/home.html">Home</a></li>
-          <li><a href="../public/./about.html">About</a></li>
-          <li><a href="../public/./counselors.html">Counselors</a></li>
-          <li><a href="../public/./community.html">Community</a></li>
-          <li><a href="../public/./contact.html">Contact</a></li>
-          <li id="user-menu-container">
-            <a href="pages/auth/login.html" class="btn-login" id="login-button"
-              >Login</a
-            >
-          </li>
-          <div class="user-dropdown hidden" id="user-dropdown">
-            <button class="dropdown-toggle">
-              Menu <i class="fas fa-caret-down"></i>
-            </button>
-            <div class="dropdown-menu" id="dropdown-items">
-              <!-- JS will populate based on role -->
-            </div>
-          </div>
-        </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Appointment</title>
+  <link rel="stylesheet" href="./create-appointment.css" />
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="../public/home.html" class="logo">
+        <img src="../../assets/images/logo.png" alt="Think Ceylone Logo" class="logo-img" />
+        <span class="logo-text">Think Ceylon</span>
+      </a>
+
+      <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </div>
-    </nav>
-
-    <div class="appointment-container">
-      <header>
-        <h1><i class="fas fa-calendar-plus"></i> Create New Appointment</h1>
-      </header>
-
-      <main>
-        <form id="appointmentForm" class="appointment-form">
-          <div class="form-group">
-            <label for="counselorSelect"
-              ><i class="fas fa-user-md"></i> Select Counselor:</label
-            >
-            <select id="counselorSelect" required>
-              <option value="" disabled selected>
-                -- Select a counselor --
-              </option>
-              <!-- Counselor options will be populated by JavaScript -->
-            </select>
+      <ul class="nav-list">
+        <li><a href="../public/home.html">Home</a></li>
+        <li><a href="../public/./about.html">About</a></li>
+        <li><a href="../public/./counselors.html">Counselors</a></li>
+        <li><a href="../public/./community.html">Community</a></li>
+        <li><a href="../public/./contact.html">Contact</a></li>
+        <li id="user-menu-container">
+          <a href="pages/auth/login.html" class="btn-login" id="login-button">Login</a>
+        </li>
+        <div class="user-dropdown hidden" id="user-dropdown">
+          <button class="dropdown-toggle">
+            Menu <i class="fas fa-caret-down"></i>
+          </button>
+          <div class="dropdown-menu" id="dropdown-items">
+            <!-- JS will populate based on role -->
           </div>
-
-          <div class="form-group">
-            <label for="appointmentDate"
-              ><i class="fas fa-calendar-day"></i> Date:</label
-            >
-            <input type="date" id="appointmentDate" required />
-          </div>
-
-          <div class="time-container">
-            <div class="form-group">
-              <label for="startTime"
-                ><i class="fas fa-clock"></i> Start Time:</label
-              >
-              <input type="time" id="startTime" required />
-            </div>
-
-            <div class="form-group">
-              <label for="endTime"
-                ><i class="fas fa-clock"></i> End Time:</label
-              >
-              <input type="time" id="endTime" required />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="appointmentNotes"
-              ><i class="fas fa-notes-medical"></i> Notes:</label
-            >
-            <textarea id="appointmentNotes" rows="4"></textarea>
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn-submit">
-              <i class="fas fa-calendar-check"></i> Book Appointment
-            </button>
-            <button
-              type="button"
-              class="btn-cancel"
-              onclick="window.location.href='dashboard.html'"
-            >
-              <i class="fas fa-times"></i> Cancel
-            </button>
-          </div>
-        </form>
-      </main>
+        </div>
+      </ul>
     </div>
+  </nav>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-col">
-            <h3>ThinkCeylon</h3>
-            <p>Providing anonymous mental health support since 2023.</p>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
+  <div class="appointment-container">
+    <header>
+      <h1><i class="fas fa-calendar-plus"></i> Create New Appointment</h1>
+    </header>
+
+    <main>
+      <form id="appointmentForm" class="appointment-form">
+        <div class="form-group">
+          <label for="counselorSelect"><i class="fas fa-user-md"></i> Select Counselor:</label>
+          <select id="counselorSelect" required>
+            <option value="" disabled selected>
+              -- Select a counselor --
+            </option>
+            <!-- Counselor options will be populated by JavaScript -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="appointmentDate"><i class="fas fa-calendar-day"></i> Date:</label>
+          <input type="date" id="appointmentDate" required />
+        </div>
+
+        <div class="time-container">
+          <div class="form-group">
+            <label for="startTime"><i class="fas fa-clock"></i> Start Time:</label>
+            <input type="time" id="startTime" required />
           </div>
 
-          <div class="footer-col">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="./home.html">Home</a></li>
-              <li><a href="./about.html">About Us</a></li>
-              <li><a href="./counselors.html">Our Counselors</a></li>
-              <li><a href="./community.html">Community</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h3>Support</h3>
-            <ul>
-              <li><a href="./contact.html">Contact Us</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h3>Newsletter</h3>
-            <p>Subscribe to get mental health tips and updates.</p>
-            <form class="newsletter-form">
-              <input type="email" placeholder="Your Email" />
-              <button type="submit"><i class="fas fa-paper-plane"></i></button>
-            </form>
+          <div class="form-group">
+            <label for="endTime"><i class="fas fa-clock"></i> End Time:</label>
+            <input type="time" id="endTime" required />
           </div>
         </div>
 
-        <div class="footer-bottom">
-          <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+        <div class="form-group">
+          <label for="appointmentNotes"><i class="fas fa-notes-medical"></i> Notes:</label>
+          <textarea id="appointmentNotes" rows="4"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-calendar-check"></i> Book Appointment
+          </button>
+          <button type="button" class="btn-cancel" onclick="window.location.href='dashboard.html'">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>ThinkCeylon</h3>
+          <p>Providing anonymous mental health support since 2023.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../public/home.html">Home</a></li>
+            <li><a href="../public/about.html">About Us</a></li>
+            <li><a href="../public/counselors.html">Our Counselors</a></li>
+            <li><a href="../public/community.html">Community</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="../public/contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Newsletter</h3>
+          <p>Subscribe to get mental health tips and updates.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your Email" />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
         </div>
       </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../assets/js/appointments/create-appointment.js"></script>
-    <script src="../../assets/js/main.js"></script>
-  </body>
+      <div class="footer-bottom">
+        <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../../assets/js/appointments/create-appointment.js"></script>
+  <script src="../../assets/js/main.js"></script>
+</body>
+
 </html>

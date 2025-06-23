@@ -1,4 +1,3 @@
-/* Hero Section */
 .about-hero {
   position: relative;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -37,7 +36,6 @@
   height: 100px;
 }
 
-/* Our Story */
 .our-story {
   display: flex;
   align-items: center;
@@ -75,7 +73,6 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Mission & Values */
 .mission-values {
   background-color: var(--gray);
   padding: 80px 20px;
@@ -125,14 +122,11 @@
   line-height: 1.6;
 }
 
-/* Team Section */
 .team {
   padding: 80px 20px;
-  background: linear-gradient(
-    135deg,
-    var(--primary) 0%,
-    var(--primary-dark) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--primary) 0%,
+      var(--primary-dark) 100%);
   text-align: center;
 }
 
@@ -191,7 +185,6 @@
   line-height: 1.5;
 }
 
-/* Responsive adjustments */
 @media (max-width: 992px) {
   .our-story {
     flex-direction: column;
@@ -199,6 +192,7 @@
 }
 
 @media (max-width: 768px) {
+
   .values-grid,
   .team-grid {
     grid-template-columns: 1fr;

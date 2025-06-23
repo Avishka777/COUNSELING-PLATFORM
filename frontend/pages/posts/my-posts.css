@@ -170,7 +170,6 @@ tr:hover {
   background-color: #f1b0b7;
 }
 
-/* Modal Styles */
 .modal {
   display: none;
   position: fixed;
@@ -276,7 +275,6 @@ tr:hover {
   font-style: italic;
 }
 
-/* Responsive adjustments */
 @media (max-width: 992px) {
   .post-details {
     grid-template-columns: 1fr;
@@ -321,9 +319,6 @@ tr:hover {
   }
 }
 
-/* Add these styles to your existing CSS */
-
-/* Edit form styles */
 #editPostForm {
   display: grid;
   gap: 20px;

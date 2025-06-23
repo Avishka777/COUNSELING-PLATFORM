@@ -1,167 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Post | MindCare</title>
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link rel="stylesheet" href="./create-post.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </head>
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container">
-        <a href="../public/home.html" class="logo">
-          <img
-            src="../../assets/images/logo.png"
-            alt="Think Ceylone Logo"
-            class="logo-img"
-          />
-          <span class="logo-text">Think Ceylon</span>
-        </a>
 
-        <div class="menu-toggle" id="mobile-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Post | MindCare</title>
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <link rel="stylesheet" href="./create-post.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="../public/home.html" class="logo">
+        <img src="../../assets/images/logo.png" alt="Think Ceylone Logo" class="logo-img" />
+        <span class="logo-text">Think Ceylon</span>
+      </a>
+
+      <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="nav-list">
+        <li><a href="../public/home.html">Home</a></li>
+        <li><a href="../public/./about.html">About</a></li>
+        <li><a href="../public/./counselors.html">Counselors</a></li>
+        <li><a href="../public/./community.html">Community</a></li>
+        <li><a href="../public/./contact.html">Contact</a></li>
+        <li id="user-menu-container">
+          <a href="pages/auth/login.html" class="btn-login" id="login-button">Login</a>
+        </li>
+        <div class="user-dropdown hidden" id="user-dropdown">
+          <button class="dropdown-toggle">
+            Menu <i class="fas fa-caret-down"></i>
+          </button>
+          <div class="dropdown-menu" id="dropdown-items">
+            <!-- JS will populate based on role -->
+          </div>
         </div>
-        <ul class="nav-list">
-          <li><a href="../public/home.html">Home</a></li>
-          <li><a href="../public/./about.html">About</a></li>
-          <li><a href="../public/./counselors.html">Counselors</a></li>
-          <li><a href="../public/./community.html">Community</a></li>
-          <li><a href="../public/./contact.html">Contact</a></li>
-          <li id="user-menu-container">
-            <a href="pages/auth/login.html" class="btn-login" id="login-button"
-              >Login</a
-            >
-          </li>
-          <div class="user-dropdown hidden" id="user-dropdown">
-            <button class="dropdown-toggle">
-              Menu <i class="fas fa-caret-down"></i>
-            </button>
-            <div class="dropdown-menu" id="dropdown-items">
-              <!-- JS will populate based on role -->
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="create-post-container">
+    <div class="container">
+      <div class="post-form-card">
+        <h1>Create New Post</h1>
+
+        <form id="postForm">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required placeholder="What's your post about?" />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="6" required
+              placeholder="Share your thoughts..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="image">Upload Image (Optional)</label>
+            <input type="file" id="image" name="image" accept="image/*" />
+            <div class="image-preview" id="imagePreview">
+              <img id="previewImage" src="#" alt="Preview" style="display: none" />
+              <p id="noImageText">No image selected</p>
             </div>
           </div>
-        </ul>
+
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="isAnonymous" name="isAnonymous" />
+            <label for="isAnonymous">Post anonymously</label>
+            <span class="help-text">(Your username won't be shown)</span>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Publish Post
+          </button>
+        </form>
       </div>
-    </nav>
+    </div>
+  </main>
 
-    <!-- Main Content -->
-    <main class="create-post-container">
-      <div class="container">
-        <div class="post-form-card">
-          <h1>Create New Post</h1>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>ThinkCeylon</h3>
+          <p>Providing anonymous mental health support since 2023.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
 
-          <form id="postForm">
-            <div class="form-group">
-              <label for="title">Title</label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                required
-                placeholder="What's your post about?"
-              />
-            </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../public/home.html">Home</a></li>
+            <li><a href="../public/about.html">About Us</a></li>
+            <li><a href="../public/counselors.html">Our Counselors</a></li>
+            <li><a href="../public/community.html">Community</a></li>
+          </ul>
+        </div>
 
-            <div class="form-group">
-              <label for="description">Description</label>
-              <textarea
-                id="description"
-                name="description"
-                rows="6"
-                required
-                placeholder="Share your thoughts..."
-              ></textarea>
-            </div>
+        <div class="footer-col">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="../public/contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
 
-            <div class="form-group">
-              <label for="image">Upload Image (Optional)</label>
-              <input type="file" id="image" name="image" accept="image/*" />
-              <div class="image-preview" id="imagePreview">
-                <img
-                  id="previewImage"
-                  src="#"
-                  alt="Preview"
-                  style="display: none"
-                />
-                <p id="noImageText">No image selected</p>
-              </div>
-            </div>
-
-            <div class="form-group checkbox-group">
-              <input type="checkbox" id="isAnonymous" name="isAnonymous" />
-              <label for="isAnonymous">Post anonymously</label>
-              <span class="help-text">(Your username won't be shown)</span>
-            </div>
-
-            <button type="submit" class="btn-submit">
-              <i class="fas fa-paper-plane"></i> Publish Post
-            </button>
+        <div class="footer-col">
+          <h3>Newsletter</h3>
+          <p>Subscribe to get mental health tips and updates.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your Email" />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
           </form>
         </div>
       </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-col">
-            <h3>ThinkCeylon</h3>
-            <p>Providing anonymous mental health support since 2023.</p>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </div>
-
-          <div class="footer-col">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="./home.html">Home</a></li>
-              <li><a href="./about.html">About Us</a></li>
-              <li><a href="./counselors.html">Our Counselors</a></li>
-              <li><a href="./community.html">Community</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h3>Support</h3>
-            <ul>
-              <li><a href="./contact.html">Contact Us</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h3>Newsletter</h3>
-            <p>Subscribe to get mental health tips and updates.</p>
-            <form class="newsletter-form">
-              <input type="email" placeholder="Your Email" />
-              <button type="submit"><i class="fas fa-paper-plane"></i></button>
-            </form>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
-        </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <script src="../../assets/js/posts/create_post.js"></script>
-    <script src="../../assets/js/main.js"></script>
-  </body>
+  <script src="../../assets/js/posts/create_post.js"></script>
+  <script src="../../assets/js/main.js"></script>
+</body>
+
 </html>

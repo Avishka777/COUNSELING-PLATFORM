@@ -1,157 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Counseling Progress Reports</title>
-    <link rel="stylesheet" href="./counselor-progress.css" />
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container">
-        <a href="../public/home.html" class="logo">
-          <img
-            src="../../assets/images/logo.png"
-            alt="Think Ceylone Logo"
-            class="logo-img"
-          />
-          <span class="logo-text">Think Ceylon</span>
-        </a>
 
-        <div class="menu-toggle" id="mobile-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-        <ul class="nav-list">
-          <li><a href="../public/home.html">Home</a></li>
-          <li><a href="../public/./about.html">About</a></li>
-          <li><a href="../public/./counselors.html">Counselors</a></li>
-          <li><a href="../public/./community.html">Community</a></li>
-          <li><a href="../public/./contact.html">Contact</a></li>
-          <li id="user-menu-container">
-            <a href="pages/auth/login.html" class="btn-login" id="login-button"
-              >Login</a
-            >
-          </li>
-          <div class="user-dropdown hidden" id="user-dropdown">
-            <button class="dropdown-toggle">
-              Menu <i class="fas fa-caret-down"></i>
-            </button>
-            <div class="dropdown-menu" id="dropdown-items">
-              <!-- JS will populate based on role -->
-            </div>
-          </div>
-        </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Counseling Progress Reports</title>
+  <link rel="stylesheet" href="./counselor-progress.css" />
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="../public/home.html" class="logo">
+        <img src="../../assets/images/logo.png" alt="Think Ceylone Logo" class="logo-img" />
+        <span class="logo-text">Think Ceylon</span>
+      </a>
+
+      <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </div>
-    </nav>
-
-    <div class="main-content-wrapper">
-      <div class="counselor-progress-container">
-        <h1><i class="fas fa-chart-line"></i> Counseling Progress Reports</h1>
-
-        <div class="filter-controls">
-          <div class="filter-group">
-            <label for="filterDate">Filter by Date:</label>
-            <input type="date" id="filterDate" class="form-control" />
-          </div>
-          <button id="refreshBtn" class="btn btn-primary">
-            <i class="fas fa-sync-alt"></i> Refresh
+      <ul class="nav-list">
+        <li><a href="../public/home.html">Home</a></li>
+        <li><a href="../public/./about.html">About</a></li>
+        <li><a href="../public/./counselors.html">Counselors</a></li>
+        <li><a href="../public/./community.html">Community</a></li>
+        <li><a href="../public/./contact.html">Contact</a></li>
+        <li id="user-menu-container">
+          <a href="pages/auth/login.html" class="btn-login" id="login-button">Login</a>
+        </li>
+        <div class="user-dropdown hidden" id="user-dropdown">
+          <button class="dropdown-toggle">
+            Menu <i class="fas fa-caret-down"></i>
           </button>
+          <div class="dropdown-menu" id="dropdown-items">
+            <!-- JS will populate based on role -->
+          </div>
         </div>
+      </ul>
+    </div>
+  </nav>
 
-        <div class="progress-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Client</th>
-                <th>Counselor</th>
-                <th>Notes Preview</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="progressTableBody">
-              <!-- Progress entries will be loaded here -->
-            </tbody>
-          </table>
+  <div class="main-content-wrapper">
+    <div class="counselor-progress-container">
+      <h1><i class="fas fa-chart-line"></i> Counseling Progress Reports</h1>
+
+      <div class="filter-controls">
+        <div class="filter-group">
+          <label for="filterDate">Filter by Date:</label>
+          <input type="date" id="filterDate" class="form-control" />
         </div>
+        <button id="refreshBtn" class="btn btn-primary">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
       </div>
 
-      <!-- Progress Details Modal -->
-      <div id="progressModal" class="modal">
-        <div class="modal-content">
-          <span class="close-modal">&times;</span>
-          <div class="modal-header">
-            <h2 id="modalTitle">Progress Details</h2>
-          </div>
-          <div class="modal-body" id="modalBody">
-            <!-- Progress details will be loaded here -->
-          </div>
-        </div>
+      <div class="progress-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Client</th>
+              <th>Counselor</th>
+              <th>Notes Preview</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="progressTableBody">
+            <!-- Progress entries will be loaded here -->
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-col">
-            <h3>ThinkCeylon</h3>
-            <p>Providing anonymous mental health support since 2023.</p>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </div>
-
-          <div class="footer-col">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="./home.html">Home</a></li>
-              <li><a href="./about.html">About Us</a></li>
-              <li><a href="./counselors.html">Our Counselors</a></li>
-              <li><a href="./community.html">Community</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h3>Support</h3>
-            <ul>
-              <li><a href="./contact.html">Contact Us</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h3>Newsletter</h3>
-            <p>Subscribe to get mental health tips and updates.</p>
-            <form class="newsletter-form">
-              <input type="email" placeholder="Your Email" />
-              <button type="submit"><i class="fas fa-paper-plane"></i></button>
-            </form>
-          </div>
+    <!-- Progress Details Modal -->
+    <div id="progressModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-header">
+          <h2 id="modalTitle">Progress Details</h2>
         </div>
-
-        <div class="footer-bottom">
-          <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+        <div class="modal-body" id="modalBody">
+          <!-- Progress details will be loaded here -->
         </div>
       </div>
-    </footer>
+    </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../assets/js/progress/counselor-progress.js"></script>
-    <script src="../../assets/js/main.js"></script>
-  </body>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>ThinkCeylon</h3>
+          <p>Providing anonymous mental health support since 2023.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../public/home.html">Home</a></li>
+            <li><a href="../public/about.html">About Us</a></li>
+            <li><a href="../public/counselors.html">Our Counselors</a></li>
+            <li><a href="../public/community.html">Community</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="../public/contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Newsletter</h3>
+          <p>Subscribe to get mental health tips and updates.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your Email" />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../../assets/js/progress/counselor-progress.js"></script>
+  <script src="../../assets/js/main.js"></script>
+</body>
+
 </html>

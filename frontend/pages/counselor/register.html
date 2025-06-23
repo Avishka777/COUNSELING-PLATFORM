@@ -1,124 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register - Counseling System</title>
-    <link rel="stylesheet" href="./register.css" />
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </head>
-  <body>
-    <main class="auth-container">
-      <div class="auth-form">
-        <h2>Create Counselor Account</h2>
-        <form id="counselorForm" enctype="multipart/form-data">
-          <div class="form-columns">
-            <!-- Left Column -->
-            <div class="form-column">
-              <div class="form-group">
-                <label for="username">Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  required
-                  placeholder="Enter username"
-                />
-              </div>
 
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  required
-                  placeholder="Enter password"
-                  minlength="6"
-                />
-              </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Counseling System</title>
+  <link rel="stylesheet" href="./register.css" />
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 
-              <div class="form-group">
-                <label for="name">Full Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  placeholder="Enter full name"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="photo">Profile Photo</label>
-                <input
-                  type="file"
-                  id="photo"
-                  name="photo"
-                  accept="image/*"
-                  required
-                />
-              </div>
+<body>
+  <main class="auth-container">
+    <div class="auth-form">
+      <h2>Create Counselor Account</h2>
+      <form id="counselorForm" enctype="multipart/form-data">
+        <div class="form-columns">
+          <!-- Left Column -->
+          <div class="form-column">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" name="username" required placeholder="Enter username" />
             </div>
 
-            <!-- Right Column -->
-            <div class="form-column">
-              <div class="form-group">
-                <label for="current_profession">Current Profession</label>
-                <input
-                  type="text"
-                  id="current_profession"
-                  name="current_profession"
-                  required
-                  placeholder="Enter current profession"
-                />
-              </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required placeholder="Enter password"
+                minlength="6" />
+            </div>
 
-              <div class="form-group">
-                <label for="company">Company</label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  required
-                  placeholder="Enter company name"
-                />
-              </div>
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required placeholder="Enter full name" />
+            </div>
 
-              <div class="form-group">
-                <label for="specialization">Specialization</label>
-                <input
-                  type="text"
-                  id="specialization"
-                  name="specialization"
-                  required
-                  placeholder="Enter your specialization"
-                />
-              </div>
+            <div class="form-group">
+              <label for="photo">Profile Photo</label>
+              <input type="file" id="photo" name="photo" accept="image/*" required />
             </div>
           </div>
 
-          <!-- Full-width textarea below columns -->
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              required
-              placeholder="Tell us about yourself"
-              minlength="20"
-            ></textarea>
-          </div>
+          <!-- Right Column -->
+          <div class="form-column">
+            <div class="form-group">
+              <label for="current_profession">Current Profession</label>
+              <input type="text" id="current_profession" name="current_profession" required
+                placeholder="Enter current profession" />
+            </div>
 
-          <button type="submit" class="btn">Register</button>
-        </form>
-        <p class="auth-link">
-          Already have an account?
-          <a href="../auth/login.html">Login here</a>
-        </p>
-      </div>
-    </main>
-    <script src="../../assets/js/counselor/register.js"></script>
-  </body>
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" required placeholder="Enter company name" />
+            </div>
+
+            <div class="form-group">
+              <label for="specialization">Specialization</label>
+              <input type="text" id="specialization" name="specialization" required
+                placeholder="Enter your specialization" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Full-width textarea below columns -->
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" required placeholder="Tell us about yourself"
+            minlength="20"></textarea>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+      </form>
+      <p class="auth-link">
+        Already have an account?
+        <a href="../auth/login.html">Login here</a>
+      </p>
+    </div>
+  </main>
+  <script src="../../assets/js/counselor/register.js"></script>
+</body>
+
 </html>

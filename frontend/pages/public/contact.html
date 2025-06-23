@@ -1,265 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Us | ThinkCeylon</title>
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link rel="stylesheet" href="./contact.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container">
-        <a href="../public/home.html" class="logo">
-          <img
-            src="../../assets/images/logo.png"
-            alt="Think Ceylone Logo"
-            class="logo-img"
-          />
-          <span class="logo-text">Think Ceylon</span>
-        </a>
 
-        <div class="menu-toggle" id="mobile-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-        <ul class="nav-list">
-          <li><a href="./home.html">Home</a></li>
-          <li><a href="./about.html">About</a></li>
-          <li><a href="./counselors.html">Counselors</a></li>
-          <li><a href="./community.html">Community</a></li>
-          <li><a href="./contact.html" class="active">Contact</a></li>
-          <li id="user-menu-container">
-            <a href="../auth/login.html" class="btn-login" id="login-button"
-              >Login</a
-            >
-          </li>
-          <div class="user-dropdown hidden" id="user-dropdown">
-            <button class="dropdown-toggle">
-              Menu <i class="fas fa-caret-down"></i>
-            </button>
-            <div class="dropdown-menu" id="dropdown-items">
-              <!-- JS will populate based on role -->
-            </div>
-          </div>
-        </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | ThinkCeylon</title>
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <link rel="stylesheet" href="./contact.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="../public/home.html" class="logo">
+        <img src="../../assets/images/logo.png" alt="Think Ceylone Logo" class="logo-img" />
+        <span class="logo-text">Think Ceylon</span>
+      </a>
+
+      <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </div>
-    </nav>
-
-    <!-- Contact Hero -->
-    <section class="contact-hero">
-      <div class="container">
-        <h1>Contact Think<span>Ceylon</span></h1>
-        <p>We're here to help and answer any questions you may have</p>
-      </div>
-    </section>
-
-    <!-- Contact Content -->
-    <section class="contact-content">
-      <div class="container">
-        <div class="contact-grid">
-          <div class="contact-info">
-            <h2>Get In Touch</h2>
-            <p>
-              Have questions about our services or need support? Reach out to us
-              through any of these channels.
-            </p>
-
-            <div class="info-card">
-              <div class="info-icon">
-                <i class="fas fa-envelope"></i>
-              </div>
-              <div class="info-text">
-                <h3>Email Us</h3>
-                <p>support@thinkceylon.com</p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="info-icon">
-                <i class="fas fa-phone"></i>
-              </div>
-              <div class="info-text">
-                <h3>Call Us</h3>
-                <p>+1 (800) 555-HELP</p>
-                <p>Mon-Fri, 9am-5pm EST</p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="info-icon">
-                <i class="fas fa-map-marker-alt"></i>
-              </div>
-              <div class="info-text">
-                <h3>Visit Us</h3>
-                <p>123 Wellness Way</p>
-                <p>Boston, MA 02115</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="contact-form">
-            <h2>Send Us a Message</h2>
-            <form id="contactForm">
-              <div class="form-group">
-                <label for="name">Your Name</label>
-                <input type="text" id="name" name="name" required />
-              </div>
-
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required />
-              </div>
-
-              <div class="form-group">
-                <label for="subject">Subject</label>
-                <select id="subject" name="subject" required>
-                  <option value="">Select a subject</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="technical">Technical Support</option>
-                  <option value="counseling">Counseling Questions</option>
-                  <option value="feedback">Feedback/Suggestions</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="message">Your Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="5"
-                  required
-                ></textarea>
-              </div>
-
-              <button type="submit" class="btn-primary">Send Message</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq">
-      <div class="container">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            Is ThinkCeylon really anonymous?
-            <i class="fas fa-chevron-down"></i>
+      <ul class="nav-list">
+        <li><a href="./home.html">Home</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./counselors.html">Counselors</a></li>
+        <li><a href="./community.html">Community</a></li>
+        <li><a href="./contact.html" class="active">Contact</a></li>
+        <li id="user-menu-container">
+          <a href="../auth/login.html" class="btn-login" id="login-button">Login</a>
+        </li>
+        <div class="user-dropdown hidden" id="user-dropdown">
+          <button class="dropdown-toggle">
+            Menu <i class="fas fa-caret-down"></i>
           </button>
-          <div class="faq-answer">
-            <p>
-              Yes, absolutely. We don't require any personally identifiable
-              information to use our basic services. Even when booking sessions,
-              you can use an alias and we don't store personal details.
-            </p>
+          <div class="dropdown-menu" id="dropdown-items">
+            <!-- JS will populate based on role -->
           </div>
         </div>
+      </ul>
+    </div>
+  </nav>
 
-        <div class="faq-item">
-          <button class="faq-question">
-            How do I know the counselors are qualified?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              All our counselors are licensed professionals with verified
-              credentials. We thoroughly vet each counselor before they join our
-              platform and provide specialized training in online counseling.
-            </p>
-          </div>
-        </div>
+  <!-- Contact Hero -->
+  <section class="contact-hero">
+    <div class="container">
+      <h1>Contact Think<span>Ceylon</span></h1>
+      <p>We're here to help and answer any questions you may have</p>
+    </div>
+  </section>
 
-        <div class="faq-item">
-          <button class="faq-question">
-            What if I need immediate help?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              If you're in crisis and need immediate assistance, please call
-              your local emergency number or a crisis hotline. While ThinkCeylon
-              provides support, we're not a crisis intervention service.
-            </p>
-          </div>
-        </div>
+  <!-- Contact Content -->
+  <section class="contact-content">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>Get In Touch</h2>
+          <p>
+            Have questions about our services or need support? Reach out to us
+            through any of these channels.
+          </p>
 
-        <div class="faq-item">
-          <button class="faq-question">
-            How much does it cost?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Basic community access is free. Counseling sessions have varying
-              costs depending on the counselor and session length, but we offer
-              sliding scale options for those in need.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-col">
-            <h3>ThinkCeylon</h3>
-            <p>Providing anonymous mental health support since 2023.</p>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="info-text">
+              <h3>Email Us</h3>
+              <p>support@thinkceylon.com</p>
             </div>
           </div>
 
-          <div class="footer-col">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="./home.html">Home</a></li>
-              <li><a href="./about.html">About Us</a></li>
-              <li><a href="./counselors.html">Our Counselors</a></li>
-              <li><a href="./community.html">Community</a></li>
-            </ul>
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="info-text">
+              <h3>Call Us</h3>
+              <p>+1 (800) 555-HELP</p>
+              <p>Mon-Fri, 9am-5pm EST</p>
+            </div>
           </div>
 
-          <div class="footer-col">
-            <h3>Support</h3>
-            <ul>
-              <li><a href="./contact.html">Contact Us</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h3>Newsletter</h3>
-            <p>Subscribe to get mental health tips and updates.</p>
-            <form class="newsletter-form">
-              <input type="email" placeholder="Your Email" />
-              <button type="submit"><i class="fas fa-paper-plane"></i></button>
-            </form>
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="info-text">
+              <h3>Visit Us</h3>
+              <p>123 Wellness Way</p>
+              <p>Boston, MA 02115</p>
+            </div>
           </div>
         </div>
 
-        <div class="footer-bottom">
-          <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+        <div class="contact-form">
+          <h2>Send Us a Message</h2>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject" required>
+                <option value="">Select a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="technical">Technical Support</option>
+                <option value="counseling">Counseling Questions</option>
+                <option value="feedback">Feedback/Suggestions</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">Send Message</button>
+          </form>
         </div>
       </div>
-    </footer>
+    </div>
+  </section>
 
-    <script src="../../assets/js/main.js"></script>
-    <script src="../../assets/js/contact.js"></script>
-  </body>
+  <!-- FAQ Section -->
+  <section class="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Is ThinkCeylon really anonymous?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Yes, absolutely. We don't require any personally identifiable
+            information to use our basic services. Even when booking sessions,
+            you can use an alias and we don't store personal details.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          How do I know the counselors are qualified?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          <p>
+            All our counselors are licensed professionals with verified
+            credentials. We thoroughly vet each counselor before they join our
+            platform and provide specialized training in online counseling.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What if I need immediate help?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          <p>
+            If you're in crisis and need immediate assistance, please call
+            your local emergency number or a crisis hotline. While ThinkCeylon
+            provides support, we're not a crisis intervention service.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          How much does it cost?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Basic community access is free. Counseling sessions have varying
+            costs depending on the counselor and session length, but we offer
+            sliding scale options for those in need.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>ThinkCeylon</h3>
+          <p>Providing anonymous mental health support since 2023.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../public/home.html">Home</a></li>
+            <li><a href="../public/about.html">About Us</a></li>
+            <li><a href="../public/counselors.html">Our Counselors</a></li>
+            <li><a href="../public/community.html">Community</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="../public/contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Newsletter</h3>
+          <p>Subscribe to get mental health tips and updates.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your Email" />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/contact.js"></script>
+</body>
+
 </html>

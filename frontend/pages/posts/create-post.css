@@ -124,7 +124,6 @@
   font-size: 0.9rem;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .post-form-card {
     padding: 20px;
