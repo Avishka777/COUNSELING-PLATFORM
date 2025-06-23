@@ -15,12 +15,20 @@ if (isset($_GET['counselorId'])) {
             if (!empty($counselor['photo'])) {
                 $counselor['photo'] = 'http://' . $_SERVER['HTTP_HOST'] . '/Counseling%20System/uploads/counselors/' . $counselor['photo'];
             }
+
+            // Fetch availability
+            $availabilityStmt = $conn->prepare("SELECT day_of_week, start_time, end_time FROM counselor_availability WHERE counselorId = ?");
+            $availabilityStmt->execute([$_GET['counselorId']]);
+            $availability = $availabilityStmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $counselor['availability'] = $availability;
+
             echo json_encode($counselor);
         } else {
             http_response_code(404);
             echo json_encode(["error" => "Counselor not found"]);
         }
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         http_response_code(500);
         echo json_encode(["error" => "Database error: " . $e->getMessage()]);
     }

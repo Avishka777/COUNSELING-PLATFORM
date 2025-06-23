@@ -3,9 +3,65 @@ document.addEventListener('DOMContentLoaded', function() {
     const deleteBtn = document.getElementById('deleteBtn');
     const photoPreview = document.getElementById('photoPreview');
     
+    // Availability elements
+    const availabilityContainer = document.getElementById('availability-container');
+    const addAvailabilityBtn = document.getElementById('addAvailabilityBtn');
+
+    // Days of the week options
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    // Function to add availability slot UI
+    function addAvailabilitySlot(day = "", start = "", end = "") {
+        const slotDiv = document.createElement('div');
+        slotDiv.classList.add('availability-slot');
+
+        // Day select
+        const daySelect = document.createElement('select');
+        daySelect.name = 'availability_day[]';
+        daysOfWeek.forEach(d => {
+            const option = document.createElement('option');
+            option.value = d;
+            option.textContent = d;
+            if (d === day) option.selected = true;
+            daySelect.appendChild(option);
+        });
+
+        // Start time input
+        const startTime = document.createElement('input');
+        startTime.type = 'time';
+        startTime.name = 'availability_start[]';
+        startTime.value = start;
+
+        // End time input
+        const endTime = document.createElement('input');
+        endTime.type = 'time';
+        endTime.name = 'availability_end[]';
+        endTime.value = end;
+
+        // Remove button
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.classList.add('remove-slot-btn');
+        removeBtn.textContent = 'Remove';
+        removeBtn.addEventListener('click', () => {
+            slotDiv.remove();
+        });
+
+        slotDiv.appendChild(daySelect);
+        slotDiv.appendChild(startTime);
+        slotDiv.appendChild(endTime);
+        slotDiv.appendChild(removeBtn);
+
+        availabilityContainer.appendChild(slotDiv);
+    }
+
+    addAvailabilityBtn.addEventListener('click', () => {
+        addAvailabilitySlot();
+    });
+
     // Load counselor data
     loadCounselorData();
-    
+
     // Form submission handler
     profileForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -60,7 +116,23 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.photo) {
                 photoPreview.innerHTML = `<img src="${data.photo}" alt="Profile Photo" style="max-width: 200px; max-height: 200px; border-radius: 4px;">`;
             }
-            
+
+            // Load availability if exists
+            if (Array.isArray(data.availability) && data.availability.length > 0) {
+                availabilityContainer.innerHTML = ''; // clear existing slots
+                data.availability.forEach(slot => {
+                    // Support either day_of_week or day keys depending on backend
+                    const day = slot.day_of_week || slot.day || "";
+                    const start = slot.start_time || "";
+                    const end = slot.end_time || "";
+                    addAvailabilitySlot(day, start, end);
+                });
+            } else {
+                // If no availability data, add one empty slot by default
+                availabilityContainer.innerHTML = '';
+                addAvailabilitySlot();
+            }
+
         } catch (error) {
             Swal.fire({
                 icon: 'error',
@@ -96,7 +168,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error('New passwords do not match');
                 }
             }
-            
+
+            // Collect availability data from the form
+            const availabilitySlots = [];
+            const daySelects = availabilityContainer.querySelectorAll('select[name="availability_day[]"]');
+            const startTimes = availabilityContainer.querySelectorAll('input[name="availability_start[]"]');
+            const endTimes = availabilityContainer.querySelectorAll('input[name="availability_end[]"]');
+
+            for (let i = 0; i < daySelects.length; i++) {
+                const day = daySelects[i].value;
+                const start = startTimes[i].value;
+                const end = endTimes[i].value;
+
+                // Only include if all fields are filled
+                if (day && start && end) {
+                    availabilitySlots.push({ day_of_week: day, start_time: start, end_time: end });
+                }
+            }
+            formData.availability = availabilitySlots;
+
             // Handle file upload if photo changed
             const photoInput = document.getElementById('photo');
             if (photoInput.files.length > 0) {

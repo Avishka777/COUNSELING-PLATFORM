@@ -11,6 +11,15 @@ CREATE TABLE counselors (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE counselor_availability (
+    availabilityId INT AUTO_INCREMENT PRIMARY KEY,
+    counselorId INT NOT NULL,
+    day_of_week ENUM('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    FOREIGN KEY (counselorId) REFERENCES counselors(counselorId) ON DELETE CASCADE
+);
+
 CREATE TABLE victims (
     userId INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,

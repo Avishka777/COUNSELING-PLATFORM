@@ -22,7 +22,7 @@ try {
         exit();
     }
 
-    // Prepare base update query
+    // Prepare base update query and params
     $query = "UPDATE counselors SET name = ?, current_profession = ?, company = ?, specialization = ?, description = ?";
     $params = [
         $data->name,
@@ -30,10 +30,9 @@ try {
         $data->company,
         $data->specialization,
         $data->description,
-        $data->counselorId
     ];
 
-    // Add password update if provided
+    // Handle password update if provided
     if (!empty($data->newPassword)) {
         if (empty($data->currentPassword)) {
             http_response_code(400);
@@ -46,27 +45,55 @@ try {
         $stmt->execute([$data->counselorId]);
         $counselor = $stmt->fetch();
 
-        if (!password_verify($data->currentPassword, $counselor['password'])) {
+        if (!$counselor || !password_verify($data->currentPassword, $counselor['password'])) {
             http_response_code(401);
             echo json_encode(["error" => "Current password is incorrect"]);
             exit();
         }
 
         $query .= ", password = ?";
-        array_splice($params, -1, 0, [password_hash($data->newPassword, PASSWORD_DEFAULT)]);
+        $params[] = password_hash($data->newPassword, PASSWORD_DEFAULT);
     }
 
     $query .= " WHERE counselorId = ?";
-    
+    $params[] = $data->counselorId;
+
+    // Execute update
     $stmt = $conn->prepare($query);
     $stmt->execute($params);
 
-    if ($stmt->rowCount() > 0) {
-        echo json_encode(["message" => "Profile updated successfully"]);
-    } else {
-        http_response_code(404);
-        echo json_encode(["error" => "No changes made or counselor not found"]);
+    // Update availability if provided
+    if (isset($data->availability) && is_array($data->availability)) {
+        // Delete existing availability for counselor
+        $delStmt = $conn->prepare("DELETE FROM counselor_availability WHERE counselorId = ?");
+        $delStmt->execute([$data->counselorId]);
+
+        // Insert new availability slots
+        $insertStmt = $conn->prepare("
+            INSERT INTO counselor_availability (counselorId, day_of_week, start_time, end_time)
+            VALUES (?, ?, ?, ?)
+        ");
+
+        foreach ($data->availability as $slot) {
+            // Validate keys and sanitize inputs if needed
+            if (
+                isset($slot->day_of_week, $slot->start_time, $slot->end_time)
+                && !empty($slot->day_of_week)
+                && !empty($slot->start_time)
+                && !empty($slot->end_time)
+            ) {
+                $insertStmt->execute([
+                    $data->counselorId,
+                    $slot->day_of_week,
+                    $slot->start_time,
+                    $slot->end_time
+                ]);
+            }
+        }
     }
+
+    echo json_encode(["message" => "Profile updated successfully"]);
+
 } catch(PDOException $e) {
     http_response_code(500);
     echo json_encode(["error" => "Database error: " . $e->getMessage()]);

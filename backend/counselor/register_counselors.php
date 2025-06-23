@@ -8,7 +8,7 @@ header("Content-Type: application/json");
 $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validation
+    // Required field validation
     $required_fields = ['username', 'password', 'name', 'current_profession', 'company', 'specialization', 'description'];
     $errors = [];
 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Save photo
+    // Upload photo
     $upload_dir = "../../uploads/counselors/";
     if (!file_exists($upload_dir)) {
         mkdir($upload_dir, 0777, true);
@@ -54,24 +54,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Hash password
     $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    // Insert data
+    // Insert counselor
     $stmt = $conn->prepare("INSERT INTO counselors (username, password, name, photo, current_profession, company, specialization, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
     try {
         $stmt->execute([
             $_POST['username'],
             $hashedPassword,
             $_POST['name'],
-            $photo_name, 
+            $photo_name,
             $_POST['current_profession'],
             $_POST['company'],
             $_POST['specialization'],
             $_POST['description']
         ]);
 
-        echo json_encode(["status" => "success", "message" => "Counselor registered successfully."]);
+        $counselorId = $conn->lastInsertId();
+
+        // Insert availability
+        if (isset($_POST['availability']) && is_array($_POST['availability'])) {
+            $availStmt = $conn->prepare("INSERT INTO counselor_availability (counselorId, day_of_week, start_time, end_time) VALUES (?, ?, ?, ?)");
+
+            foreach ($_POST['availability'] as $slot) {
+                if (
+                    isset($slot['day'], $slot['start_time'], $slot['end_time']) &&
+                    $slot['day'] !== "" && $slot['start_time'] !== "" && $slot['end_time'] !== ""
+                ) {
+                    $availStmt->execute([
+                        $counselorId,
+                        $slot['day'],
+                        $slot['start_time'],
+                        $slot['end_time']
+                    ]);
+                }
+            }
+        }
+
+        echo json_encode(["status" => "success", "message" => "Counselor registered with availability."]);
+
     } catch (PDOException $e) {
         echo json_encode(["status" => "error", "message" => "Database error: " . $e->getMessage()]);
     }
+
 } else {
     echo json_encode(["status" => "error", "message" => "Invalid request method."]);
 }
