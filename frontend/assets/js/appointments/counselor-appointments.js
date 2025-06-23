@@ -119,16 +119,6 @@ function renderAppointments(appointments = allAppointments) {
                 })">
                     <i class="fas fa-eye"></i> View
                 </button>
-                <button class="btn-status" onclick="changeAppointmentStatus(${
-                  appointment.appointmentId
-                }, '${appointment.status}')">
-                    <i class="fas fa-sync-alt"></i> Status
-                </button>
-                <button class="btn-delete" onclick="confirmDeleteAppointment(${
-                  appointment.appointmentId
-                })">
-                    <i class="fas fa-trash-alt"></i> Delete
-                </button>
             </td>
         `;
     tableBody.appendChild(row);
@@ -397,17 +387,6 @@ function displayAppointmentModal(appointment, isEditMode = false) {
         `
             : ""
         }
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-edit" 
-                  onclick="displayAppointmentModal(currentEditingAppointment, true)">
-            <i class="fas fa-edit"></i> Edit
-          </button>
-          <button type="button" class="btn btn-cancel" 
-                  onclick="document.getElementById('appointmentModal').style.display='none'">
-            Close
-          </button>
-        </div>
       </div>
     `;
 
