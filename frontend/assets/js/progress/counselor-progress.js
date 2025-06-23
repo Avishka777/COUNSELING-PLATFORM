@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("progressModal");
   const closeModal = document.querySelector(".close-modal");
   const filterDate = document.getElementById("filterDate");
+  const filterUser = document.getElementById("filterUser");
   const refreshBtn = document.getElementById("refreshBtn");
 
   // Initialize
@@ -23,8 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchProgressReports();
   });
 
+  filterUser.addEventListener("input", function () {
+    fetchProgressReports();
+  });
+
   refreshBtn.addEventListener("click", function () {
     filterDate.value = "";
+    filterUser.value = "";
     fetchProgressReports();
   });
 });
@@ -42,9 +48,15 @@ async function fetchProgressReports() {
     // Build URL with filters
     let url = `http://localhost/Counseling%20System/backend/progress/get_all_counselor_progress.php?counselorId=${userData.counselorId}`;
 
-    const filterDate = document.getElementById("filterDate").value;
-    if (filterDate) {
-      url += `&date=${filterDate}`;
+    const dateFilter = document.getElementById("filterDate").value;
+    const userFilter = document.getElementById("filterUser").value.trim();
+
+    if (dateFilter) {
+      url += `&date=${dateFilter}`;
+    }
+
+    if (userFilter) {
+      url += `&username=${encodeURIComponent(userFilter)}`;
     }
 
     const response = await fetch(url, {

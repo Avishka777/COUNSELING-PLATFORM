@@ -15,6 +15,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // Any other shared JavaScript functionality
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const userRole = localStorage.getItem("userRole");
+  if (userRole === "counselor") {
+    const counselorNavLink = document.querySelector(
+      'a[href="./counselors.html"]'
+    );
+    if (counselorNavLink) {
+      counselorNavLink.parentElement.remove(); 
+    }
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const userRole = localStorage.getItem("userRole");
   const loginBtn = document.getElementById("login-button");

@@ -6,14 +6,12 @@ header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-// Handle preflight request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
 try {
-    // Validate counselorId parameter is required
     if (!isset($_GET['counselorId'])) {
         http_response_code(400);
         echo json_encode(["status" => "error", "message" => "counselorId parameter is required"]);
@@ -27,10 +25,10 @@ try {
         exit;
     }
 
-    // Get optional filters
-    $victimId = isset($_GET['victimId']) ? (int)$_GET['victimId'] : null;
+    $victimId = isset($_GET['victimId']) ? (int) $_GET['victimId'] : null;
     $date = isset($_GET['date']) ? $_GET['date'] : null;
-    $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
+    $username = isset($_GET['username']) ? trim($_GET['username']) : null;
+    $limit = isset($_GET['limit']) ? (int) $_GET['limit'] : null;
 
     $query = "SELECT p.*, 
                      u.username as victim_username,
@@ -45,7 +43,7 @@ try {
               JOIN victims u ON p.victimId = u.userId
               JOIN counselors c ON p.counselorId = c.counselorId
               WHERE p.counselorId = :counselorId";
-    
+
     $params = [':counselorId' => $counselorId];
 
     if ($victimId !== null) {
@@ -53,7 +51,12 @@ try {
         $params[':victimId'] = $victimId;
     }
 
-    if ($date !== null) {
+    if (!empty($username)) {
+        $query .= " AND u.username LIKE :username";
+        $params[':username'] = '%' . $username . '%';
+    }
+
+    if (!empty($date)) {
         $query .= " AND p.counseling_date = :date";
         $params[':date'] = $date;
     }
@@ -66,11 +69,10 @@ try {
     }
 
     $stmt = $conn->prepare($query);
-    
-    // Bind parameters with correct types
+
     foreach ($params as $key => $value) {
-        $paramType = (strpos($key, 'Id') !== false || $key === ':limit') 
-            ? PDO::PARAM_INT 
+        $paramType = (strpos($key, 'Id') !== false || $key === ':limit')
+            ? PDO::PARAM_INT
             : PDO::PARAM_STR;
         $stmt->bindValue($key, $value, $paramType);
     }
@@ -78,7 +80,6 @@ try {
     $stmt->execute();
     $progressEntries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Convert photo paths to full URLs
     foreach ($progressEntries as &$entry) {
         if (!empty($entry['counselor_photo'])) {
             $entry['counselor_photo_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/Counseling%20System/uploads/counselors/' . $entry['counselor_photo'];

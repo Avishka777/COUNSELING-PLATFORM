@@ -27,22 +27,70 @@ h1 i {
 }
 
 .filter-controls {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-  align-items: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: flex-end;
 }
 
 .filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 200px;
 }
 
 .filter-group label {
-  font-weight: 600;
-  font-size: 14px;
-  color: #2c3e50;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #4361ee;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #4361ee;
+    box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-primary {
+    background-color: #4361ee;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #3a56d4;
+}
+
+.btn-view {
+    background-color: #4cc9f0;
+    color: white;
+    border: none;
+}
+
+.btn-view:hover {
+    background-color: #3ab7d9;
 }
 
 .progress-table {
