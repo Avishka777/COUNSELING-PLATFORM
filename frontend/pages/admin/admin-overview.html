@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Overview</title>
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link rel="stylesheet" href="./admin-overview.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../public/home.html" class="logo">
+                <img src="../../assets/images/logo.png" alt="Think Ceylone Logo" class="logo-img" />
+                <span class="logo-text">Think Ceylon</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-list">
+                <li>
+                    <a href="../../pages/admin/admin-overview.html" class="active">Overview</a>
+                </li>
+                <li>
+                    <a href="../../pages/admin/all-victims.html">Victims</a>
+                </li>
+                <li>
+                    <a href="../../pages/admin/all-counselors.html">Counselors</a>
+                </li>
+                <li>
+                    <a href="../../pages/admin/all-posts.html">Posts</a>
+                </li>
+                <li>
+                    <a href="../../pages/admin/all-appointments.html">Appointments</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-content">
+        <div class="container">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Victims</h3>
+                        <span id="victimsCount">0</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Counselors</h3>
+                        <span id="counselorsCount">0</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Appointments</h3>
+                        <span id="appointmentsCount">0</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Active Sessions</h3>
+                        <span id="activeSessions">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <div class="chart-card">
+                    <h3>Appointments Status</h3>
+                    <canvas id="appointmentsChart" style="width:100%; height:300px;"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>New Users This Month</h3>
+                    <canvas id="usersChart" style="width:100%; height:300px;"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Data Tables -->
+            <div class="tables-row">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3>Recent Appointments</h3>
+                        <a href="../admin/all-appointments.html" class="view-all">View All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="recentAppointments">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>User</th>
+                                    <th>Counselor</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Will be populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3>New Counselors</h3>
+                        <a href="../admin/all-counselors.html" class="view-all">View All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="recentCounselors">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Profession</th>
+                                    <th>Specialization</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Will be populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../assets/js/admin/admin-overview.js"></script>
+    <script src="../../assets/js/main.js"></script>
+</body>
+
+</html>
