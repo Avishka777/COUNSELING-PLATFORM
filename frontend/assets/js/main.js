@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // If admin, add dashboard link
-    if (userRole === "admin" || userRole === "victim") {
+    if (userRole === "victim") {
       const dashboardLink = document.createElement("a");
       dashboardLink.href = "../appointments/create-appointment.html";
       dashboardLink.textContent = "Make an Appointment";
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // If admin, add dashboard link
-    if (userRole === "admin" || userRole === "victim") {
+    if (userRole === "victim") {
       const dashboardLink = document.createElement("a");
       dashboardLink.href = "../appointments/my-appointments.html";
       dashboardLink.textContent = "My Appointments";
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // If admin or victim, add dashboard link
-    if (userRole === "admin" || userRole === "victim") {
+    if (userRole === "victim") {
       const dashboardLink = document.createElement("a");
       dashboardLink.href = "../progress/victim-progress.html";
       dashboardLink.textContent = "My Progress";

@@ -6,18 +6,16 @@ header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-// Handle preflight request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
 try {
-    // Check if a specific user's posts are requested
     $userId = isset($_GET['userId']) ? $_GET['userId'] : null;
     $counselorId = isset($_GET['counselorId']) ? $_GET['counselorId'] : null;
+    $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : null;
 
-    // Base query
     $query = "SELECT p.postId, 
                      p.is_anonymous,
                      CASE 
@@ -37,26 +35,30 @@ try {
                      END as author_type
               FROM posts p
               LEFT JOIN victims u ON p.userId = u.userId
-              LEFT JOIN counselors c ON p.counselorId = c.counselorId";
+              LEFT JOIN counselors c ON p.counselorId = c.counselorId
+              WHERE 1=1";
 
-    // Add WHERE clause if filtering by user or counselor
     $params = [];
+
     if ($userId) {
-        $query .= " WHERE p.userId = ?";
+        $query .= " AND p.userId = ?";
         $params[] = $userId;
-    } elseif ($counselorId) {
-        $query .= " WHERE p.counselorId = ?";
+    }
+    if ($counselorId) {
+        $query .= " AND p.counselorId = ?";
         $params[] = $counselorId;
+    }
+    if ($startDate) {
+        $query .= " AND DATE(p.created_at) = ?";
+        $params[] = $startDate;
     }
 
     $query .= " ORDER BY p.created_at DESC";
-    
-    // Prepare and execute the query
+
     $stmt = $conn->prepare($query);
     $stmt->execute($params);
     $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Convert image paths to full URLs
     foreach ($posts as &$post) {
         if ($post['image']) {
             $post['image_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/Counseling%20System/uploads/posts/' . $post['image'];

@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("postModal");
   const closeModal = document.querySelector(".close-modal");
   const searchInput = document.getElementById("postSearch");
+  const filterDateInput = document.getElementById("filterDate");
+  const clearDateBtn = document.getElementById("clearDateFilter");
 
   // Image upload elements
   const imageInput = document.createElement("input");
@@ -44,31 +46,41 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  filterDateInput.addEventListener("change", () => {
+    fetchPosts(filterDateInput.value); // fetch with selected date
+  });
+
+  clearDateBtn.addEventListener("click", () => {
+    filterDateInput.value = "";
+    fetchPosts(); // fetch without date filter
+  });
+
   document.getElementById("prevPage").addEventListener("click", goToPrevPage);
   document.getElementById("nextPage").addEventListener("click", goToNextPage);
 });
 
 // Fetch current user's posts from API
-async function fetchPosts() {
+async function fetchPosts(filterDate = null) {
   try {
-    // Get current user data from localStorage
     const userData = localStorage.getItem("user");
-
-    if (!userData) {
-      throw new Error("User not logged in");
-    }
+    if (!userData) throw new Error("User not logged in");
 
     const user = JSON.parse(userData);
     let endpoint =
       "http://localhost/Counseling%20System/backend/posts/get_my_posts.php?";
 
-    // Check if it's a counselor or regular user
+    // Append user or counselor ID
     if (user.counselorId) {
       endpoint += `counselorId=${user.counselorId}`;
     } else if (user.userId) {
       endpoint += `userId=${user.userId}`;
     } else {
       throw new Error("Invalid user data");
+    }
+
+    // Append date filter if available
+    if (filterDate) {
+      endpoint += `&startDate=${encodeURIComponent(filterDate)}`;
     }
 
     const response = await fetch(endpoint, {
@@ -78,17 +90,12 @@ async function fetchPosts() {
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
-
-    if (data.status === "error") {
-      throw new Error(data.message);
-    }
+    if (data.status === "error") throw new Error(data.message);
 
     allPosts = data.data || data;
+    currentPage = 1;
     renderPosts();
     updatePagination();
   } catch (error) {
