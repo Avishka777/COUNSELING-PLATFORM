@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
   async function fetchCounselors() {
     try {
       const response = await fetch(
-        "http://localhost/Counseling%20System/backend/counselors/get_all_counselors.php",
+        "http://localhost/Counseling%20System/backend/counselor/view_all_counselors.php",
         {
           method: "GET",
           headers: {
@@ -68,8 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Populate counselor filter dropdown
   function populateCounselorFilter(counselors) {
     filterCounselor.innerHTML = '<option value="">All Counselors</option>';
-    
-    counselors.forEach(counselor => {
+
+    counselors.forEach((counselor) => {
       const option = document.createElement("option");
       option.value = counselor.counselorId;
       option.textContent = counselor.name;
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let url = `http://localhost/Counseling%20System/backend/progress/get_all_victims_progress.php?victimId=${userData.userId}`;
 
       if (filterDate.value) {
-        url += `&date=${filterDate.value}`;
+        url += `&startDate=${filterDate.value}&endDate=${filterDate.value}`;
       }
 
       if (filterCounselor.value) {
@@ -99,7 +99,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Show loading state
-      progressTableBody.innerHTML = '<tr><td colspan="4">Loading progress reports...</td></tr>';
+      progressTableBody.innerHTML =
+        '<tr><td colspan="4">Loading progress reports...</td></tr>';
 
       const response = await fetch(url, {
         method: "GET",
@@ -125,7 +126,8 @@ document.addEventListener("DOMContentLoaded", function () {
         "Failed to load progress reports",
         error.message || "Please try again later"
       );
-      progressTableBody.innerHTML = '<tr><td colspan="4" class="error">Failed to load progress reports</td></tr>';
+      progressTableBody.innerHTML =
+        '<tr><td colspan="4" class="error">Failed to load progress reports</td></tr>';
     }
   }
 

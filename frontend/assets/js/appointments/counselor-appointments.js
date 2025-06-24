@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("appointmentModal");
   const closeModal = document.querySelector(".close-modal");
   const searchInput = document.getElementById("appointmentSearch");
+  const filterDate = document.getElementById("filterDate");
+  const clearDateFilter = document.getElementById("clearDateFilter");
 
   // Initialize
   fetchAppointments();
@@ -17,6 +19,15 @@ document.addEventListener("DOMContentLoaded", function () {
   searchInput.addEventListener("input", function (e) {
     const searchTerm = e.target.value.toLowerCase();
     filterAppointments(searchTerm);
+  });
+
+  filterDate.addEventListener("change", function () {
+    filterAppointmentsByDate();
+  });
+
+  clearDateFilter.addEventListener("click", function () {
+    filterDate.value = "";
+    filterAppointmentsByDate();
   });
 
   closeModal.addEventListener("click", () => {
@@ -32,6 +43,49 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("prevPage").addEventListener("click", goToPrevPage);
   document.getElementById("nextPage").addEventListener("click", goToNextPage);
 });
+
+// Combined filter function (search + date)
+function filterAppointments(searchTerm) {
+  let filtered = allAppointments;
+
+  // Apply date filter if set
+  if (filterDate.value) {
+    filtered = filtered.filter(
+      (appointment) => appointment.date === filterDate.value
+    );
+  }
+
+  // Apply search term if provided
+  if (searchTerm) {
+    filtered = filtered.filter(
+      (appointment) =>
+        appointment.user_username.toLowerCase().includes(searchTerm) ||
+        appointment.counselor_name.toLowerCase().includes(searchTerm) ||
+        appointment.appointmentId.toString().includes(searchTerm) ||
+        appointment.status.toLowerCase().includes(searchTerm) ||
+        appointment.date.includes(searchTerm)
+    );
+  }
+
+  renderAppointments(filtered);
+}
+
+// Filter appointments by selected date
+function filterAppointmentsByDate() {
+  const selectedDate = filterDate.value;
+
+  if (!selectedDate) {
+    // If no date selected, show all appointments
+    renderAppointments(allAppointments);
+    return;
+  }
+
+  const filteredAppointments = allAppointments.filter((appointment) => {
+    return appointment.date === selectedDate;
+  });
+
+  renderAppointments(filteredAppointments);
+}
 
 // Fetch user's appointments from API
 async function fetchAppointments() {
@@ -64,6 +118,10 @@ async function fetchAppointments() {
     }
 
     allAppointments = data.data || data;
+
+    // Sort appointments by date (newest first)
+    allAppointments.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     renderAppointments();
     updatePagination();
   } catch (error) {

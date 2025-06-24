@@ -52,12 +52,20 @@
       <!-- Appointments Table -->
       <div class="admin-card">
         <div class="card-header">
-          <h2>All Scheduled Appointments</h2>
-          <div class="search-box">
-            <input type="text" id="appointmentSearch" placeholder="Search appointments..." />
-            <i class="fas fa-search"></i>
-          </div>
-        </div>
+  <h2>All Scheduled Appointments</h2>
+  <div class="filter-controls">
+    <div class="search-box">
+      <input type="text" id="appointmentSearch" placeholder="Search appointments..." />
+      <i class="fas fa-search"></i>
+    </div>
+    <div class="date-filter">
+      <input type="date" id="filterDate" class="form-control" />
+      <button id="clearDateFilter" class="btn-clear" title="Clear date filter">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+</div>
 
         <div class="table-responsive">
           <table id="appointmentsTable">

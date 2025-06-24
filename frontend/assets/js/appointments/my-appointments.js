@@ -113,24 +113,22 @@ function renderAppointments(appointments = allAppointments) {
             <td><span class="status-badge status-${appointment.status}">${
       appointment.status
     }</span></td>
-            <td class="actions">
-                <button class="btn-view" onclick="viewAppointmentDetails(${
-                  appointment.appointmentId
-                })">
-                    <i class="fas fa-eye"></i> View
-                </button>
-                <button class="btn-status" onclick="changeAppointmentStatus(${
-                  appointment.appointmentId
-                }, '${appointment.status}')">
-                    <i class="fas fa-sync-alt"></i> Status
-                </button>
-                <button class="btn-delete" onclick="confirmDeleteAppointment(${
-                  appointment.appointmentId
-                })">
-                    <i class="fas fa-trash-alt"></i> Delete
-                </button>
-            </td>
-        `;
+           <td class="actions">
+    <button class="btn-view" onclick="viewAppointmentDetails(${
+      appointment.appointmentId
+    })">
+        <i class="fas fa-eye"></i> View
+    </button>
+    ${
+      appointment.status !== "confirmed"
+        ? `
+    <button class="btn-delete" onclick="confirmDeleteAppointment(${appointment.appointmentId})">
+        <i class="fas fa-trash-alt"></i> Delete
+    </button>
+    `
+        : ""
+    }
+</td>`;
     tableBody.appendChild(row);
   });
 
@@ -235,71 +233,75 @@ function displayAppointmentModal(appointment, isEditMode = false) {
     const endTime = appointment.end_time.substring(0, 5);
 
     modalBody.innerHTML = `
-      <form id="editAppointmentForm">
-        <input type="hidden" name="appointmentId" value="${
-          appointment.appointmentId
-        }">
-        
-        <div class="appointment-section">
-          <h3>Appointment Information</h3>
-          <div class="form-group">
-            <label for="editDate">Date</label>
-            <input type="date" id="editDate" name="date" 
-                   value="${appointment.date}" required>
-          </div>
-          
-          <div class="form-row">
-            <div class="form-group">
-              <label for="editStartTime">Start Time</label>
-              <input type="time" id="editStartTime" name="start_time" 
-                     value="${startTime}" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="editEndTime">End Time</label>
-              <input type="time" id="editEndTime" name="end_time" 
-                     value="${endTime}" required>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="editStatus">Status</label>
-            <select id="editStatus" name="status" class="form-control">
-              <option value="pending" ${
-                appointment.status === "pending" ? "selected" : ""
-              }>Pending</option>
-              <option value="confirmed" ${
-                appointment.status === "confirmed" ? "selected" : ""
-              }>Confirmed</option>
-              <option value="cancelled" ${
-                appointment.status === "cancelled" ? "selected" : ""
-              }>Cancelled</option>
-              <option value="completed" ${
-                appointment.status === "completed" ? "selected" : ""
-              }>Completed</option>
-            </select>
-          </div>
+  <form id="editAppointmentForm">
+    <input type="hidden" name="appointmentId" value="${
+      appointment.appointmentId
+    }">
+    
+    <div class="appointment-section">
+      <h3>Appointment Information</h3>
+      <div class="form-group">
+        <label for="editDate">Date</label>
+        <input type="date" id="editDate" name="date" 
+               value="${appointment.date}" required>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="editStartTime">Start Time</label>
+          <input type="time" id="editStartTime" name="start_time" 
+                 value="${startTime}" required>
         </div>
         
-        <div class="appointment-section">
-          <h3>Notes</h3>
-          <div class="form-group">
-            <textarea id="editNotes" name="notes" rows="4" 
-                      class="form-control">${appointment.notes || ""}</textarea>
-          </div>
+        <div class="form-group">
+          <label for="editEndTime">End Time</label>
+          <input type="time" id="editEndTime" name="end_time" 
+                 value="${endTime}" required>
         </div>
-        
-        <div class="form-actions">
-          <button type="button" class="btn btn-cancel" 
-                  onclick="displayAppointmentModal(currentEditingAppointment, false)">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-primary">
-            Save Changes
-          </button>
-        </div>
-      </form>
-    `;
+      </div>
+      
+      <div class="form-group">
+        <label for="editStatus">Status</label>
+        <input type="text" id="editStatus" name="status" 
+               value="${appointment.status}" class="form-control" readonly>
+      </div>
+    </div>
+    
+    ${
+      appointment.status !== "confirmed"
+        ? `
+    <div class="appointment-section">
+      <h3>Notes</h3>
+      <div class="form-group">
+        <textarea id="editNotes" name="notes" rows="4" 
+                  class="form-control">${appointment.notes || ""}</textarea>
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="button" class="btn btn-cancel" 
+              onclick="displayAppointmentModal(currentEditingAppointment, false)">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary">
+        Save Changes
+      </button>
+    </div>
+    `
+        : `
+    <div class="alert alert-warning">
+      This appointment is confirmed and cannot be modified.
+    </div>
+    <div class="form-actions">
+      <button type="button" class="btn btn-cancel" 
+              onclick="displayAppointmentModal(currentEditingAppointment, false)">
+        Close
+      </button>
+    </div>
+    `
+    }
+  </form>
+`;
 
     // Add form submit handler
     document
@@ -471,6 +473,11 @@ async function handleAppointmentUpdate(e) {
 
 // Update the changeAppointmentStatus function to use the modal editor
 async function changeAppointmentStatus(appointmentId, currentStatus) {
+  if (currentStatus === "confirmed") {
+    showError("Cannot Modify", "Confirmed appointments cannot be modified");
+    return;
+  }
+
   try {
     // First fetch the current appointment data
     const response = await fetch(
@@ -508,6 +515,15 @@ async function changeAppointmentStatus(appointmentId, currentStatus) {
 
 // Confirm and delete appointment
 function confirmDeleteAppointment(appointmentId) {
+  const appointment = allAppointments.find(
+    (a) => a.appointmentId == appointmentId
+  );
+
+  if (appointment && appointment.status === "confirmed") {
+    showError("Cannot Delete", "Confirmed appointments cannot be deleted");
+    return;
+  }
+
   Swal.fire({
     title: "Confirm Delete",
     html: `Are you sure you want to delete appointment <strong>#${appointmentId}</strong>?`,
