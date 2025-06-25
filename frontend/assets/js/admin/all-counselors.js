@@ -171,7 +171,7 @@ function updatePagination() {
 async function viewCounselorDetails(counselorId) {
   try {
     const response = await fetch(
-      `http://localhost/Counseling%20System/backend/counselor/get_counselor_details.php?id=${counselorId}`,
+      `http://localhost/Counseling%20System/backend/counselor/view_counselor.php?counselorId=${counselorId}`,
       {
         method: "GET",
         headers: {
@@ -186,12 +186,11 @@ async function viewCounselorDetails(counselorId) {
 
     const data = await response.json();
 
-    if (data.status === "error") {
-      throw new Error(data.message);
+    if (!data.success) {
+      throw new Error(data.error || "Failed to load counselor details");
     }
 
-    const counselor = data.data || data;
-    displayCounselorModal(counselor);
+    displayCounselorModal(data.counselor, data.availability);
   } catch (error) {
     console.error("Error fetching counselor details:", error);
     Swal.fire({
@@ -203,7 +202,7 @@ async function viewCounselorDetails(counselorId) {
 }
 
 // Display counselor details in modal
-function displayCounselorModal(counselor) {
+function displayCounselorModal(counselor, availability) {
   const modal = document.getElementById("counselorModal");
   const modalTitle = document.getElementById("modalTitle");
   const modalBody = document.getElementById("modalBody");
@@ -212,53 +211,86 @@ function displayCounselorModal(counselor) {
     counselor.name || counselor.username
   }`;
 
-  // Use the photo_url from the API response or fallback to default
-  const imagePath =
-    counselor.photo_url || "../../assets/images/default-profile.jpg";
+  // Create availability HTML
+  let availabilityHTML =
+    '<div class="availability-section"><h3>Availability</h3>';
+  if (availability && Object.keys(availability).length > 0) {
+    availabilityHTML += '<div class="availability-grid">';
 
+    // Sort days in order
+    const daysOrder = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+    const sortedDays = Object.keys(availability).sort(
+      (a, b) => daysOrder.indexOf(a) - daysOrder.indexOf(b)
+    );
+
+    sortedDays.forEach((day) => {
+      if (availability[day].length > 0) {
+        availabilityHTML += `<div class="availability-day">
+          <strong>${day}:</strong> `;
+
+        const timeSlots = availability[day]
+          .map((slot) => `${slot.start_time} - ${slot.end_time}`)
+          .join(", ");
+
+        availabilityHTML += timeSlots + "</div>";
+      }
+    });
+
+    availabilityHTML += "</div>";
+  } else {
+    availabilityHTML += "<p>No availability set</p>";
+  }
+  availabilityHTML += "</div>";
+
+  // Create modal content
   modalBody.innerHTML = `
-    <div style="display: flex; gap: 30px; align-items: flex-start;">
-      <div style="flex: 0 0 200px; display: flex; flex-direction: column; align-items: center;">
-        <img src="${imagePath}" alt="${counselor.name || counselor.username}" 
-             style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; 
-                    border: 4px solid #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                    background-color: #f5f5f5; display: block; margin: 0 auto;">
-        ${
-          !counselor.photo_url
-            ? '<div style="margin-top: 10px; padding: 5px 10px; background: rgba(0,0,0,0.7); ' +
-              'color: white; border-radius: 4px; font-size: 0.9rem;">No profile image</div>'
-            : ""
-        }
-      </div>
-      <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-        <div style="margin-bottom: 15px;">
-          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Username:</div>
-          <div style="color: #333;">${counselor.username}</div>
+    <div class="counselor-modal-content">
+
+      
+      <div class="counselor-details-section">
+        <div class="detail-row">
+          <span class="detail-label">Username:</span>
+          <span class="detail-value">${counselor.username}</span>
         </div>
-        <div style="margin-bottom: 15px;">
-          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Full Name:</div>
-          <div style="color: #333;">${counselor.name || "N/A"}</div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Full Name:</span>
+          <span class="detail-value">${counselor.name || "N/A"}</span>
         </div>
-        <div style="margin-bottom: 15px;">
-          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Specialization:</div>
-          <div style="color: #333;">${counselor.specialization || "N/A"}</div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Specialization:</span>
+          <span class="detail-value">${counselor.specialization || "N/A"}</span>
         </div>
-        <div style="margin-bottom: 15px;">
-          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Company:</div>
-          <div style="color: #333;">${counselor.company || "N/A"}</div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Company:</span>
+          <span class="detail-value">${counselor.company || "N/A"}</span>
         </div>
-        <div style="margin-bottom: 15px;">
-          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Profession:</div>
-          <div style="color: #333;">${
+        
+        <div class="detail-row">
+          <span class="detail-label">Profession:</span>
+          <span class="detail-value">${
             counselor.current_profession || "N/A"
-          }</div>
+          }</span>
         </div>
-        <div style="grid-column: 1 / -1; margin-bottom: 15px;">
-          <div style="font-weight: 600; color: #045877; margin-bottom: 5px;">Description:</div>
-          <div style="color: #333; line-height: 1.5;">${
+        
+        <div class="detail-row full-width">
+          <span class="detail-label">Description:</span>
+          <span class="detail-value">${
             counselor.description || "No description provided"
-          }</div>
+          }</span>
         </div>
+        
+        ${availabilityHTML}
       </div>
     </div>
   `;
