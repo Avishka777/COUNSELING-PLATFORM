@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -12,12 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 try {
+    // Ensure counselorId is provided in the request
     if (!isset($_GET['counselorId'])) {
         http_response_code(400);
         echo json_encode(["status" => "error", "message" => "counselorId parameter is required"]);
         exit;
     }
 
+    // Sanitize and validate counselorId
     $counselorId = filter_var($_GET['counselorId'], FILTER_VALIDATE_INT);
     if ($counselorId === false) {
         http_response_code(400);
@@ -25,11 +30,13 @@ try {
         exit;
     }
 
+    // Optional filters
     $victimId = isset($_GET['victimId']) ? (int) $_GET['victimId'] : null;
     $date = isset($_GET['date']) ? $_GET['date'] : null;
     $username = isset($_GET['username']) ? trim($_GET['username']) : null;
     $limit = isset($_GET['limit']) ? (int) $_GET['limit'] : null;
 
+    // Build base SQL query
     $query = "SELECT p.*, 
                      u.username as victim_username,
                      u.age as victim_age,
@@ -77,6 +84,7 @@ try {
         $stmt->bindValue($key, $value, $paramType);
     }
 
+    // Execute the query and fetch all results
     $stmt->execute();
     $progressEntries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

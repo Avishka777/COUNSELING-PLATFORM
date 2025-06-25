@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -28,10 +31,10 @@ try {
     }
 
     // Get optional filters
-    $counselorId = isset($_GET['counselorId']) ? (int)$_GET['counselorId'] : null;
+    $counselorId = isset($_GET['counselorId']) ? (int) $_GET['counselorId'] : null;
     $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : null;
     $endDate = isset($_GET['endDate']) ? $_GET['endDate'] : null;
-    $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
+    $limit = isset($_GET['limit']) ? (int) $_GET['limit'] : null;
 
     // Base query with joins
     $query = "SELECT 
@@ -54,7 +57,7 @@ try {
               JOIN victims v ON cp.victimId = v.userId
               JOIN counselors c ON cp.counselorId = c.counselorId
               WHERE cp.victimId = :victimId";
-    
+
     $params = [':victimId' => $victimId];
 
     // Add filters
@@ -83,11 +86,11 @@ try {
 
     // Prepare and execute query
     $stmt = $conn->prepare($query);
-    
+
     // Bind parameters with correct types
     foreach ($params as $key => $value) {
-        $paramType = (strpos($key, 'Id') !== false || $key === ':limit') 
-            ? PDO::PARAM_INT 
+        $paramType = (strpos($key, 'Id') !== false || $key === ':limit')
+            ? PDO::PARAM_INT
             : PDO::PARAM_STR;
         $stmt->bindValue($key, $value, $paramType);
     }

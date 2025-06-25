@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -19,6 +22,7 @@ if (!isset($_GET['id'])) {
 }
 
 try {
+    // Prepare SQL query to fetch post details along with author info
     $stmt = $conn->prepare("SELECT p.*, 
                            CASE 
                                WHEN p.is_anonymous THEN 'Anonymous'
@@ -37,18 +41,18 @@ try {
                            WHERE p.postId = ?");
     $stmt->execute([$_GET['id']]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     if (!$post) {
         http_response_code(404);
         echo json_encode(["status" => "error", "message" => "Post not found"]);
         exit;
     }
-    
+
     // Add full image URL if exists
     if (!empty($post['image'])) {
         $post['image_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/Counseling%20System/uploads/posts/' . $post['image'];
     }
-    
+
     echo json_encode([
         "status" => "success",
         "data" => $post

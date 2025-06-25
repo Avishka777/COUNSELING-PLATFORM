@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -50,7 +53,7 @@ try {
     if (isset($input['start_time']) || isset($input['end_time'])) {
         $start_time = $input['start_time'] ?? $existing['start_time'];
         $end_time = $input['end_time'] ?? $existing['end_time'];
-        
+
         if ($start_time >= $end_time) {
             http_response_code(400);
             echo json_encode(["status" => "error", "message" => "End time must be after start time"]);
@@ -103,7 +106,7 @@ try {
     // Build update query
     $updates = [];
     $params = [];
-    
+
     $updatableFields = [
         'date' => PDO::PARAM_STR,
         'start_time' => PDO::PARAM_STR,
@@ -129,12 +132,12 @@ try {
 
     // Add appointmentId to params
     $params[':appointmentId'] = $input['appointmentId'];
-    
+
     // Execute update
-    $query = "UPDATE appointments SET " . implode(", ", $updates) . 
-             ", updated_at = CURRENT_TIMESTAMP WHERE appointmentId = :appointmentId";
+    $query = "UPDATE appointments SET " . implode(", ", $updates) .
+        ", updated_at = CURRENT_TIMESTAMP WHERE appointmentId = :appointmentId";
     $stmt = $conn->prepare($query);
-    
+
     // Bind parameters with correct types
     foreach ($params as $key => $value) {
         $paramType = $updatableFields[str_replace(':', '', $key)] ?? PDO::PARAM_STR;

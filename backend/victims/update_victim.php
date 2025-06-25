@@ -1,7 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
-// CORS headers
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -88,7 +90,7 @@ try {
         http_response_code(404);
         echo json_encode(["error" => "User not found or no changes made"]);
     }
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(["error" => "Database error: " . $e->getMessage()]);
 }

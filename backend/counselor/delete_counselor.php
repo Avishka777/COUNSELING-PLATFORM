@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -13,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     try {
-        $counselorId = isset($_GET['id']) ? (int)$_GET['id'] : null;
-        
+        $counselorId = isset($_GET['id']) ? (int) $_GET['id'] : null;
+
         if (!$counselorId) {
             http_response_code(400);
             echo json_encode(["error" => "Counselor ID required"]);
@@ -29,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         // Delete counselor record
         $stmt = $conn->prepare("DELETE FROM counselors WHERE counselorId = ?");
         $stmt->execute([$counselorId]);
-        
+
         if ($stmt->rowCount() > 0) {
             // Delete photo file if exists
             if (!empty($counselor['photo'])) {
@@ -38,13 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
                     unlink($photoPath);
                 }
             }
-            
+
             echo json_encode(["message" => "Counselor deleted successfully"]);
         } else {
             http_response_code(404);
             echo json_encode(["error" => "Counselor not found"]);
         }
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         http_response_code(500);
         echo json_encode(["error" => "Database error: " . $e->getMessage()]);
     }

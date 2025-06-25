@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -14,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 try {
     // Get user ID from query parameters
-    $userId = isset($_GET['userId']) ? (int)$_GET['userId'] : null;
-    $counselorId = isset($_GET['counselorId']) ? (int)$_GET['counselorId'] : null;
+    $userId = isset($_GET['userId']) ? (int) $_GET['userId'] : null;
+    $counselorId = isset($_GET['counselorId']) ? (int) $_GET['counselorId'] : null;
 
     // Validate at least one ID is provided
     if ($userId === null && $counselorId === null) {

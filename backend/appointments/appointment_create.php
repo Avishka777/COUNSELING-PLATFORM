@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -16,7 +19,7 @@ $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
-    
+
     // Validate required fields
     $requiredFields = ['date', 'start_time', 'end_time', 'counselorId', 'userId'];
     foreach ($requiredFields as $field) {
@@ -65,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             (date, start_time, end_time, counselorId, userId, notes, status) 
             VALUES (:date, :start_time, :end_time, :counselorId, :userId, :notes, :status)
         ");
-        
+
         $stmt->execute([
             ':date' => $data['date'],
             ':start_time' => $data['start_time'],
@@ -77,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         $appointmentId = $conn->lastInsertId();
-        
+
         http_response_code(201);
         echo json_encode([
             "status" => "success",

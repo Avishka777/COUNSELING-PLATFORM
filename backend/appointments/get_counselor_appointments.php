@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -50,11 +53,11 @@ try {
               JOIN counselors c ON a.counselorId = c.counselorId
               WHERE a.counselorId = :counselorId
               ORDER BY a.date DESC, a.start_time DESC";
-    
+
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':counselorId', $counselorId, PDO::PARAM_INT);
     $stmt->execute();
-    
+
     $appointments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Convert photo paths to full URLs

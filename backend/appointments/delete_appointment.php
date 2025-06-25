@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -16,7 +19,7 @@ $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $data = json_decode(file_get_contents("php://input"), true);
-    
+
     if (empty($data['appointmentId'])) {
         http_response_code(400);
         echo json_encode(["status" => "error", "message" => "Appointment ID is required"]);
@@ -27,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         // Check if appointment exists
         $checkStmt = $conn->prepare("SELECT * FROM appointments WHERE appointmentId = ?");
         $checkStmt->execute([$data['appointmentId']]);
-        
+
         if ($checkStmt->rowCount() === 0) {
             http_response_code(404);
             echo json_encode(["status" => "error", "message" => "Appointment not found"]);

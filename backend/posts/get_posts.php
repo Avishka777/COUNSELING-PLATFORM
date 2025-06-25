@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -35,7 +38,7 @@ try {
               LEFT JOIN victims u ON p.userId = u.userId
               LEFT JOIN counselors c ON p.counselorId = c.counselorId
               ORDER BY p.created_at DESC";
-    
+
     $stmt = $conn->query($query);
     $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

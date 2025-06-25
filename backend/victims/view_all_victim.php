@@ -1,12 +1,12 @@
 <?php
+
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
-
-// Set content type
 header('Content-Type: application/json');
 
-// Database connection
+// Include database connection
 require_once("../config/db.php");
 
 try {
@@ -17,28 +17,28 @@ try {
 
     // Query the database
     $stmt = $conn->query("SELECT userId, username, age, occupation FROM victims");
-    
+
     if (!$stmt) {
         throw new Exception("Database query failed");
     }
-    
+
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     // Return success response
     echo json_encode([
         'status' => 'success',
         'data' => $users
     ]);
-    
-} catch(PDOException $e) {
+
+} catch (PDOException $e) {
     // Database errors
     http_response_code(500);
     echo json_encode([
         'status' => 'error',
         'message' => 'Database error: ' . $e->getMessage()
     ]);
-    
-} catch(Exception $e) {
+
+} catch (Exception $e) {
     // Other errors
     http_response_code(500);
     echo json_encode([

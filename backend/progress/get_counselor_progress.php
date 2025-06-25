@@ -1,7 +1,10 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 session_start();
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -31,7 +34,7 @@ try {
     // Get counselorId from localStorage data sent in headers
     $headers = getallheaders();
     $authData = isset($headers['Authorization']) ? json_decode(base64_decode($headers['Authorization']), true) : null;
-    
+
     if (!$authData || !isset($authData['counselorId'])) {
         http_response_code(401);
         echo json_encode(["status" => "error", "message" => "Authorization data missing"]);
@@ -55,12 +58,12 @@ try {
               JOIN counselors c ON p.counselorId = c.counselorId
               WHERE p.progressId = :progressId
               AND p.counselorId = :counselorId";
-    
+
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':progressId', $progressId, PDO::PARAM_INT);
     $stmt->bindParam(':counselorId', $counselorId, PDO::PARAM_INT);
     $stmt->execute();
-    
+
     $progress = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$progress) {

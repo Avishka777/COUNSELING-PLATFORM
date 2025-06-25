@@ -1,6 +1,9 @@
 <?php
+
+// Include database connection
 require_once("../config/db.php");
 
+// Allow requests from any origin and specify response content type
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -16,14 +19,14 @@ $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"), true);
-    
+
     // Validate required fields
     $requiredFields = ['postId', 'title', 'description'];
     foreach ($requiredFields as $field) {
         if (empty($data[$field])) {
             http_response_code(400);
             echo json_encode([
-                "status" => "error", 
+                "status" => "error",
                 "message" => "Missing required field: $field"
             ]);
             exit;
@@ -35,18 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         $stmt = $conn->prepare("SELECT postId, image FROM posts WHERE postId = ?");
         $stmt->execute([$data['postId']]);
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if (!$post) {
             http_response_code(404);
             echo json_encode([
-                "status" => "error", 
+                "status" => "error",
                 "message" => "Post not found"
             ]);
             exit;
         }
 
         // Handle image update if provided
-        $imagePath = $post['image']; // Keep existing image by default
+        $imagePath = $post['image'];
         if (!empty($data['image'])) {
             // Delete old image if it exists
             if ($post['image']) {
@@ -55,16 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
                     unlink($oldImagePath);
                 }
             }
-            
+
             // Save new image
             $imageData = $data['image'];
             $imageName = uniqid() . '.png';
             $uploadDir = "../../uploads/posts/";
-            
+
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
-            
+
             file_put_contents($uploadDir . $imageName, base64_decode($imageData));
             $imagePath = $imageName;
         }
@@ -76,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             is_anonymous = ?,
             image = ?
             WHERE postId = ?");
-        
+
         $stmt->execute([
             $data['title'],
             $data['description'],

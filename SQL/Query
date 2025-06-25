@@ -51,13 +51,13 @@ CREATE TABLE appointments (
     status ENUM('pending', 'confirmed', 'cancelled', 'completed') DEFAULT 'pending',
     notes TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (counselorId) REFERENCES counselors(counselorId),
     FOREIGN KEY (userId) REFERENCES victims(userId),
     CONSTRAINT chk_time CHECK (end_time > start_time),
     CONSTRAINT unique_appointment UNIQUE (counselorId, date, start_time)
 );
 
-ALTER TABLE appointments ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 CREATE TABLE counseling_progress (
     progressId INT AUTO_INCREMENT PRIMARY KEY,
