@@ -1,5 +1,6 @@
 // Global variables
 let allAppointments = [];
+let filteredAppointments = [];
 const appointmentsPerPage = 10;
 let currentPage = 1;
 let currentEditingAppointment = null;
@@ -31,7 +32,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("prevPage").addEventListener("click", goToPrevPage);
   document.getElementById("nextPage").addEventListener("click", goToNextPage);
+  document
+    .getElementById("dateFilter")
+    .addEventListener("change", applyFilters);
+  document
+    .getElementById("clearDateFilter")
+    .addEventListener("click", clearDateFilter);
 });
+
+// Function to apply all filters (search + date)
+function applyFilters() {
+  const searchTerm = document
+    .getElementById("appointmentSearch")
+    .value.toLowerCase();
+  const dateFilter = document.getElementById("dateFilter").value;
+
+  filteredAppointments = allAppointments.filter((appointment) => {
+    // Search filter
+    const matchesSearch =
+      appointment.user_username.toLowerCase().includes(searchTerm) ||
+      appointment.counselor_name.toLowerCase().includes(searchTerm) ||
+      appointment.appointmentId.toString().includes(searchTerm) ||
+      appointment.status.toLowerCase().includes(searchTerm) ||
+      appointment.date.includes(searchTerm);
+
+    // Date filter
+    const matchesDate = dateFilter ? appointment.date === dateFilter : true;
+
+    return matchesSearch && matchesDate;
+  });
+
+  currentPage = 1; // Reset to first page when filters change
+  renderAppointments();
+  updatePagination();
+}
+
+// Clear date filter
+function clearDateFilter() {
+  document.getElementById("dateFilter").value = "";
+  applyFilters();
+}
 
 // Fetch appointments from API
 async function fetchAppointments() {
@@ -57,6 +97,7 @@ async function fetchAppointments() {
     }
 
     allAppointments = data.data || data;
+    filteredAppointments = [...allAppointments]; // Initialize filtered list
     renderAppointments();
     updatePagination();
   } catch (error) {
@@ -75,7 +116,7 @@ function renderAppointments(appointments = allAppointments) {
 
   const startIdx = (currentPage - 1) * appointmentsPerPage;
   const endIdx = startIdx + appointmentsPerPage;
-  const paginatedAppointments = appointments.slice(startIdx, endIdx);
+  const paginatedAppointments = filteredAppointments.slice(startIdx, endIdx);
 
   if (paginatedAppointments.length === 0) {
     tableBody.innerHTML = `
@@ -135,21 +176,7 @@ function renderAppointments(appointments = allAppointments) {
 
 // Filter appointments based on search term
 function filterAppointments(searchTerm) {
-  if (!searchTerm) {
-    renderAppointments();
-    return;
-  }
-
-  const filteredAppointments = allAppointments.filter(
-    (appointment) =>
-      appointment.user_username.toLowerCase().includes(searchTerm) ||
-      appointment.counselor_name.toLowerCase().includes(searchTerm) ||
-      appointment.appointmentId.toString().includes(searchTerm) ||
-      appointment.status.toLowerCase().includes(searchTerm) ||
-      appointment.date.includes(searchTerm)
-  );
-
-  renderAppointments(filteredAppointments);
+  applyFilters();
 }
 
 // Pagination functions
@@ -171,7 +198,9 @@ function goToNextPage() {
 }
 
 function updatePagination() {
-  const totalPages = Math.ceil(allAppointments.length / appointmentsPerPage);
+  const totalPages = Math.ceil(
+    filteredAppointments.length / appointmentsPerPage
+  );
   document.getElementById(
     "pageInfo"
   ).textContent = `Page ${currentPage} of ${totalPages}`;
