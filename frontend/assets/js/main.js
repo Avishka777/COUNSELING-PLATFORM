@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       'a[href="./counselors.html"]'
     );
     if (counselorNavLink) {
-      counselorNavLink.parentElement.remove(); 
+      counselorNavLink.parentElement.remove();
     }
   }
 });
@@ -135,8 +135,9 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutLink.textContent = "Logout";
     logoutLink.addEventListener("click", function (e) {
       e.preventDefault();
-      localStorage.clear(); // clear all local storage keys
-      location.reload(); // reload page
+      localStorage.clear();
+      location.reload();
+      window.location.href = "../public/home.html";
     });
     dropdownItems.appendChild(logoutLink);
   }

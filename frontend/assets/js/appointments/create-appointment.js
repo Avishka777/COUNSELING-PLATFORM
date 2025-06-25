@@ -1,6 +1,8 @@
 // Global variables
 let allCounselors = [];
 let currentUser = null;
+let selectedCounselor = null;
+let counselorAvailability = {};
 
 // Initialize when DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
@@ -25,37 +27,174 @@ function initForm() {
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("appointmentDate").min = today;
 
-  // Set default time (next full hour)
-  const now = new Date();
-  const nextHour = new Date(now.setHours(now.getHours() + 1, 0, 0, 0));
-  const timeString = nextHour.toTimeString().substring(0, 5);
-  document.getElementById("startTime").value = timeString;
-
-  // Calculate end time (1 hour after start)
-  const endTime = new Date(nextHour.setHours(nextHour.getHours() + 1));
-  const endTimeString = endTime.toTimeString().substring(0, 5);
-  document.getElementById("endTime").value = endTimeString;
-
-  // Add event listener for form submission
+  // Add event listeners
   document
     .getElementById("appointmentForm")
     .addEventListener("submit", handleAppointmentSubmit);
-
-  // Update end time when start time changes
   document
-    .getElementById("startTime")
-    .addEventListener("change", updateEndTime);
+    .getElementById("counselorSelect")
+    .addEventListener("change", handleCounselorSelect);
+  document
+    .getElementById("appointmentDate")
+    .addEventListener("change", handleDateSelect);
 }
 
-// Update end time based on start time
+// Handle counselor selection
+async function handleCounselorSelect(e) {
+  const counselorId = e.target.value;
+  selectedCounselor = allCounselors.find((c) => c.counselorId == counselorId);
+
+  if (!selectedCounselor) return;
+
+  // Fetch counselor availability
+  try {
+    const response = await fetch(
+      `http://localhost/Counseling%20System/backend/counselor/view_counselor.php?counselorId=${counselorId}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.success) {
+      counselorAvailability = data.availability;
+      updateTimeSlots();
+    } else {
+      throw new Error(data.error || "Failed to load availability");
+    }
+  } catch (error) {
+    console.error("Error fetching availability:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Failed to load availability",
+      text: error.message || "Please try again later",
+    });
+  }
+}
+
+// Handle date selection
+function handleDateSelect() {
+  if (selectedCounselor) {
+    updateTimeSlots();
+  }
+}
+
+// Update available time slots based on selected date and counselor availability
+function updateTimeSlots() {
+  const dateInput = document.getElementById("appointmentDate");
+  const startTimeInput = document.getElementById("startTime");
+  const endTimeInput = document.getElementById("endTime");
+
+  if (!dateInput.value || !selectedCounselor) return;
+
+  // Get day of week from selected date
+  const date = new Date(dateInput.value);
+  const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "long" });
+
+  // Get available slots for this day
+  const availableSlots = counselorAvailability[dayOfWeek] || [];
+
+  if (availableSlots.length === 0) {
+    Swal.fire({
+      icon: "warning",
+      title: "No Availability",
+      text: `This counselor is not available on ${dayOfWeek}s`,
+    });
+    startTimeInput.value = "";
+    endTimeInput.value = "";
+    return;
+  }
+
+  // Create time slot options
+  let timeOptions = [];
+  availableSlots.forEach((slot) => {
+    const start = new Date(`2000-01-01T${slot.start_time}`);
+    const end = new Date(`2000-01-01T${slot.end_time}`);
+
+    // Create 30-minute intervals within each availability slot
+    for (
+      let time = start;
+      time < end;
+      time.setMinutes(time.getMinutes() + 30)
+    ) {
+      const timeStr = time.toTimeString().substr(0, 5);
+      timeOptions.push(timeStr);
+    }
+  });
+
+  // Update start time input with available slots
+  startTimeInput.innerHTML = "";
+  timeOptions.forEach((time) => {
+    const option = document.createElement("option");
+    option.value = time;
+    option.textContent = time;
+    startTimeInput.appendChild(option);
+  });
+
+  // Auto-select first available time and set end time
+  if (timeOptions.length > 0) {
+    startTimeInput.value = timeOptions[0];
+    updateEndTime();
+  }
+}
+
+// Update end time based on start time and availability
 function updateEndTime() {
-  const startTime = document.getElementById("startTime").value;
-  if (startTime) {
-    const [hours, minutes] = startTime.split(":").map(Number);
-    const endTime = new Date();
-    endTime.setHours(hours + 1, minutes, 0, 0);
-    const endTimeString = endTime.toTimeString().substring(0, 5);
-    document.getElementById("endTime").value = endTimeString;
+  const startTimeInput = document.getElementById("startTime");
+  const endTimeInput = document.getElementById("endTime");
+  const dateInput = document.getElementById("appointmentDate");
+
+  if (!startTimeInput.value || !dateInput.value || !selectedCounselor) return;
+
+  // Get day of week from selected date
+  const date = new Date(dateInput.value);
+  const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "long" });
+
+  // Find the availability slot that contains the selected start time
+  const availabilitySlot = (counselorAvailability[dayOfWeek] || []).find(
+    (slot) => {
+      return (
+        startTimeInput.value >= slot.start_time &&
+        startTimeInput.value < slot.end_time
+      );
+    }
+  );
+
+  if (!availabilitySlot) {
+    endTimeInput.value = "";
+    return;
+  }
+
+  // Calculate possible end times (30, 60, 90 minutes)
+  const startTime = new Date(`2000-01-01T${startTimeInput.value}:00`);
+  const slotEndTime = new Date(`2000-01-01T${availabilitySlot.end_time}:00`);
+
+  const possibleDurations = [30, 60, 90]; // minutes
+  let validEndTimes = [];
+
+  possibleDurations.forEach((duration) => {
+    const endTime = new Date(startTime);
+    endTime.setMinutes(endTime.getMinutes() + duration);
+
+    if (endTime <= slotEndTime) {
+      validEndTimes.push(endTime.toTimeString().substr(0, 5));
+    }
+  });
+
+  // Update end time options
+  endTimeInput.innerHTML = "";
+  validEndTimes.forEach((time) => {
+    const option = document.createElement("option");
+    option.value = time;
+    option.textContent = time;
+    endTimeInput.appendChild(option);
+  });
+
+  // Auto-select first available end time
+  if (validEndTimes.length > 0) {
+    endTimeInput.value = validEndTimes[0];
   }
 }
 
@@ -139,6 +278,23 @@ async function handleAppointmentSubmit(e) {
       icon: "error",
       title: "Invalid Time",
       text: "End time must be after start time",
+    });
+    return;
+  }
+
+  // Validate against counselor availability
+  const dayOfWeek = new Date(date).toLocaleDateString("en-US", {
+    weekday: "long",
+  });
+  const isTimeValid = (counselorAvailability[dayOfWeek] || []).some((slot) => {
+    return startTime >= slot.start_time && endTime <= slot.end_time;
+  });
+
+  if (!isTimeValid) {
+    Swal.fire({
+      icon: "error",
+      title: "Invalid Time Slot",
+      text: "The selected time is not within the counselor's availability",
     });
     return;
   }
