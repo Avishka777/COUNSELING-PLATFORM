@@ -85,64 +85,68 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     async function loadCounselorData() {
-        try {
-            const userData = JSON.parse(localStorage.getItem('user'));
-            if (!userData || !userData.counselorId) {
-                throw new Error('Counselor not logged in');
-            }
-
-            const response = await fetch(`http://localhost/Counseling%20System/backend/counselor/view_counselor.php?counselorId=${userData.counselorId}`);
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch counselor data');
-            }
-
-            const data = await response.json();
-
-            if (data.error) {
-                throw new Error(data.error);
-            }
-
-            // Populate form fields
-            document.getElementById('counselorId').value = data.counselorId;
-            document.getElementById('username').value = data.username;
-            document.getElementById('name').value = data.name;
-            document.getElementById('current_profession').value = data.current_profession;
-            document.getElementById('company').value = data.company;
-            document.getElementById('specialization').value = data.specialization;
-            document.getElementById('description').value = data.description;
-
-            // Display photo if exists
-            if (data.photo) {
-                photoPreview.innerHTML = `<img src="${data.photo}" alt="Profile Photo" style="max-width: 200px; max-height: 200px; border-radius: 4px;">`;
-            }
-
-            // Load availability if exists
-            if (Array.isArray(data.availability) && data.availability.length > 0) {
-                availabilityContainer.innerHTML = ''; // clear existing slots
-                data.availability.forEach(slot => {
-                    // Support either day_of_week or day keys depending on backend
-                    const day = slot.day_of_week || slot.day || "";
-                    const start = slot.start_time || "";
-                    const end = slot.end_time || "";
-                    addAvailabilitySlot(day, start, end);
-                });
-            } else {
-                // If no availability data, add one empty slot by default
-                availabilityContainer.innerHTML = '';
-                addAvailabilitySlot();
-            }
-
-        } catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: error.message || 'Failed to load profile data',
-            }).then(() => {
-                window.location.href = '../auth/login.html';
-            });
+    try {
+        const userData = JSON.parse(localStorage.getItem('user'));
+        if (!userData || !userData.counselorId) {
+            throw new Error('Counselor not logged in');
         }
+
+        const response = await fetch(`http://localhost/Counseling%20System/backend/counselor/view_counselor.php?counselorId=${userData.counselorId}`);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch counselor data');
+        }
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.error || 'Failed to load counselor data');
+        }
+
+        const counselor = data.counselor;
+        const availability = data.availability;
+
+        // Populate form fields
+        document.getElementById('counselorId').value = counselor.counselorId;
+        document.getElementById('username').value = counselor.username;
+        document.getElementById('name').value = counselor.name;
+        document.getElementById('current_profession').value = counselor.current_profession;
+        document.getElementById('company').value = counselor.company;
+        document.getElementById('specialization').value = counselor.specialization;
+        document.getElementById('description').value = counselor.description;
+
+        // Display photo if exists
+        if (counselor.photo) {
+            photoPreview.innerHTML = `<img src="${counselor.photo}" alt="Profile Photo" style="max-width: 200px; max-height: 200px; border-radius: 4px;">`;
+        }
+
+        // Load availability if exists
+        availabilityContainer.innerHTML = ''; // clear existing slots
+        
+        if (availability && Object.keys(availability).length > 0) {
+            // Convert grouped availability to array format
+            for (const day in availability) {
+                if (availability.hasOwnProperty(day)) {
+                    availability[day].forEach(slot => {
+                        addAvailabilitySlot(day, slot.start_time, slot.end_time);
+                    });
+                }
+            }
+        } else {
+            // If no availability data, add one empty slot by default
+            addAvailabilitySlot();
+        }
+
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Failed to load profile data',
+        }).then(() => {
+            window.location.href = '../auth/login.html';
+        });
     }
+}
 
     async function updateProfile() {
         try {
