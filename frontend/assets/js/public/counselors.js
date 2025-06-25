@@ -89,7 +89,7 @@ function renderCounselors(counselors) {
                 <p class="counselor-description">${
                   counselor.description || "No description available"
                 }</p>
-                <a href="counselor-details.html?id=${
+                <a href="counselor.html?id=${
                   counselor.counselorId
                 }" class="btn-view-profile">
                     View Profile <i class="fas fa-arrow-right"></i>

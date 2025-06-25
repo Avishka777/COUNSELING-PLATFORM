@@ -1,396 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Counselor Details | ThinkCeylon</title>
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link rel="stylesheet" href="./counselor.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
 
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container">
-        <a href="../public/home.html" class="logo">
-          <img
-            src="../../assets/images/logo.png"
-            alt="Think Ceylone Logo"
-            class="logo-img"
-          />
-          <span class="logo-text">Think Ceylon</span>
-        </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Counselor Details | ThinkCeylon</title>
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <link rel="stylesheet" href="./counselor.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
 
-        <div class="menu-toggle" id="mobile-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-        <ul class="nav-list">
-          <li><a href="./home.html">Home</a></li>
-          <li><a href="./about.html">About</a></li>
-          <li><a href="./counselors.html" class="active">Counselors</a></li>
-          <li><a href="./community.html">Community</a></li>
-          <li><a href="./contact.html">Contact</a></li>
-          <li id="user-menu-container">
-            <a href="../auth/login.html" class="btn-login" id="login-button"
-              >Login</a
-            >
-          </li>
-          <div class="user-dropdown hidden" id="user-dropdown">
-            <button class="dropdown-toggle">
-              Menu <i class="fas fa-caret-down"></i>
-            </button>
-            <div class="dropdown-menu" id="dropdown-items">
-              <!-- JS will populate based on role -->
-            </div>
-          </div>
-        </ul>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="../public/home.html" class="logo">
+        <img src="../../assets/images/logo.png" alt="Think Ceylone Logo" class="logo-img" />
+        <span class="logo-text">Think Ceylon</span>
+      </a>
+      <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </div>
-    </nav>
-
-    <!-- Counselor Hero -->
-    <section class="counselor-hero">
-      <div class="container">
-        <div class="hero-content">
-          <div class="counselor-image">
-            <img
-              src="../../assets/images/about/user1.png"
-              alt="Dr. Sarah Johnson"
-            />
-          </div>
-          <div class="counselor-intro">
-            <h1>Dr. Sarah Johnson</h1>
-            <p class="specialization">
-              Clinical Psychologist • Anxiety & Depression Specialist
-            </p>
-            <div class="rating">
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span>4.7 (128 reviews)</span>
-              </div>
-            </div>
-            <div class="action-buttons">
-              <a
-                class="btn-primary"
-                href="../appointments/create-appointment.html"
-                >Book</a
-              >
-              <button class="btn-outline">Message</button>
-            </div>
-          </div>
+      <ul class="nav-list">
+        <li><a href="../public/home.html">Home</a></li>
+        <li><a href="../public/about.html">About</a></li>
+        <li><a href="../public/counselors.html" class="active">Counselors</a></li>
+        <li><a href="../public/community.html">Community</a></li>
+        <li><a href="../public/contact.html">Contact</a></li>
+        <li id="user-menu-container">
+          <a href="../auth/login.html" class="btn-login" id="login-button">Login</a>
+        </li>
+        <div class="user-dropdown hidden" id="user-dropdown">
+          <button class="dropdown-toggle">
+            Menu <i class="fas fa-caret-down"></i>
+          </button>
+          <div class="dropdown-menu" id="dropdown-items"></div>
         </div>
-      </div>
-    </section>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- Counselor Details -->
-    <section class="counselor-details">
-      <div class="container">
-        <div class="details-grid">
-          <div class="main-content">
-            <!-- About Section -->
-            <div class="about-section">
-              <h2>About Dr. Johnson</h2>
-              <p>
-                Dr. Sarah Johnson is a licensed clinical psychologist with over
-                15 years of experience helping individuals overcome anxiety,
-                depression, and life transitions. She takes a compassionate,
-                evidence-based approach to therapy, combining
-                cognitive-behavioral techniques with mindfulness practices.
-              </p>
-              <p>
-                Dr. Johnson received her PhD from Boston University and
-                completed her clinical training at Massachusetts General
-                Hospital. She's passionate about making mental health support
-                accessible to everyone and has specialized training in online
-                therapy modalities.
-              </p>
-            </div>
-
-            <!-- Specialties -->
-            <div class="specialties-section">
-              <h2>Specialties</h2>
-              <div class="specialties-grid">
-                <div class="specialty-item">
-                  <i class="fas fa-brain"></i>
-                  <span>Anxiety Disorders</span>
-                </div>
-                <div class="specialty-item">
-                  <i class="fas fa-cloud-sun"></i>
-                  <span>Depression</span>
-                </div>
-                <div class="specialty-item">
-                  <i class="fas fa-stress"></i>
-                  <span>Stress Management</span>
-                </div>
-                <div class="specialty-item">
-                  <i class="fas fa-heart"></i>
-                  <span>Relationship Issues</span>
-                </div>
-                <div class="specialty-item">
-                  <i class="fas fa-user-graduate"></i>
-                  <span>Life Transitions</span>
-                </div>
-                <div class="specialty-item">
-                  <i class="fas fa-moon"></i>
-                  <span>Sleep Disorders</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Approach -->
-            <div class="approach-section">
-              <h2>Therapeutic Approach</h2>
-              <p>
-                Dr. Johnson's approach is collaborative and tailored to each
-                individual's needs. She primarily uses:
-              </p>
-              <ul>
-                <li>
-                  <strong>Cognitive Behavioral Therapy (CBT):</strong>
-                  Identifying and changing negative thought patterns
-                </li>
-                <li>
-                  <strong>Mindfulness-Based Therapy:</strong> Developing
-                  present-moment awareness
-                </li>
-                <li>
-                  <strong>Solution-Focused Therapy:</strong> Building on
-                  existing strengths
-                </li>
-                <li>
-                  <strong>Positive Psychology:</strong> Cultivating wellbeing
-                  and resilience
-                </li>
-              </ul>
-            </div>
-
-            <!-- Reviews -->
-            <div class="reviews-section">
-              <h2>Client Reviews</h2>
-              <div class="review-card">
-                <div class="review-header">
-                  <div class="reviewer">Anonymous Client</div>
-                  <div class="review-date">March 15, 2023</div>
-                  <div class="review-rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                </div>
-                <div class="review-content">
-                  <p>
-                    "Dr. Johnson helped me through a very difficult period of
-                    anxiety. Her online sessions were just as effective as
-                    in-person therapy I've had in the past. She gave me
-                    practical tools I still use every day."
-                  </p>
-                </div>
-              </div>
-
-              <div class="review-card">
-                <div class="review-header">
-                  <div class="reviewer">Anonymous Client</div>
-                  <div class="review-date">January 28, 2023</div>
-                  <div class="review-rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                </div>
-                <div class="review-content">
-                  <p>
-                    "I was skeptical about online counseling but Dr. Johnson
-                    made me feel completely comfortable. She has a warm presence
-                    even through video calls and really understands depression."
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="sidebar">
-            <!-- Session Info -->
-            <div class="session-info">
-              <h3>Session Information</h3>
-              <div class="info-item">
-                <i class="fas fa-video"></i>
-                <div>
-                  <h4>Format</h4>
-                  <p>Video, Phone, or Chat</p>
-                </div>
-              </div>
-              <div class="info-item">
-                <i class="fas fa-clock"></i>
-                <div>
-                  <h4>Session Length</h4>
-                  <p>50 minutes (standard)</p>
-                  <p>30 minutes (short session available)</p>
-                </div>
-              </div>
-              <div class="info-item">
-                <i class="fas fa-calendar-alt"></i>
-                <div>
-                  <h4>Availability</h4>
-                  <p>Mon-Fri: 9am - 7pm EST</p>
-                  <p>Sat: 10am - 2pm EST</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Languages -->
-            <div class="languages-section">
-              <h3>Languages</h3>
-              <div class="language-item">
-                <i class="fas fa-check-circle"></i>
-                <span>English (Fluent)</span>
-              </div>
-              <div class="language-item">
-                <i class="fas fa-check-circle"></i>
-                <span>Spanish (Conversational)</span>
-              </div>
-            </div>
-
-            <!-- Credentials -->
-            <div class="credentials-section">
-              <h3>Credentials</h3>
-              <div class="credential-item">
-                <i class="fas fa-certificate"></i>
-                <span>Licensed Clinical Psychologist (MA #PSY12345)</span>
-              </div>
-              <div class="credential-item">
-                <i class="fas fa-graduation-cap"></i>
-                <span>PhD in Clinical Psychology, Boston University</span>
-              </div>
-              <div class="credential-item">
-                <i class="fas fa-award"></i>
-                <span>Certified in Online Therapy</span>
-              </div>
-            </div>
-          </div>
+  <!-- Counselor Hero -->
+  <section class="counselor-hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="counselor-image">
+          <img id="counselor-photo" src="../../assets/images/about/user1.png" alt="Counselor Photo" />
         </div>
-      </div>
-    </section>
-
-    <!-- Other Counselors -->
-    <section class="other-counselors">
-      <div class="container">
-        <h2 class="section-title">Other Counselors You Might Like</h2>
-        <div class="counselors-grid">
-          <div class="counselor-card">
-            <img src="../../assets/images/about/user2.png" alt="Michael Chen" />
-            <h3>Michael Chen</h3>
-            <p class="specialty">Marriage & Family Therapist</p>
-            <div class="rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <span>4.9</span>
-            </div>
-            <a href="#" class="btn-outline">View Profile</a>
-          </div>
-
-          <div class="counselor-card">
-            <img
-              src="../../assets/images/about/user3.png"
-              alt="Dr. Alicia Martinez"
-            />
-            <h3>Dr. Alicia Martinez</h3>
-            <p class="specialty">Trauma Specialist</p>
-            <div class="rating">
+        <div class="counselor-intro">
+          <h1 id="counselor-name">Loading...</h1>
+          <p class="specialization" id="counselor-specialization"></p>
+          <div class="rating">
+            <div class="stars">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star-half-alt"></i>
-              <span>4.6</span>
+              <span>4.7 (128 reviews)</span>
             </div>
-            <a href="#" class="btn-outline">View Profile</a>
           </div>
-
-          <div class="counselor-card">
-            <img src="../../assets/images/about/user1.png" alt="David Wilson" />
-            <h3>David Wilson</h3>
-            <p class="specialty">Addiction Counselor</p>
-            <div class="rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <span>5.0</span>
-            </div>
-            <a href="#" class="btn-outline">View Profile</a>
+          <div class="action-buttons">
+            <a class="btn-primary" href="../appointments/create-appointment.html">Book</a>
+            <button class="btn-outline">Message</button>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-col">
-            <h3>ThinkCeylon</h3>
-            <p>Providing anonymous mental health support since 2023.</p>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+  <!-- Counselor Details -->
+  <section class="counselor-details">
+    <div class="container">
+      <div class="details-grid">
+        <div class="main-content">
+          <!-- About Section -->
+          <div class="about-section">
+            <h2>About <span id="counselor-name-about"></span></h2>
+            <p id="counselor-description">Loading counselor description...</p>
+            <p class="static-bio">
+              This counselor received their professional training from a leading institution
+              and has specialized training in online therapy modalities. They're passionate
+              about making mental health support accessible to everyone.
+            </p>
+          </div>
+
+          <!-- Specialties -->
+          <div class="specialties-section">
+            <h2>Specialties</h2>
+            <div class="specialties-grid" id="specialties-grid">
+              <!-- Will be populated by JavaScript -->
             </div>
           </div>
 
-          <div class="footer-col">
-            <h3>Quick Links</h3>
+          <!-- Approach (Static Content) -->
+          <div class="approach-section">
+            <h2>Therapeutic Approach</h2>
+            <p>
+              This counselor's approach is collaborative and tailored to each
+              individual's needs. They primarily use:
+            </p>
             <ul>
-              <li><a href="../public/home.html">Home</a></li>
-              <li><a href="../public/about.html">About Us</a></li>
-              <li><a href="../public/counselors.html">Our Counselors</a></li>
-              <li><a href="../public/community.html">Community</a></li>
+              <li>
+                <strong>Cognitive Behavioral Therapy (CBT):</strong>
+                Identifying and changing negative thought patterns
+              </li>
+              <li>
+                <strong>Mindfulness-Based Therapy:</strong> Developing
+                present-moment awareness
+              </li>
+              <li>
+                <strong>Solution-Focused Therapy:</strong> Building on
+                existing strengths
+              </li>
             </ul>
           </div>
 
-          <div class="footer-col">
-            <h3>Support</h3>
-            <ul>
-              <li><a href="../public/contact.html">Contact Us</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h3>Newsletter</h3>
-            <p>Subscribe to get mental health tips and updates.</p>
-            <form class="newsletter-form">
-              <input type="email" placeholder="Your Email" />
-              <button type="submit"><i class="fas fa-paper-plane"></i></button>
-            </form>
+          <!-- Reviews (Static Content) -->
+          <div class="reviews-section">
+            <h2>Client Reviews</h2>
+            <div class="review-card">
+              <div class="review-header">
+                <div class="reviewer">Anonymous Client</div>
+                <div class="review-date">March 15, 2023</div>
+                <div class="review-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+              <div class="review-content">
+                <p>
+                  "This counselor helped me through a very difficult period.
+                  Their online sessions were just as effective as in-person therapy.
+                  They gave me practical tools I still use every day."
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="footer-bottom">
-          <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+        <div class="sidebar">
+          <!-- Session Info -->
+          <div class="session-info">
+            <h3>Session Information</h3>
+            <div class="info-item">
+              <i class="fas fa-video"></i>
+              <div>
+                <h4>Format</h4>
+                <p>Video, Phone, or Chat</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <h4>Session Length</h4>
+                <p>50 minutes (standard)</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-calendar-alt"></i>
+              <div>
+                <h4>Availability</h4>
+                <div id="availability-list">
+                  <!-- Will be populated by JavaScript -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Languages (Static) -->
+          <div class="languages-section">
+            <h3>Languages</h3>
+            <div class="language-item">
+              <i class="fas fa-check-circle"></i>
+              <span>English (Fluent)</span>
+            </div>
+          </div>
+
+          <!-- Credentials -->
+          <div class="credentials-section">
+            <h3>Credentials</h3>
+            <div class="credential-item">
+              <i class="fas fa-briefcase"></i>
+              <span id="current-profession">Current Profession</span>
+            </div>
+            <div class="credential-item">
+              <i class="fas fa-building"></i>
+              <span id="current-company">Current Company</span>
+            </div>
+          </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </section>
 
-    <script src="../../assets/js/main.js"></script>
-  </body>
+  <!-- Other Counselors -->
+  <section class="other-counselors">
+    <div class="container">
+      <h2 class="section-title">Other Counselors You Might Like</h2>
+      <div class="counselors-grid">
+        <div class="counselor-card">
+          <img src="../../assets/images/about/user2.png" alt="Michael Chen" />
+          <h3>Michael Chen</h3>
+          <p class="specialty">Marriage & Family Therapist</p>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>4.9</span>
+          </div>
+          <a href="#" class="btn-outline">View Profile</a>
+        </div>
+
+        <div class="counselor-card">
+          <img src="../../assets/images/about/user3.png" alt="Dr. Alicia Martinez" />
+          <h3>Dr. Alicia Martinez</h3>
+          <p class="specialty">Trauma Specialist</p>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>4.6</span>
+          </div>
+          <a href="#" class="btn-outline">View Profile</a>
+        </div>
+
+        <div class="counselor-card">
+          <img src="../../assets/images/about/user1.png" alt="David Wilson" />
+          <h3>David Wilson</h3>
+          <p class="specialty">Addiction Counselor</p>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>5.0</span>
+          </div>
+          <a href="#" class="btn-outline">View Profile</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>ThinkCeylon</h3>
+          <p>Providing anonymous mental health support since 2023.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../public/home.html">Home</a></li>
+            <li><a href="../public/about.html">About Us</a></li>
+            <li><a href="../public/counselors.html">Our Counselors</a></li>
+            <li><a href="../public/community.html">Community</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="../public/contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Newsletter</h3>
+          <p>Subscribe to get mental health tips and updates.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your Email" />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 ThinkCeylon. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/public/counselor.js"></script>
+</body>
+
 </html>
