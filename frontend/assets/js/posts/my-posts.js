@@ -129,25 +129,22 @@ function renderPosts(posts = allPosts) {
     const row = document.createElement("tr");
     row.innerHTML = `
             <td>${post.postId}</td>
-            <td>${
-              post.title.length > 50
-                ? post.title.substring(0, 50) + "..."
-                : post.title
-            }</td>
+            <td>${post.title.length > 50
+        ? post.title.substring(0, 50) + "..."
+        : post.title
+      }</td>
             <td>${post.is_anonymous ? "Anonymous" : post.author}</td>
             <td>${new Date(post.created_at).toLocaleDateString()}</td>
             <td class="actions">
-                <button class="btn-view" onclick="viewPostDetails(${
-                  post.postId
-                })">
+                <button class="btn-view" onclick="viewPostDetails(${post.postId
+      })">
                     <i class="fas fa-eye"></i> View
                 </button>
                 <button class="btn-edit" onclick="editPost(${post.postId})">
                     <i class="fas fa-edit"></i> Edit
                 </button>
-                <button class="btn-delete" onclick="confirmDeletePost(${
-                  post.postId
-                }, '${escapeHTML(post.title)}')">
+                <button class="btn-delete" onclick="confirmDeletePost(${post.postId
+      }, '${escapeHTML(post.title)}')">
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
             </td>
@@ -295,26 +292,25 @@ function displayPostModal(post, isEditMode = false) {
                 <div class="form-group">
                     <label for="editTitle">Title</label>
                     <input type="text" id="editTitle" name="title" value="${escapeHTML(
-                      post.title
-                    )}" required>
+      post.title
+    )}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="editDescription">Description</label>
                     <textarea id="editDescription" name="description" rows="6" required>${escapeHTML(
-                      post.description
-                    )}</textarea>
+      post.description
+    )}</textarea>
                 </div>
                 
                 <div class="form-group">
                     <label>Current Image</label>
                     <div class="image-preview-container">
-                        ${
-                          post.image_url
-                            ? `<img src="${post.image_url}" class="current-image" id="currentImage">
+                        ${post.image_url
+        ? `<img src="${post.image_url}" class="current-image" id="currentImage">
                                <button type="button" class="btn-remove-image" onclick="removeImage()">Remove Image</button>`
-                            : '<div class="no-image">No image</div>'
-                        }
+        : '<div class="no-image">No image</div>'
+      }
                     </div>
                     <button type="button" class="btn-upload-image" onclick="triggerImageUpload()">
                         ${post.image_url ? "Change Image" : "Add Image"}
@@ -322,9 +318,8 @@ function displayPostModal(post, isEditMode = false) {
                 </div>
                 
                 <div class="form-group checkbox-group">
-                    <input type="checkbox" id="editAnonymous" name="is_anonymous" ${
-                      post.is_anonymous ? "checked" : ""
-                    }>
+                    <input type="checkbox" id="editAnonymous" name="is_anonymous" ${post.is_anonymous ? "checked" : ""
+      }>
                     <label for="editAnonymous">Anonymous Post</label>
                 </div>
                 
@@ -363,15 +358,14 @@ function displayPostModal(post, isEditMode = false) {
                     <div class="post-meta">
                         <div class="post-meta-item">
                             <i class="fas fa-user"></i>
-                            <span>${
-                              post.is_anonymous ? "Anonymous" : post.author
-                            }</span>
+                            <span>${post.is_anonymous ? "Anonymous" : post.author
+      }</span>
                         </div>
                         <div class="post-meta-item">
                             <i class="fas fa-calendar-alt"></i>
                             <span>${new Date(
-                              post.created_at
-                            ).toLocaleDateString()}</span>
+        post.created_at
+      ).toLocaleDateString()}</span>
                         </div>
                         <div class="post-meta-item">
                             <i class="fas fa-id-card"></i>
@@ -555,13 +549,13 @@ function escapeHTML(str) {
   return str.replace(
     /[&<>'"]/g,
     (tag) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        "'": "&#39;",
-        '"': "&quot;",
-      }[tag])
+    ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      '"': "&quot;",
+    }[tag])
   );
 }
 

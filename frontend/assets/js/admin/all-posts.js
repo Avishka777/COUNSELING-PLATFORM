@@ -109,22 +109,19 @@ function renderPosts(posts = allPosts) {
     const row = document.createElement("tr");
     row.innerHTML = `
             <td>${post.postId}</td>
-            <td>${
-              post.title.length > 50
-                ? post.title.substring(0, 50) + "..."
-                : post.title
-            }</td>
+            <td>${post.title.length > 50
+        ? post.title.substring(0, 50) + "..."
+        : post.title
+      }</td>
             <td>${post.is_anonymous ? "Anonymous" : post.author}</td>
             <td>${new Date(post.created_at).toLocaleDateString()}</td>
             <td class="actions">
-                <button class="btn-view" onclick="viewPostDetails(${
-                  post.postId
-                })">
+                <button class="btn-view" onclick="viewPostDetails(${post.postId
+      })">
                     <i class="fas fa-eye"></i> View
                 </button>
-                <button class="btn-delete" onclick="confirmDeletePost(${
-                  post.postId
-                }, '${escapeHTML(post.title)}')">
+                <button class="btn-delete" onclick="confirmDeletePost(${post.postId
+      }, '${escapeHTML(post.title)}')">
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
             </td>
@@ -139,53 +136,53 @@ function renderPosts(posts = allPosts) {
 
 // Date filter functions
 function applyDateFilter() {
-    const fromValue = document.getElementById("dateFrom").value;
-    const toValue = document.getElementById("dateTo").value;
-    
-    dateFromFilter = fromValue ? new Date(fromValue) : null;
-    dateToFilter = toValue ? new Date(toValue) : null;
-    
-    // If both dates are set, validate that "from" is before "to"
-    if (dateFromFilter && dateToFilter && dateFromFilter > dateToFilter) {
-        showError("Invalid Date Range", "The 'From' date must be before the 'To' date");
-        return;
-    }
-    
-    filterPosts(document.getElementById("postSearch").value.toLowerCase());
+  const fromValue = document.getElementById("dateFrom").value;
+  const toValue = document.getElementById("dateTo").value;
+
+  dateFromFilter = fromValue ? new Date(fromValue) : null;
+  dateToFilter = toValue ? new Date(toValue) : null;
+
+  // If both dates are set, validate that "from" is before "to"
+  if (dateFromFilter && dateToFilter && dateFromFilter > dateToFilter) {
+    showError("Invalid Date Range", "The 'From' date must be before the 'To' date");
+    return;
+  }
+
+  filterPosts(document.getElementById("postSearch").value.toLowerCase());
 }
 
 function clearDateFilter() {
-    document.getElementById("dateFrom").value = "";
-    document.getElementById("dateTo").value = "";
-    dateFromFilter = null;
-    dateToFilter = null;
-    filterPosts(document.getElementById("postSearch").value.toLowerCase());
+  document.getElementById("dateFrom").value = "";
+  document.getElementById("dateTo").value = "";
+  dateFromFilter = null;
+  dateToFilter = null;
+  filterPosts(document.getElementById("postSearch").value.toLowerCase());
 }
 
 // Filter posts based on search term
 function filterPosts(searchTerm) {
-    if (!searchTerm && !dateFromFilter && !dateToFilter) {
-        renderPosts();
-        return;
-    }
+  if (!searchTerm && !dateFromFilter && !dateToFilter) {
+    renderPosts();
+    return;
+  }
 
-    const filteredPosts = allPosts.filter((post) => {
-        // Apply search filter
-        const matchesSearch = !searchTerm || 
-            post.title.toLowerCase().includes(searchTerm) ||
-            (post.author && !post.is_anonymous && post.author.toLowerCase().includes(searchTerm)) ||
-            post.postId.toString().includes(searchTerm) ||
-            post.description.toLowerCase().includes(searchTerm);
-        
-        // Apply date filter
-        const postDate = new Date(post.created_at);
-        const matchesDate = (!dateFromFilter || postDate >= dateFromFilter) && 
-                          (!dateToFilter || postDate <= new Date(dateToFilter.getTime() + 86400000)); // Add 1 day to include the entire end date
-        
-        return matchesSearch && matchesDate;
-    });
+  const filteredPosts = allPosts.filter((post) => {
+    // Apply search filter
+    const matchesSearch = !searchTerm ||
+      post.title.toLowerCase().includes(searchTerm) ||
+      (post.author && !post.is_anonymous && post.author.toLowerCase().includes(searchTerm)) ||
+      post.postId.toString().includes(searchTerm) ||
+      post.description.toLowerCase().includes(searchTerm);
 
-    renderPosts(filteredPosts);
+    // Apply date filter
+    const postDate = new Date(post.created_at);
+    const matchesDate = (!dateFromFilter || postDate >= dateFromFilter) &&
+      (!dateToFilter || postDate <= new Date(dateToFilter.getTime() + 86400000)); // Add 1 day to include the entire end date
+
+    return matchesSearch && matchesDate;
+  });
+
+  renderPosts(filteredPosts);
 }
 
 // Pagination functions
@@ -303,26 +300,25 @@ function displayPostModal(post, isEditMode = false) {
                 <div class="form-group">
                     <label for="editTitle">Title</label>
                     <input type="text" id="editTitle" name="title" value="${escapeHTML(
-                      post.title
-                    )}" required>
+      post.title
+    )}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="editDescription">Description</label>
                     <textarea id="editDescription" name="description" rows="6" required>${escapeHTML(
-                      post.description
-                    )}</textarea>
+      post.description
+    )}</textarea>
                 </div>
                 
                 <div class="form-group">
                     <label>Current Image</label>
                     <div class="image-preview-container">
-                        ${
-                          post.image_url
-                            ? `<img src="${post.image_url}" class="current-image" id="currentImage">
+                        ${post.image_url
+        ? `<img src="${post.image_url}" class="current-image" id="currentImage">
                                <button type="button" class="btn-remove-image" onclick="removeImage()">Remove Image</button>`
-                            : '<div class="no-image">No image</div>'
-                        }
+        : '<div class="no-image">No image</div>'
+      }
                     </div>
                     <button type="button" class="btn-upload-image" onclick="triggerImageUpload()">
                         ${post.image_url ? "Change Image" : "Add Image"}
@@ -330,9 +326,8 @@ function displayPostModal(post, isEditMode = false) {
                 </div>
                 
                 <div class="form-group checkbox-group">
-                    <input type="checkbox" id="editAnonymous" name="is_anonymous" ${
-                      post.is_anonymous ? "checked" : ""
-                    }>
+                    <input type="checkbox" id="editAnonymous" name="is_anonymous" ${post.is_anonymous ? "checked" : ""
+      }>
                     <label for="editAnonymous">Anonymous Post</label>
                 </div>
                 
@@ -371,15 +366,14 @@ function displayPostModal(post, isEditMode = false) {
                     <div class="post-meta">
                         <div class="post-meta-item">
                             <i class="fas fa-user"></i>
-                            <span>${
-                              post.is_anonymous ? "Anonymous" : post.author
-                            }</span>
+                            <span>${post.is_anonymous ? "Anonymous" : post.author
+      }</span>
                         </div>
                         <div class="post-meta-item">
                             <i class="fas fa-calendar-alt"></i>
                             <span>${new Date(
-                              post.created_at
-                            ).toLocaleDateString()}</span>
+        post.created_at
+      ).toLocaleDateString()}</span>
                         </div>
                         <div class="post-meta-item">
                             <i class="fas fa-id-card"></i>
@@ -563,13 +557,13 @@ function escapeHTML(str) {
   return str.replace(
     /[&<>'"]/g,
     (tag) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        "'": "&#39;",
-        '"': "&quot;",
-      }[tag])
+    ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      '"': "&quot;",
+    }[tag])
   );
 }
 

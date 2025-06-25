@@ -34,15 +34,6 @@ function hideChartContainers() {
   });
 }
 
-// Keep all your existing functions for:
-// - loadCounts()
-// - loadRecentAppointments()
-// - loadRecentCounselors()
-// - showLoading()
-// - hideLoading()
-// - showError()
-// - window resize event handler
-
 async function loadDummyAppointmentsChart() {
   // Dummy data for appointments chart
   const dummyData = {
@@ -244,9 +235,8 @@ async function loadRecentAppointments() {
         <td>${appDate.toLocaleDateString()}</td>
         <td>${app.user_username} (${app.user_age})</td>
         <td>${app.counselor_name}</td>
-        <td><span class="status-badge status-${app.status}">${
-        app.status
-      }</span></td>
+        <td><span class="status-badge status-${app.status}">${app.status
+        }</span></td>
       `;
       tbody.appendChild(row);
     });

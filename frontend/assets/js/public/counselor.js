@@ -154,13 +154,11 @@ function displayOtherCounselors(counselors) {
     .map(
       (counselor) => `
         <div class="counselor-card">
-            <img src="${
-              counselor.photo || "../../assets/images/about/user1.png"
-            }" alt="${counselor.name}" />
+            <img src="${counselor.photo || "../../assets/images/about/user1.png"
+        }" alt="${counselor.name}" />
             <h3>${counselor.name}</h3>
-            <p class="specialty">${
-              counselor.current_profession || "Professional Counselor"
-            }</p>
+            <p class="specialty">${counselor.current_profession || "Professional Counselor"
+        }</p>
             <div class="rating">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
@@ -169,9 +167,8 @@ function displayOtherCounselors(counselors) {
                 <i class="fas fa-star-half-alt"></i>
                 <span>4.5</span>
             </div>
-            <a href="./counselor-details.html?id=${
-              counselor.counselorId
-            }" class="btn-outline">View Profile</a>
+            <a href="./counselor-details.html?id=${counselor.counselorId
+        }" class="btn-outline">View Profile</a>
         </div>
     `
     )

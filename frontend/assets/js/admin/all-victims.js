@@ -73,9 +73,8 @@ function renderUsers(users = allUsers) {
                     <td>${user.age || "N/A"}</td>
                     <td>${user.occupation || "N/A"}</td>
                     <td class="actions">
-                        <button class="btn-delete" onclick="confirmDelete(${
-                          user.userId
-                        }, '${user.username}')">
+                        <button class="btn-delete" onclick="confirmDelete(${user.userId
+      }, '${user.username}')">
                             <i class="fas fa-trash-alt"></i> Delete
                         </button>
                     </td>

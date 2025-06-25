@@ -396,59 +396,59 @@ tr:hover {
 }
 
 .filter-controls {
-  display: flex;
-  gap: 15px;
-  align-items: center;
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
 .search-box {
-  position: relative;
-  width: 250px;
+    position: relative;
+    width: 250px;
 }
 
 .date-filter {
-  position: relative;
-  display: flex;
-  align-items: center;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .date-filter input {
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  width: 180px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    width: 180px;
 }
 
 .btn-clear {
-  background: none;
-  border: none;
-  color: #777;
-  cursor: pointer;
-  margin-left: -30px;
-  padding: 5px;
-  transition: color 0.2s;
+    background: none;
+    border: none;
+    color: #777;
+    cursor: pointer;
+    margin-left: -30px;
+    padding: 5px;
+    transition: color 0.2s;
 }
 
 .btn-clear:hover {
-  color: #333;
+    color: #333;
 }
 
 @media (max-width: 768px) {
-  .filter-controls {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  
-  .search-box,
-  .date-filter {
-    width: 100%;
-  }
-  
-  .date-filter input {
-    width: calc(100% - 30px);
-  }
+    .filter-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .search-box,
+    .date-filter {
+        width: 100%;
+    }
+
+    .date-filter input {
+        width: calc(100% - 30px);
+    }
 }
 
 @media (max-width: 992px) {

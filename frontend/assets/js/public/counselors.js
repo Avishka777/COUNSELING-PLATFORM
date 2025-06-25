@@ -62,16 +62,14 @@ function renderCounselors(counselors) {
   counselorsGrid.innerHTML = counselors
     .map(
       (counselor) => `
-        <div class="counselor-card" onclick="viewCounselorDetails(${
-          counselor.counselorId
+        <div class="counselor-card" onclick="viewCounselorDetails(${counselor.counselorId
         })">
             <div class="counselor-image-container">
-                ${
-                  counselor.photo
-                    ? `<img src="${counselor.photo_url}" 
+                ${counselor.photo
+          ? `<img src="${counselor.photo_url}" 
                           alt="${counselor.name}" class="counselor-image">`
-                    : `<div class="no-photo"><i class="fas fa-user-tie"></i></div>`
-                }
+          : `<div class="no-photo"><i class="fas fa-user-tie"></i></div>`
+        }
             </div>
             <div class="counselor-info">
                 <h3 class="counselor-name">${counselor.name}</h3>
@@ -83,15 +81,12 @@ function renderCounselors(counselors) {
                     <i class="fas fa-building"></i>
                     <span>${counselor.company}</span>
                 </div>
-                <div class="counselor-specialization">${
-                  counselor.specialization
-                }</div>
-                <p class="counselor-description">${
-                  counselor.description || "No description available"
-                }</p>
-                <a href="counselor.html?id=${
-                  counselor.counselorId
-                }" class="btn-view-profile">
+                <div class="counselor-specialization">${counselor.specialization
+        }</div>
+                <p class="counselor-description">${counselor.description || "No description available"
+        }</p>
+                <a href="counselor.html?id=${counselor.counselorId
+        }" class="btn-view-profile">
                     View Profile <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

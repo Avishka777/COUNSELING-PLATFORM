@@ -114,9 +114,8 @@ function renderProgressTable(progressReports) {
             <td>${report.counselor_name}</td>
             <td class="notes-preview">${previewText}</td>
             <td>
-                <button class="btn btn-view" onclick="viewProgressDetails(${
-                  report.progressId
-                })">
+                <button class="btn btn-view" onclick="viewProgressDetails(${report.progressId
+      })">
                     <i class="fas fa-eye"></i> View
                 </button>
             </td>

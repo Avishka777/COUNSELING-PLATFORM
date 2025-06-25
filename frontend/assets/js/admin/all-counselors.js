@@ -95,14 +95,12 @@ function renderCounselors(counselors = allCounselors) {
             <td>${counselor.specialization || "N/A"}</td>
             <td>${counselor.company || "N/A"}</td>
             <td class="actions">
-                <button class="btn-view" onclick="viewCounselorDetails(${
-                  counselor.counselorId || counselor.userId
-                })">
+                <button class="btn-view" onclick="viewCounselorDetails(${counselor.counselorId || counselor.userId
+      })">
                     <i class="fas fa-eye"></i> View
                 </button>
-                <button class="btn-delete" onclick="confirmDeleteCounselor(${
-                  counselor.counselorId || counselor.userId
-                }, '${counselor.username}')">
+                <button class="btn-delete" onclick="confirmDeleteCounselor(${counselor.counselorId || counselor.userId
+      }, '${counselor.username}')">
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
             </td>
@@ -207,9 +205,8 @@ function displayCounselorModal(counselor, availability) {
   const modalTitle = document.getElementById("modalTitle");
   const modalBody = document.getElementById("modalBody");
 
-  modalTitle.textContent = `Counselor Details: ${
-    counselor.name || counselor.username
-  }`;
+  modalTitle.textContent = `Counselor Details: ${counselor.name || counselor.username
+    }`;
 
   // Create availability HTML
   let availabilityHTML =
@@ -278,16 +275,14 @@ function displayCounselorModal(counselor, availability) {
         
         <div class="detail-row">
           <span class="detail-label">Profession:</span>
-          <span class="detail-value">${
-            counselor.current_profession || "N/A"
-          }</span>
+          <span class="detail-value">${counselor.current_profession || "N/A"
+    }</span>
         </div>
         
         <div class="detail-row full-width">
           <span class="detail-label">Description:</span>
-          <span class="detail-value">${
-            counselor.description || "No description provided"
-          }</span>
+          <span class="detail-value">${counselor.description || "No description provided"
+    }</span>
         </div>
         
         ${availabilityHTML}

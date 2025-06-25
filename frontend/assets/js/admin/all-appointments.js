@@ -136,31 +136,27 @@ function renderAppointments(appointments = allAppointments) {
             <td>${appointment.appointmentId}</td>
             <td>${new Date(appointment.date).toLocaleDateString()}</td>
             <td>${startTime.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })} - ${endTime.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })} - ${endTime.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     })}</td>
             <td>${appointment.user_username} (${appointment.user_age})</td>
             <td>${appointment.counselor_name}</td>
-            <td><span class="status-badge status-${appointment.status}">${
-      appointment.status
-    }</span></td>
+            <td><span class="status-badge status-${appointment.status}">${appointment.status
+      }</span></td>
             <td class="actions">
-                <button class="btn-view" onclick="viewAppointmentDetails(${
-                  appointment.appointmentId
-                })">
+                <button class="btn-view" onclick="viewAppointmentDetails(${appointment.appointmentId
+      })">
                     <i class="fas fa-eye"></i> View
                 </button>
-                <button class="btn-status" onclick="changeAppointmentStatus(${
-                  appointment.appointmentId
-                }, '${appointment.status}')">
+                <button class="btn-status" onclick="changeAppointmentStatus(${appointment.appointmentId
+      }, '${appointment.status}')">
                     <i class="fas fa-sync-alt"></i> Status
                 </button>
-                <button class="btn-delete" onclick="confirmDeleteAppointment(${
-                  appointment.appointmentId
-                })">
+                <button class="btn-delete" onclick="confirmDeleteAppointment(${appointment.appointmentId
+      })">
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
             </td>
@@ -258,9 +254,8 @@ function displayAppointmentModal(appointment, isEditMode = false) {
 
     modalBody.innerHTML = `
       <form id="editAppointmentForm">
-        <input type="hidden" name="appointmentId" value="${
-          appointment.appointmentId
-        }">
+        <input type="hidden" name="appointmentId" value="${appointment.appointmentId
+      }">
         
         <div class="appointment-section">
           <h3>Appointment Information</h3>
@@ -287,18 +282,14 @@ function displayAppointmentModal(appointment, isEditMode = false) {
           <div class="form-group">
             <label for="editStatus">Status</label>
             <select id="editStatus" name="status" class="form-control">
-              <option value="pending" ${
-                appointment.status === "pending" ? "selected" : ""
-              }>Pending</option>
-              <option value="confirmed" ${
-                appointment.status === "confirmed" ? "selected" : ""
-              }>Confirmed</option>
-              <option value="cancelled" ${
-                appointment.status === "cancelled" ? "selected" : ""
-              }>Cancelled</option>
-              <option value="completed" ${
-                appointment.status === "completed" ? "selected" : ""
-              }>Completed</option>
+              <option value="pending" ${appointment.status === "pending" ? "selected" : ""
+      }>Pending</option>
+              <option value="confirmed" ${appointment.status === "confirmed" ? "selected" : ""
+      }>Confirmed</option>
+              <option value="cancelled" ${appointment.status === "cancelled" ? "selected" : ""
+      }>Cancelled</option>
+              <option value="completed" ${appointment.status === "completed" ? "selected" : ""
+      }>Completed</option>
             </select>
           </div>
         </div>
@@ -358,8 +349,8 @@ function displayAppointmentModal(appointment, isEditMode = false) {
           <div class="detail-row">
             <div class="detail-label">Date:</div>
             <div class="detail-value">${new Date(
-              appointment.date
-            ).toLocaleDateString()}</div>
+      appointment.date
+    ).toLocaleDateString()}</div>
           </div>
           <div class="detail-row">
             <div class="detail-label">Time:</div>
@@ -367,15 +358,14 @@ function displayAppointmentModal(appointment, isEditMode = false) {
           </div>
           <div class="detail-row">
             <div class="detail-label">Status:</div>
-            <div class="detail-value"><span class="status-badge status-${
-              appointment.status
-            }">${appointment.status}</span></div>
+            <div class="detail-value"><span class="status-badge status-${appointment.status
+      }">${appointment.status}</span></div>
           </div>
           <div class="detail-row">
             <div class="detail-label">Created At:</div>
             <div class="detail-value">${new Date(
-              appointment.created_at
-            ).toLocaleString()}</div>
+        appointment.created_at
+      ).toLocaleString()}</div>
           </div>
         </div>
 
@@ -401,24 +391,22 @@ function displayAppointmentModal(appointment, isEditMode = false) {
               <div class="counselor-meta">
                 <div>Profession: ${appointment.counselor_profession}</div>
                 <div>Company: ${appointment.counselor_company}</div>
-                <div>Specialization: ${
-                  appointment.specialization || "N/A"
-                }</div>
+                <div>Specialization: ${appointment.specialization || "N/A"
+      }</div>
               </div>
             </div>
           </div>
         </div>
 
-        ${
-          appointment.notes
-            ? `
+        ${appointment.notes
+        ? `
         <div class="appointment-section">
           <h3>Notes</h3>
           <div class="notes-content">${appointment.notes}</div>
         </div>
         `
-            : ""
-        }
+        : ""
+      }
 
         <div class="form-actions">
           <button type="button" class="btn btn-edit" 
@@ -564,7 +552,7 @@ async function deleteAppointment(appointmentId) {
     if (result.status === "success") {
       showSuccess(
         result.message ||
-          `Appointment #${appointmentId} has been deleted successfully`,
+        `Appointment #${appointmentId} has been deleted successfully`,
         () => {
           fetchAppointments(); // Refresh the appointments list
         }
@@ -587,13 +575,13 @@ function escapeHTML(str) {
   return str.replace(
     /[&<>'"]/g,
     (tag) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        "'": "&#39;",
-        '"': "&quot;",
-      }[tag])
+    ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      '"': "&quot;",
+    }[tag])
   );
 }
 

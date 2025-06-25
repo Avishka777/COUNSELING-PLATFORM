@@ -229,11 +229,9 @@ a {
 /* Hero Section */
 .hero {
   padding: 150px 0 100px;
-  background: linear-gradient(
-    135deg,
-    var(--primary) 0%,
-    var(--primary-dark) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--primary) 0%,
+      var(--primary-dark) 100%);
   color: var(--white);
   position: relative;
   overflow: hidden;
@@ -311,11 +309,9 @@ a {
 
 /* Testimonials Section */
 .testimonials {
-  background: linear-gradient(
-    135deg,
-    var(--primary) 0%,
-    var(--primary-dark) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--primary) 0%,
+      var(--primary-dark) 100%);
   color: var(--white);
   padding: 80px 0;
   text-align: center;

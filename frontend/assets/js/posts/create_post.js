@@ -61,9 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (userData) {
           const user = JSON.parse(userData);
           if (user.counselorId) {
-            postData.counselorId = user.counselorId; 
+            postData.counselorId = user.counselorId;
           } else if (user.userId) {
-            postData.userId = user.userId; 
+            postData.userId = user.userId;
           }
         }
 

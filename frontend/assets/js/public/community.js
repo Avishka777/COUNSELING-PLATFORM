@@ -87,40 +87,36 @@ function renderPosts(posts) {
                 ${post.is_anonymous ? "A" : post.author.charAt(0).toUpperCase()}
               </div>
               <div>
-                <div class="post-author">${
-                  post.is_anonymous ? "Anonymous" : post.author
-                }</div>
+                <div class="post-author">${post.is_anonymous ? "Anonymous" : post.author
+      }</div>
                 <div class="post-meta">
-                  ${new Date(post.created_at).toLocaleString()} • Post ID: ${
-      post.postId
-    }
+                  ${new Date(post.created_at).toLocaleString()} • Post ID: ${post.postId
+      }
                 </div>
               </div>
             </div>
             
             <h3 class="post-title">${post.title}</h3>
             
-            ${
-              post.image_url
-                ? `
+            ${post.image_url
+        ? `
               <img src="${post.image_url}" alt="${post.title}" class="post-image"
                    onclick="viewPostDetails(${post.postId})">
             `
-                : ""
-            }
+        : ""
+      }
             
             <div class="post-description short" id="desc-${post.postId}">
               ${truncateText(post.description, 200)}
             </div>
-            ${
-              post.description.length > 200
-                ? `
+            ${post.description.length > 200
+        ? `
               <div class="see-more" onclick="toggleDescription(${post.postId})">
                 See more
               </div>
             `
-                : ""
-            }
+        : ""
+      }
             
             <div class="post-actions">
               <div class="post-action" onclick="likePost(${post.postId})">
